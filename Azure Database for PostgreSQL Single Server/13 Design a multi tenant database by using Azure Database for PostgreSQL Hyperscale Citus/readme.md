@@ -14,6 +14,7 @@ After completing this lab, you will be able to:
 - Query tenant data.
 - Share data between tenants.
 - Customize the schema per-tenant.
+- Rebalance shards across nodes.
 
 **Estimated Time:** 90 minutes
 
@@ -25,7 +26,7 @@ This lab walks you through creating schema and structure that allows advertisers
 
 ## Exercise 1: Create an Azure Database for PostgreSQL - Hyperscale (Citus)
 
-Azure Database for PostgreSQL is a managed service that you use to run, manage, and scale highly available PostgreSQL databases in the cloud. This excercise shows you how to create an Azure Database for PostgreSQL - Hyperscale (Citus) server group using the Azure portal.
+Azure Database for PostgreSQL is a managed service that you use to run, manage, and scale highly available PostgreSQL databases in the cloud. This exercise shows you how to create an Azure Database for PostgreSQL - Hyperscale (Citus) server group using the Azure portal.
 
 **Tasks**
 
@@ -61,12 +62,12 @@ Azure Database for PostgreSQL is a managed service that you use to run, manage, 
     
    Select **Configure server group**.
    
-   Set the server group using the infomration below:
+   Set the server group using the information below:
 
    - **Tiers:** Standard
    - **Worker node count:** 2
    - User 4 vCores and 0.5TiB for both worker and coordinators nodes
-   - use default values for all other configurations 
+   - Use default values for all other configurations 
 
    ![Image0365](Media/image0365.png)
     
@@ -76,7 +77,7 @@ Azure Database for PostgreSQL is a managed service that you use to run, manage, 
 
    Select **Public access (allowed IP addresses)**
 
-   Click on **+Add curent client IP address (xxx.xxx.xxx.xx)**
+   Click on **+Add current client IP address (xxx.xxx.xxx.xx)**
 
    ![Image0366](Media/image0366.png)
 
@@ -108,7 +109,7 @@ Congratulations!. You have successfully completed this exercise.
 
 When you create your Azure Database for PostgreSQL server, a default database named **citus** is created. 
 
-You can connect to the server group by conencting to the coordinator node using any PostgreSQL client tool.
+You can connect to the server group by connecting to the coordinator node using any PostgreSQL client tool.
 
 >Optionally, access to all worker nodes can be enabled. In this case, public IP addresses are assigned to the worker nodes and are secured by the same firewall. Refer to [Public access in Azure Database for PostgreSQL - Hyperscale (Citus)](https://docs.microsoft.com/en-us/azure/postgresql/hyperscale/concepts-firewall-rules) for further information
 
@@ -118,18 +119,18 @@ In this Exercise, you will use the [psql](https://www.postgresql.org/docs/curren
 
 1. Connect to the database using psql.
     
-   Obtain the connection string. In the server group page select the **Connection strings** menu item. (It's under**Settings**.)
+   Obtain the connection string. In the server group page, under **Settings**, select **Connection strings**. 
     
-   Find the string marked **psql**.
+   Find the string for **psql**.
     
    ![Image0372](Media/image0372.png)
     
    Notice that you connect to the Coordinator node to interact with the cluster.
     
-   Copy the connection string. You will need to replace {your_password} with the administrative password you chose earlier. The system doesn't store your plain text password and so can't display it for you in the connection string.
-    
-   Open a command window and execute the modified command
+   Copy the connection string. Open a command window and execute the modified command
    
+   >You will need to replace {your_password} with the administrative password you chose earlier. The system doesn't store your plain text password and so can't display it for you in the connection string.
+    
    For example:
     
    ```bash
@@ -142,7 +143,7 @@ In this Exercise, you will use the [psql](https://www.postgresql.org/docs/curren
 
 1. Create the database schema.
     
-   This lab walks you through creating schema and structure that allows advertisers to track their campaigns through the application.
+   For this lab, create schema and structure that allows advertisers to track their campaigns through the application.
     
    Multiple companies can use the app, so let's create a table to hold companies and another for their campaigns. In the psql console, run these commands:
 
@@ -259,7 +260,7 @@ Finishing the previous exercises are the pre-requisites for completing this exer
     
    Connect to the database using psql (following the same steps mentioned in the previous exercise).
     
-   Let's set the distribution column to be *company_id* the tenant identifier. In psql, run these functions:
+   Let's set the distribution column to be *company_id* the tenant identifier. In psql, run:
 
    ```sql
    SELECT create_distributed_table('companies', 'id');
@@ -397,9 +398,9 @@ Finishing the previous exercises are the pre-requisites for completing this exer
   
    ![Image0384](Media/image0384.png)
     
-   Now, there is local copy of *geo_ips* in all nodes. Joining the *clicks** table with *geo_ips* is efficient on all nodes.
+   Now, there is local copy of *geo_ips* in all nodes. Joining the *clicks* table with *geo_ips* is efficient on all nodes.
     
-   Here is a join to find the locations of everyone who **clicked on ad 290**. Try running the query in psql:
+   HTo find the locations of everyone who clicked on ad 290, rub:
 
    ```sql
    SELECT c.id, clicked_at, latlon 
@@ -502,9 +503,9 @@ Finishing the previous exercises are the pre-requisites for completing this exer
 
    ![Image0390](Media/image0390.png)
 
-   You can see the rows for all the tables we created in previous exercise. You can also see that the method used for partitioning is *hash* distribution for all the distributed tables. (Value 'h' for the partmethod column for all the distributed tables and 'n' for the reference table geo_ips).
+   You can see the rows for all the tables created in previous exercise. You can also see that the method used for partitioning in the partmethod column: 'h' for for all the distributed tables and 'n' for the reference table geo_ips.
     
-   For further infomration refer to [Partition table](https://docs.citusdata.com/en/v11.0/develop/api_metadata.html#partition-table)
+   For further information refer to [Partition table](https://docs.citusdata.com/en/v11.0/develop/api_metadata.html#partition-table)
 
    **SHARD TABLE**
     
@@ -534,15 +535,9 @@ Finishing the previous exercises are the pre-requisites for completing this exer
    select * from pg_dist_shard;
    ```
 
-   You will see rows like below (Shown only sample rows and not all rows)
-    
+   You will see rows like below (Shown only sample rows and not all rows). You can see individual shards for each distributed table.
+       
    ![Image0391](Media/image0391.png)
-
-   You can see Individual shards for each distributed table.
-   - shardid is the Global unique identifier assigned to the shard.
-   - shardstorage column value 't' is for table storage type which indicates the shard stores data belonging to a regular distributed table.
-   - shardminvalue – Since these are hash distributed tables , the values indicates minimum hash token value assigned to that shard (inclusive).
-   - shardmaxvalue – Since these are hash distributed tables, the values indicates maximum hash token value assigned to that shard (inclusive).
 
    **SHARD INFORMATION VIEW**
 
@@ -568,7 +563,7 @@ Finishing the previous exercises are the pre-requisites for completing this exer
 
    | Name          | Type      | Description |
    |:--------------|:----------|:------------|
-   | shardid       | bigint    | Shard identifier associated with this placement. This values references the shardid column in the pg_dist_shard catalog table. |
+   | shardid       | bigint    | Shard identifier associated with this placement. This value references the shardid column in the pg_dist_shard catalog table. |
    | shardstate    | int       | Describes the state of this placement. |
    | shardlength   | bigint    | For hash distributed tables, zero. |
    | placementid   | bigint    | Unique auto-generated identifier for each individual placement. |
@@ -610,7 +605,7 @@ Finishing the previous exercises are the pre-requisites for completing this exer
    | metadatasynced| boolean   | Reserved for internal use. |
    |shouldhaveshards| boolean  | If false, shards will be moved off node (drained) when rebalancing, nor will shards from new distributed tables be placed on the node, unless they are colocated with shards already there |
 
-   Query the **pg_dist_node** (Shown only sample rows)
+   Query the **pg_dist_node**
 
    ```sql
    select * from pg_dist_node;
@@ -715,7 +710,7 @@ Finishing the previous exercises are the pre-requisites for completing this exer
 
    Wait for the deployment to finish
 
-   Go to the server groupoo overviw page and confirm the nodes were added
+   Go to the server group overview page and confirm the nodes were added
 
    ![Image0406](Media/image0406.png)
 
@@ -734,7 +729,7 @@ Finishing the previous exercises are the pre-requisites for completing this exer
 
    Notice there is no shard on the new worker nodes
 
-   To start the Shard rebalancer, connect to the coordinator node of the server group and then run the rebalance_table_shards SQL function on distributed tables.
+   To start the shard rebalancer, connect to the coordinator node of the server group and then run the rebalance_table_shards SQL function on distributed tables.
 
    The function rebalances all tables in the colocation group of the table named in its argument. You don't have to call the function for every distributed table. Instead, call it on a representative table from each colocation group.
 
