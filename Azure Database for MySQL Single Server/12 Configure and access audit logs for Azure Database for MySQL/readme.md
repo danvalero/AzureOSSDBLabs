@@ -10,56 +10,15 @@ After completing this lab, you will be able to:
 
 - Configure and access audit logs for Azure Database for MySQL in the Azure portal
 
-**Estimated Time:** 20 minutes
+**Considerations**
+
+This lab considers that an Azure Database for MySQL Single Server named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
+
+**Estimated Time:** 40 minutes
 
 ---
 
-# Exercise 1: Create an Azure Database for MySQL server
-
-This exercise shows how to create an Azure Database for MySQL server
-
-**Tasks**
-
-1. You create an Azure Database for MySQL server with a defined set of [compute and storage resources](https://docs.microsoft.com/en-us/azure/mysql/concepts-compute-unit-and-storage). You create the server within an [Azure resource group](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview).
-
-1. Select **Create a resource (+)** in the upper-left corner of the portal.
-
-1. Select Databases \> Azure Database for MySQL. You can also enter MySQL in the search box to find the service.
-    
-   ![](Media/image0274.png)
-
-1. Fill out the new server details form with the following information after creating resource group if you don't have one before:
-    
-   ![](Media/image0275.png)
-
-   | Setting | Suggested value | Field description |
-   |:----- |: ----- |:----- |
-   | Server name | Unique server name | Enter a unique name that identifies your Azure Database for MySQL server. For example, mydemoserver2019. The domain name .mysql.database.azure.com is appended to the server name you provide. The server name can contain only lowercase letters, numbers, and the hyphen (-) character. It must contain from 3 to 63 characters. |
-   | Subscription | Your subscription | Select the Azure subscription that you want to use for your server. If you have multiple subscriptions, choose the subscription in which you get billed for the resource. |
-   | Resource group | myresourcegroup | Provide a new or existing resource group name. |
-   | Select source | None | Select None to create a new server from scratch. (You select Backup if you are creating a server from a geo-backup of an existing Azure Database for MySQL server). |
-   | Server admin login | myadmin | A sign-in account to use when you're connecting to the server. The admin sign-in name cannot be azure_superuser, admin, administrator, root, guest, or public. |
-   | Password | Your choice Example: pass@word1 | Provide a new password for the server admin account. It must contain from 8 to 128 characters. Your password must contain characters from three of the following categories: English uppercase letters, English lowercase letters, numbers (0-9), and non-alphanumeric characters (!, $, #, %, and so on). |
-   | Confirm password | Your choice | Confirm the admin account password. |
-   | Location | The region closest to your users | Choose the location that is closest to your users or your other Azure applications. |
-   | Version | The latest major version | The latest major version (unless you have specific requirements that require another version). |
-   | Pricing tier | **General Purpose**, **Gen 5**, **2 vCores**, **5 GB**, **7 days**, **Geographically Redundant** | The compute, storage, and backup configurations for your new server. Select **Pricing tier**. Next, select the **General Purpose** tab. Gen 5, 4 vCores, 100 GB, and 7 days are the default values for **Compute Generation**, **vCore**, **Storage**, and **Backup Retention Period**. You can leave those sliders as is. To enable your server backups in geo-redundant storage, select **Geographically Redundant** from the **Backup Redundancy Options**. To save this pricing tier selection, select **OK**. The next screenshot captures these selections. |
-	
-   >Consider using the Basic pricing tier if light compute and I/O are adequate for your workload. Note that servers created in the Basic pricing tier cannot later be scaled to General Purpose or Memory Optimized
-
-   ![](Media/image0276.png)
-
-1. Select Create to provision the server. Provisioning can take up to 20 minutes.
-
-1. Select Notifications on the toolbar (the bell icon) to monitor the deployment process.
-    
-   By default, the following databases are created under your server: **information_schema**, **mysql**, **performance_schema**, and **sys**.  
-
-Congratulations!. You have successfully completed this exercise.
-
----
-
-# Exercise 2: Configure audit logging
+# Exercise 1: Configure audit logging
 
 This exercise shows how to configure audit logging
 
@@ -69,74 +28,225 @@ This exercise shows how to configure audit logging
     
    Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
 
-1. Go to your PostgreSQL Server
+1. Go to your MySQL Server
 
-   Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
+   Go to your Azure Database for MySQL Single Server in any way you prefer to look for a resource on Azure
 
-1. Under the Settings section in the sidebar, select Server parameters.
-    
-   ![](Media/image0277.png)
+1. Set auditing parameters
 
-1. Update the **audit_log_enabled** parameter to ON.
+   Under the **Settings** section in the sidebar, select **Server parameters**.
+   
+   Then filter by **audit_log**
+
+   ![Image0277](Media/image0277.png)
+
+1. To enable auditing, set the **audit_log_enabled** parameter to ON.
     
    ![](Media/image0278.png)
 
 1. Select the event types to be logged by updating the **audit_log_events** parameter. 
 
-   ![](Media/image0279.png)
+   For lab purposes, select **CONNECTION**, **DML_SELECT** and **DML_NONSELECT**
 
-1. Add any MySQL users to be excluded from logging by updating the **audit_log_exclude_users** parameter. Specify users by providing their MySQL username. Audit log exclude users ( leave as default for this lab)
-    
-   ![](Media/image0280.png)
+   ![Image0279](Media/image0279.png)
 
-1. Once you have changed the parameters, you can click Save, or you can Discard your changes. Save it.
+   For reference, the events description in the table below:
+
+   |Event	             |Description                      |
+   |---------------------|--------------------------------------------------------------|
+   |CONNECTION	          |Connection initiation (successful or unsuccessful), User reauthentication with different user/password during session and connection termination |
+   |DML_SELECT	          |SELECT queries
+   |DML_NONSELECT	       |INSERT/DELETE/UPDATE queries
+   |DML	                |DML = DML_SELECT + DML_NONSELECT
+   |DDL	                |Queries like "DROP DATABASE"
+   |DCL	                |Queries like "GRANT PERMISSION"
+   |ADMIN	             |Queries like "SHOW STATUS"
+   |GENERAL	             |All in DML_SELECT, DML_NONSELECT, DML, DDL, DCL, and ADMIN
+   |TABLE_ACCESS	       | Table read,delete, intert and update statements, such as SELECT or INSERT INTO ... SELECT, DELETE or TRUNCATE TABLE, INSERT or REPLACE ad UPDATE |
+
+   >It is recommended to only log the event types and users required for your auditing purposes to ensure your server's performance is not heavily impacted and minimum amount of data is collected.
+
+   > It is possible to indicate what users you want to audit or what users you want to exclude from auditing by setting **audit_log_include_users** **audit_log_exclude_users** parameter repectivly. 
+   > Refer to [Audit Logs in Azure Database for MySQL](https://docs.microsoft.com/en-us/azure/mysql/single-server/concepts-audit-logs) for further details
+ 
+
+1. Once you have changed the parameters, click Save.
     
-   ![](Media/image0281.png)
+   ![Image0281](Media/image0281.png)
+Congratulations!. You have successfully completed this exercise.
+
+---
+
+# Exercise 2: Set up diagnostic logs
+
+Audit logs are integrated with Azure Monitor Diagnostic Logs. Once you've enabled audit logs on your MySQL server, you can emit them to Azure Monitor logs, Event Hubs, or Azure Storage.
+
+This exercise shows how to set up diagnostic logs
+
+**Tasks**
+
+1. Connect to Microsoft Azure Portal
+    
+   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+
+1. Create a Storage Account
+
+   Create a Storage Account in the same region as your Azure Database for MySQL Server using the instructions at [Create a storage account](https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal)
+
+1. Create a Log Analytics workspace
+
+   Create a Log Analytics workspace in the same region as your Azure Database for MySQL Server using the instructions at [Create a Log Analytics workspace](https://docs.microsoft.com/en-us/azure/azure-monitor/logs/quick-create-workspace?tabs=azure-portal)
+
+1. Go to your MySQL Server
+
+   Go to your Azure Database for MySQL Single Server in any way you prefer to look for a resource on Azure
+
+1. Add a Diagnostic Setting 
+
+   Under the **Monitoring** section in the sidebar, select **Diagnostic settings** and then click on **+ Add diagnostic setting**
+
+   ![Image0282](Media/image0282.png)
+
+1. Configure the Diagnostic Setting 
+
+   - Provide a diagnostic setting name.
+   - Specify which data sinks to send the audit logs. For this lab use storage account and Log Analytics workspace created in the previous tasks.
+   - Select **MySqlAuditLogs** as the log type and archive to a storage account 
+   - Set the Retention (days) to 90. this indicates the retention of the log in the Storage Account
+
+   ![Image0283](Media/image0283.png)
+
+   Click Save and close the tile. You will see the new Diagnostic Setting listed for the server
+
+   ![Image0284](Media/image0284.png)
+
 
 Congratulations!. You have successfully completed this exercise.
 
 ---
 
-# Exercise 3: Set up diagnostic logs
+# Exercise 2: Accessing the audit log
 
-This exercise shows how to set up diagnostic logs
+1. Using MySQL Workbench or any other MySQL client tool connect to the database server
 
-** Tasks**
+1. Create a simple database and table
 
-1. Under the Monitoring section in the sidebar, select Diagnostic settings.
+    Execute:
 
-1. Click on **+ Add diagnostic setting** Add diagnostic setting
+   ```sql
+   CREATE DATABASE dbtest;
+
+   USE dbtest;
+
+   CREATE TABLE people
+   ( id   INT
+    ,name VARCHAR(25)
+   );
+   ```
+
+1. Modify and query the table
+
+   Insert a few test rows:
+
+   ```sql
+   INSERT INTO people VALUES (1,'DANIEL');
+   INSERT INTO people VALUES (2,'ANDREA');
+   INSERT INTO people VALUES (3,'JOHN');
+   ```
+
+   Query the table
+
+   ```sql
+   SELECT * FROM people;
+
+   SELECT * FROM people WHERE id = 1;
+   ```
+
+   Update the table
+
+   ```sql
+   UPDATE people set name = 'SCOTT' WHERE id = 1;
+   ```
+
+1. Consult the audit log in Log Analytics
+
+   Under the **Monitoring** section in the sidebar, select **Logs** 
+
+   ![Image0285](Media/image0285.png)
+
+   - To see the **DML_SELECT** and **DML_NONSELECT** events, run:
+
+     ```kusto
+     AzureDiagnostics
+     | where LogicalServerName_s == '<servername>'
+     | where Category == 'MySqlAuditLogs' and event_class_s == 'general_log'
+     | project TimeGenerated, LogicalServerName_s, event_class_s, event_subclass_s, event_time_t, user_s , ip_s , sql_text_s 
+     | order by TimeGenerated asc nulls last
+      ```
+   
+     >Make sure you replace *\<servername\>* with your server name
+
+     You will find the entries for the events including:
+     - when it happened (TimeGenerated[UTC])
+     - the user (user_s) who executed the action
+     - the source IP addrres (ip_s) for the connection
+     - The query executed (sql_text_s)
+
+     ![Image0286](Media/image0286.png)
+
+     This query is just an example, you can modify it to add the filters you need to get only the information you are looking for.
+     For example, if you want to see only update events on the table *names*, you can use 
+
+     ```kusto
+     AzureDiagnostics
+     | where LogicalServerName_s == '<servername>'
+     | where Category == 'MySqlAuditLogs' and event_class_s == 'general_log'
+     | where sql_text_s has_all ('UPDATE','name')
+     | project TimeGenerated, LogicalServerName_s, event_class_s, event_subclass_s, event_time_t, user_s , ip_s , sql_text_s 
+     | order by TimeGenerated asc nulls last
+     ```
+
+     ![Image0287](Media/image0287.png)
+
+     >Kusto Query Language is very powerful, if you want to get familiar with it go to [Tutorial: Use Kusto queries](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/tutorial?pivots=azuredataexplorer) 
+
+   - To see the **CONNECTION** events, run: 
+
+     ```kusto
+     AzureDiagnostics
+     | where LogicalServerName_s == '<servername>'
+     | where Category == 'MySqlAuditLogs' and event_class_s == 'connection_log'
+     | project TimeGenerated, LogicalServerName_s, event_class_s, event_subclass_s, event_time_t, user_s , ip_s , sql_text_s 
+     | order by TimeGenerated asc nulls last
+     ```
+  
+     You will find the entries for the events including:
+     - when it happened (TimeGenerated[UTC])
+     - the user (user_s) who connected/disconnected
+     - If it is a connection or a disconnection (event_subclass_s) 
+     - the source IP addrres (ip_s) for the connection
+   
+     ![Image0288](Media/image0288.png)
+
+1. Consult the audit log in the Storage Account
+
+   Go to the Storage Account you set in the Diagnostics Setting
     
-   ![](Media/image0282.png)
+   Under the **Data Storage** section in the sidebar, select **Container**. 
+   You will see a folder named **insights-logs-mysqlauditlogs** that was created automatically. 
 
-1. Provide a diagnostic setting name.
+   ![Image0289](Media/image0289.png)
 
-1. Specify which data sinks to send the audit logs (storage account, event hub, and/or Log Analytics workspace).
+   click on the folder, and continue doing so until you get to the log for the resource group, server name, date and time you want to review
 
-1. Select **MySqlAuditLogs** as the log type and archive to a storage account 
- 
-   >If you don't have storage account, create one using the following steps:
-   >
-   >- Create resource and specify storage account in search box  
-   >      
-   >    ![](Media/image0285.png)
-   >
-   >- Configure the storage as below to match audit configuration
-   >
-   >    ![](Media/image0286.png)
-   >
-   >- Once completed click create
+   ![Image0290](Media/image0290.png)
 
-   ![](Media/image0283.png)
+   Click on the JSON with the log entries. Then click on **Download**
 
-1. Once you've configured the data sinks to pipe the audit logs to, you can click Save. Save diagnostic setting
-    
-   ![](Media/image0284.png)
+   ![Image0291](Media/image0291.png)
 
-1. Access the audit logs by exploring them in the data sinks you configured. It may take up to 10 minutes for the logs to appear.
+   Open the file using your favorite editor/JSON formatter and explore it. You will see the audit events in there 
 
-**********************
----> Add more deatils, such as how to query log analytics
-**********************
+   ![Image0292](Media/image0292.png)
 
 Congratulations!. You have successfully completed this exercise and the Lab. 
