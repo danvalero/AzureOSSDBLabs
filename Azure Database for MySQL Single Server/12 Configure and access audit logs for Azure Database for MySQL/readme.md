@@ -14,7 +14,7 @@ After completing this lab, you will be able to:
 
 This lab considers that an Azure Database for MySQL Single Server named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
 
-**Estimated Time:** 20 minutes
+**Estimated Time:** 40 minutes
 
 ---
 
@@ -127,6 +127,7 @@ Congratulations!. You have successfully completed this exercise.
 
 # Exercise 2: Accessing the audit log
 
+1. Using MySQL Workbench or any other MySQL client tool connect to the database server
 
 1. Create a simple database and table
 
@@ -169,8 +170,6 @@ Congratulations!. You have successfully completed this exercise.
 
 1. Consult the audit log in Log Analytics
 
-   Go to the Log Analytics Workspace you set in the Diagnostics Setting
-    
    Under the **Monitoring** section in the sidebar, select **Logs** 
 
    ![Image0285](Media/image0285.png)
@@ -185,7 +184,7 @@ Congratulations!. You have successfully completed this exercise.
      | order by TimeGenerated asc nulls last
       ```
    
-     >Make sure you replace *\<servername\* with your server name
+     >Make sure you replace *\<servername\>* with your server name
 
      You will find the entries for the events including:
      - when it happened (TimeGenerated[UTC])
