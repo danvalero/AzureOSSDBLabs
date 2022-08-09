@@ -20,7 +20,15 @@ After completing this lab, you will be able to:
 
 **Scenario:**
 This lab walks you through creating schema and structure that allows advertisers to track their campaigns through the application.
-    
+
+- [Design a multi tenant database by using Azure Database for PostgreSQL Hyperscale Citus](#design-a-multi-tenant-database-by-using-azure-database-for-postgresql-hyperscale-citus)
+  - [Exercise 1: Create an Azure Database for PostgreSQL - Hyperscale (Citus)](#exercise-1-create-an-azure-database-for-postgresql---hyperscale-citus)
+  - [Exercise 2: Connect to the database using psql and Create Schema](#exercise-2-connect-to-the-database-using-psql-and-create-schema)
+  - [Exercise 3: Create distributed tables](#exercise-3-create-distributed-tables)
+  - [Exercise 4: Create reference tables](#exercise-4-create-reference-tables)
+  - [Exercise 5: Customize the schema per-tenant](#exercise-5-customize-the-schema-per-tenant)
+  - [Exercise 6: Viewing Metadata Information and Distributed Query Execution](#exercise-6-viewing-metadata-information-and-distributed-query-execution)
+  - [Exercise 7: add new workers](#exercise-7-add-new-workers)
 
 ---
 
@@ -677,8 +685,7 @@ Finishing the previous exercises are the pre-requisites for completing this exer
 
 ---
 
-## Exercise 5: add new workers
-
+## Exercise 7: add new workers
 
 Azure Database for PostgreSQL - Hyperscale (Citus) provides self-service scaling to deal with increased load. Adding nodes causes no downtime.
 
