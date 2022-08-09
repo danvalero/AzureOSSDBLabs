@@ -16,9 +16,15 @@ This lab considers that an Azure Database for MySQL Single Server named mysqlser
 
 **Estimated Time:** 40 minutes
 
+**Exercises list**
+- [Configure and access audit logs for Azure Database for MySQL](#configure-and-access-audit-logs-for-azure-database-for-mysql)
+  - [Exercise 1: Configure audit logging](#exercise-1-configure-audit-logging)
+  - [Exercise 2: Set up diagnostic logs](#exercise-2-set-up-diagnostic-logs)
+  - [Exercise 3: Accessing the audit log](#exercise-3-accessing-the-audit-log)
+
 ---
 
-# Exercise 1: Configure audit logging
+## Exercise 1: Configure audit logging
 
 This exercise shows how to configure audit logging
 
@@ -77,7 +83,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ---
 
-# Exercise 2: Set up diagnostic logs
+## Exercise 2: Set up diagnostic logs
 
 Audit logs are integrated with Azure Monitor Diagnostic Logs. Once you've enabled audit logs on your MySQL server, you can emit them to Azure Monitor logs, Event Hubs, or Azure Storage.
 
@@ -125,7 +131,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ---
 
-# Exercise 2: Accessing the audit log
+## Exercise 3: Accessing the audit log
 
 1. Using MySQL Workbench or any other MySQL client tool connect to the database server
 
@@ -195,13 +201,13 @@ Congratulations!. You have successfully completed this exercise.
      ![Image0286](Media/image0286.png)
 
      This query is just an example, you can modify it to add the filters you need to get only the information you are looking for.
-     For example, if you want to see only update events on the table *names*, you can use 
+     For example, if you want to see only update events on the table *people*, you can use 
 
      ```kusto
      AzureDiagnostics
      | where LogicalServerName_s == '<servername>'
      | where Category == 'MySqlAuditLogs' and event_class_s == 'general_log'
-     | where sql_text_s has_all ('UPDATE','name')
+     | where sql_text_s has_all ('UPDATE','people')
      | project TimeGenerated, LogicalServerName_s, event_class_s, event_subclass_s, event_time_t, user_s , ip_s , sql_text_s 
      | order by TimeGenerated asc nulls last
      ```
