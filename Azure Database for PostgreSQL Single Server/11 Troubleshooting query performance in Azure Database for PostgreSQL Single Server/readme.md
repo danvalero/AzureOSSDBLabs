@@ -37,39 +37,35 @@ This lab considers that an Azure Database for PostgreSQL Single Server named pgs
    Make a note of the **Server name** and the **Server admin login name**.
 
 1. Create the *adventureworks* database on the Azure Database for PostgreSQL Single Server
-    
+   
+   Dowonlad the [adventureworks demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20PostgreSQL%20Single%20Server/PostgresSQLSSLabFiles/adventureworks.dump) in **C:\\\PostgresSQLSSLabFiles** folder
+
    Open a Windows Prompt and execute a script to create the adventureworks schema, create objects and load the demo employee data using:
     
    ```bash
-   psql --file=C:\PostgresSQLSSLabFiles\adventureworks_creation.sql --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=postgres
+   psql --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=postgres -c "DROP DATABASE IF EXISTS adventureworks;" -c "CREATE DATABASE adventureworks;"
    ```
 
    ```bash
-   pg_restore -v --no-owner --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=adventureworks C:\PostgresSQLSSLabFiles\adventureworks.dump
+   pg_restore -v --no-owner --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=adventureworks C:\\PostgresSQLSSLabFiles\\adventureworks.dump
    ```
     
    for example:
 
    ```bash
-   psql --file=C:\PostgresSQLSSLabFiles\adventureworks_creation.sql --host=pgserverdvvr.postgres.database.azure.com --port=5432 --username=admpg@pgserverdvvr --dbname=postgres
+   psql --host=pgserverdvvr.postgres.database.azure.com --port=5432 --username=admpg@pgserverdvvr --dbname=postgres -c "DROP DATABASE IF EXISTS adventureworks;" -c "CREATE DATABASE adventureworks;"
    ```
 
    ```bash
-   pg_restore -v --no-owner --host=pgserverdvvr.postgres.database.azure.com --port=5432 --username=admpg@pgserverdvvr --dbname=adventureworks C:\PostgresSQLSSLabFiles\adventureworks.dump
+   pg_restore -v --no-owner --host=pgserverdvvr.postgres.database.azure.com --port=5432 --username=admpg@pgserverdvvr --dbname=adventureworks C:\\PostgresSQLSSLabFiles\\adventureworks.dump
    ```
 
    >For both commands, you need to enter password when prompted. 
    
    >This is destructive action. If there is a database named adventureworks in the Azure Database for PostgreSQL Single Server, the existing adventureworks will be dropped and replaced.
-    
-   If you get a message like:
-    
-   *Psql: FATAL: no pg_hba.conf entry for host “127.172.166.85”, user “admpg”, database “postgres”, SSL on**
-    
-   You must allow access from the Virtual Machine to the Azure Database for PostgreSQL by adding a rule for the client machine IP address. Go to **Connection security** in **Settings**, add the rule and click **Save**.
-    
-   ![](Media/image0176.png)
-    
+   
+   ![Image0176](Media/image0176.png)
+
    If you get a timeout error like:
     
    ```nocolor-nocopy
@@ -108,75 +104,62 @@ This exercise shows how to enable Query Store and use it to review performance d
 
 1. Go to Server Parameters
     
-   ![](Media/image0177.png)
+   ![Image0177](Media/image0177.png)
 
-1. Search forn*pg_qs.query_capture_mode*
+1. Enable query capture and enable wait statistics
+
+   Search for *pg_qs*
     
-   Click on Value and change it to **ALL.**
+   Set **pg_qs.query_capture_mode** to **ALL.**.
+
+   Set **pg_qs.retention_period_in_days** to **14**. 
+   
+   >This option will allow you to set the retention period of the query store it can be between 1 and 30 days.Avoid keeping historical data you do not plan to use. Increase the value if you need to keep data longer.
+
+       ![Image0178](Media/image0178.png)
+
+   Search for *pgms_wait_sampling.*
     
-   ![](Media/image0178.png)
-    
+   Set **pgms_wait_sampling.query_capture_mode** to **ALL**. This option will enable the wait statistics
+
+   Set **pgms_wait_sampling.history_period** to **200**. This option specifies how often (in Milliseconds) wait events are sampled.
+
+   >For *pgms_wait_sampling.history_period*, the shorter the period, the more frequent the sampling. More information is retrieved, but that comes with the cost of greater resource consumption. Increase this period if the server is under load or you don't need the granularity.
+
+   ![Image0179](Media/image0179.png)
+
+   >Other configuration options are available Rfefer to [Configuration options](https://docs.microsoft.com/en-us/azure/postgresql/single-server/concepts-query-store#configuration-options) for further information 
+   
    Click **Save**.
 
-1. Search for *pgms_wait_sampling.query_capture_mode*
+   It should only take a few seconds for each parameter to change. When the paremters are updated you will see the notification
     
-   Click on Value and change it to **ALL.** This option will enable the wait statistics
-    
-   ![](Media/image0179.png)
-    
-   Click **Save**.
-
-1. Search for *pg_qs.retention_period_in_days*
-    
-   Click on Value and change it to **14.** This option will allow you to set the retention period of the query store, between 1 and 30 days.
-    
-   ![](Media/image0180.png)
-    
-   Click **Save**.
-
-1. Search for *pgms_wait_sampling.history_period*
-    
-   Click on Value and change it to **200.** This option specifies how often (in Milliseconds) wait events are sampled.
-      
-   Click **Save**.
-    
-   For *pgms_wait_sampling.history_period*, the shorter the period, the more frequent the sampling. More information is retrieved, but that comes with the cost of greater resource consumption. Increase this period if the server is under load or you don't need the granularity.
-    
-   You can check your section to verify that the parameters values have been changed, it should only take a few seconds for each parameter to change.
-    
-   ![](Media/image0181.png)
-
-1. Open pgAdmin and connect to your server
-    
-   Open **pgAdmin**.
-    
-   You can find pgAdmin on Windows by typing pgAdmin in the Search box
+   ![Image0181](Media/image0181.png)
 
 1. Run some queries to populate its statistics on the Query Store.
     
-   Connect to *adventureworks* and open a Query Tool. Execute the following query:
+   Using PostgreSQL pgAdmin or any other PostgreSQL client tool connect to the database server and the **adventureworks** database
 
-   >You can find the query at **C:\PostgresSQLSSLabFiles\heavy_query.sql**    
+   Execute 4 times the following query:
 
-   **```sql**
-   SELECT
-       p.title
-       , p.firstname
-       , p. middlename
-       , p. lastname
-       , p.suffix
-       , p.emailpromotion
-       , at.name AS addresstype
-       , a.addressline1
-       , a.addressline2
-       , a.city
-       , sp.stateprovincecode
-       , sp.name AS stateprovicename
-       , cr.name AS countryregionname
-       , a.postalcode
-       , ea.emailaddress
-       , pnt.name AS phonenumbertype
-       , pp.phonenumber
+   ```sql
+   SELECT p.title
+        , p.firstname
+        , p. middlename
+        , p. lastname
+        , p.suffix
+        , p.emailpromotion
+        , at.name AS addresstype
+        , a.addressline1
+        , a.addressline2
+        , a.city
+        , sp.stateprovincecode
+        , sp.name AS stateprovicename
+        , cr.name AS countryregionname
+        , a.postalcode
+        , ea.emailaddress
+        , pnt.name AS phonenumbertype
+        , pp.phonenumber
    FROM person.person AS p
        INNER JOIN person.businessentityaddress AS bea
            ON p.businessentityid = bea.businessentityid
@@ -197,54 +180,155 @@ This exercise shows how to enable Query Store and use it to review performance d
        ORDER BY lastname, firstname, middlename;
    ```
    
-   ![](Media/image0182.png)
-   
-   Connect to *adventureworks* and open a Query Tool. Execute the following query:
+   ![Image0182](Media/image0182.png)
+      
+   Also, execute 3 times the following query:
    
    ```sql
-   select * from LargeTable where id = 5000;
+   SELECT * FROM LargeTable WHERE id = 5000;
    ```
    
-   ![](Media/image0183.png)
+   ![Image0183](Media/image0183.png)
+
+   Notice it takes several seconds tu run een when it is a simple query looking a row by id.
 
 1. Review the query statistics on the Query Store
     
-   >Allow up to 20 minutes for the first batch of data to persist in the *azure_sys* database. You might want to continue to the next two exercises and come back to this task.
+   Query Store data is stored in the *azure_sys* database on your Postgres server.
 
-   >Query Store data is stored in the *azure_sys* database on your Postgres server.
+   >Allow up to 20 minutes for the first batch of data to persist in the *azure_sys* database. You might want to take a break now
 
-  To see execution statistics for the query we ran earlier in Task 10 (note: you can remove the where clause filter if you are not getting anything returned and search for the query in Task 10 on that result set), connect to *azure_sys*, open a Query Tool and execute the following query:
+   To see execution statistics for the 1st query you ran in the previous Task, connect to *azure_sys* and execute the following query:
 
    ```sql
    SELECT pgu.usename
-       , qsv.*
+        , qsv.*
    FROM query_store.qs_view AS qsv
        INNER JOIN pg_user AS pgu ON pgu.usesysid = qsv.user_id
    WHERE is_system_query = 'false'
        AND query_sql_text LIKE 'SELECT p.title%';
    ```
 
-   ![](Media/image0184.png)
+   ![Image0184](Media/image0184.png)
+
+   You can see the queryID (751359506 in the example image), the whole query test, the execution count (calls), etc.
 
    To see all the waits encountered for all non-system queries, connect to *azure_sys*, open a Query Tool and execute the following query:
 
    ```sql
    SELECT pgu.usename
-       , pws.*
+        , pws.*
    FROM query_store.pgms_wait_sampling_view AS pws
        INNER JOIN pg_user AS pgu ON pgu.usesysid = pws.user_id
    WHERE query_id > 0 and user_id > 10;
    ```
 
-   ![](Media/image0185.png)
+   ![Image0185](Media/image0185.png)
 
-   Additionally, expand the *azure_sys* database and review the tables and views under the *query_store* schema to see what else this query store has to offer.
+   Additionally, expand the *azure_sys* database and review the tables and views under the *query_store* schema to see what else this query store has to offer. For further infomation about the meaning of each column refer to [query_store.qs_view](https://docs.microsoft.com/en-us/azure/postgresql/single-server/concepts-query-store#query_storeqs_view)
+
 
 Congratulations!. You have successfully completed this exercise.
 
 ---
 
-## Exercise 3: Performance Recommendations for Azure Database for PostgreSQL Single Server
+## Exercise 3: Query Performance Insight for Azure Database for PostgreSQL Single Server 
+
+Query Performance Insight helps you to quickly identify what your longest running queries are, how they change over time, and what waits are affecting them.
+
+This exercise shows how to use Query Performance Insight for Azure Database for PostgreSQL Single Server
+
+**Tasks**
+
+1. Connect to Microsoft Azure Portal
+    
+   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+
+1. Go to your PostgreSQL Server
+
+   Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
+
+1. Go to **Query Performance Insight** under **Intelligent Performance**
+    
+   Under **Long Running Queries** tab, you will be able to see the different execution for the longest running queries.
+
+   In this tab:
+   - By default you will see the top five longest running queries but you can view the top *10* or top *15* queries by changing the value of the *Number of Queries* pulldown.
+   - You can also see the *min, max, sum* values by changing the *Selected by* pulldown, with *avg* as the default value.
+   - You can change the *Time Period* pull down to see the queries for the last *6 hours, last week* or *last month*, with the last *24 hours* as the default value.
+
+   ![Image0189](Media/image0189.png)
+    
+   Notice that the queries executed in the previuos Exercise are reported.
+       
+   Under **Wait Statistic** tab, you will be able to see the Top Events (waits) by either individual Queries or by Event type.
+    
+   In this tab:
+   - By default, you should be able to see the events in the last *24 hours* or change the *Time Period* pulldown to *6 hours, last week* or *last month*.
+   - You can change how to group the report by either *Query* or *Event* by changing the value of the *Group By* pulldown.
+
+   ![Image0190](Media/image0190.png)
+    
+   Examine the wait types that affected the queries executed in the previous exercise.
+    
+1. Identify the query text
+
+   Due to privacy concerns, the query text is not shown in the Query Performance Insight
+   
+   To access query text, connect to the azure_sys database and execute
+
+   ```sql
+   SELECT qsv.*
+   FROM query_store.qs_view AS qsv
+   WHERE query_id = <query_id>  
+   ```
+
+   >Make sure you replace *\<query_id\>* with the id you see in the query Performance Insight screen for the query that was executed 3 times
+
+   ![Image0190](Media/image0190.png)
+
+   Notice is the query you executed 3 times in the previos exercise
+
+   ```sql
+   SELECT * FROM LargeTable WHERE id = 5000;
+   ```
+
+1. Basic troubleshooting
+
+   Connect to the **adventureworks** database and run the query using EXPLAIN 
+
+   ```sql
+   EXPLAIN ANALYZE
+   SELECT * FROM LargeTable WHERE id = 5000;
+   ```
+
+   ![Image0191](Media/image0191.png)
+
+   This is a simple query, however, PostgreSQL is using parallelism and doing a Parallel Seq Scan on *largetable*.   
+
+   >Seq Scan means PostgreSQL is examining the whole table to get the rows it needs to return... not efficient at all! 
+
+   There query has contidion in the WHERE clause to filter by *id*
+
+   Review the indexes for *largetable* by executing:
+
+   ```sql
+   SELECT *
+   FROM pg_indexes
+   WHERE tablename = 'largetable'
+   ```
+
+   No results... There is no index on *largetable*
+   
+   To optimize this query, an index on column *id* on table *largetable* could help. 
+
+   >Do not create any index yet.
+
+Congratulations!. You have successfully completed this exercise.
+
+---
+
+## Exercise 4: Performance Recommendations for Azure Database for PostgreSQL Single Server
 
 This exercise shows how to use the Azure Portal's Performance Recommendations for Azure Database for PostgreSQL.
 
@@ -262,16 +346,21 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
     
    The first time you run this service, it will show no recommendations, and advice you to perform and analysis. Click on the **Analyze** option
     
-   ![](Media/image0186.png)
+   ![Image0186](Media/image0186.png)
 
-1. Change the database to *Adventureworks* and click on **Analyze**
-    
-   ![](Media/image0187.png)
-    
+1. Analyze the database
+ 
+   Change the database to *adventureworks* and click on **Analyze**
+   
+   It can take a few minutes for the analysis to complete
+   
    Notice a couple of things:
    - First, it recommends not to perform the analysis when the server is under high load, this is because the analysis will need to evaluate your database and that will most likely produce additional I/O and CPU. We will ignore this recommendation for lab purposes.
    - Second, to get the best possible analysis, you should enable the query store first, since this will allow the service to use the query store to evaluate the historic performance of the database.
 
+   ![](Media/image0187.png)
+   
+  
 1. Review the results
     
    If you ran the query in Task 10 of Exercise 2 you should get a similar result as the one shown below.
@@ -282,46 +371,6 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
     
    In a production environment you would evaluate the recommendations and apply those that you believe will improve the performance of your queries.
 
-Congratulations!. You have successfully completed this exercise.
-
----
-
-## Exercise 4: Query Performance Insight for Azure Database for PostgreSQL Single Server 
-
-This exercise shows how to use Query Performance Insight for Azure Database for PostgreSQL Single Server
-
-**Tasks**
-
-1. Connect to Microsoft Azure Portal
-    
-   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
-
-1. Go to your PostgreSQL Server
-
-   Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
-
-1. Go to **Performance Recommendations** under **Intelligent Performance**
-    
-   Under **Long Running Queries** tab, you will be able to see the different execution for the longest running queries.
-    
-   ![](Media/image0189.png)
-    
-   Notice that the queries executed in Task 10 of Exercise 2 are reported.
-    
-   In this tab:
-   - By default you will see the top five longest running queries but you can view the top *10* or top *15* queries by changing the value of the *Number of Queries* pulldown.
-   - You can also see the *min, max, sum* values by changing the *Selected by* pulldown, with *avg* as the default value.
-   - You can change the *Time Period* pull down to see the queries for the last *6 hours, last week* or *last month*, with the last *24 hours* as the default value.
-    
-   Under **Wait Statistic** tab, you will be able to see the Top Events (waits) by either individual Queries or by Event type.
-    
-   ![](Media/image0190.png)
-    
-   Examine the wait types that affected the queries executed in Task 10 of exercise 2.
-    
-   In this tab:
-   - By default, you should be able to see the events in the last *24 hours* or change the *Time Period* pulldown to *6 hours, last week* or *last month*.
-   - You can change how to group the report by either *Query* or *Event* by changing the value of the *Group By* pulldown.
    - You can show *10* or *15* groups by changing the value of the *Number of Groups* pulldown, with *5* as the default number of groups
 
 Congratulations!. You have successfully completed this exercise and the Lab.
