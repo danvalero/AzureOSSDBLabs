@@ -14,7 +14,7 @@ After completing this lab, you will be able to:
 
 **Considerations**
 
-This lab considers that an Azure Database for MySQL Single Server named pgserver[your name initials] exists with a server admin login named *admmysq*, if not, create it or use another existing server before continuing with the lab.
+This lab considers that an Azure Database for MySQL Single Server named pgserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 50 minutes
 
@@ -38,7 +38,7 @@ This lab considers that an Azure Database for MySQL Single Server named pgserver
 
 1. Create the *employees* database on the Azure Database for MySQL Single Server
    
-   Dowonlad and extract the [employees demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20MySQL%20Single%20Server/MySQLSSLabFiles/create_employees.zip) in **C:\\\MySQLSSLabFiles** folder
+   Downlad and extract the content of [employees demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20MySQL%20Single%20Server/MySQLSSLabFiles/create_employees.zip) in **C:\\\MySQLSSLabFiles** folder
 
    Open a Windows Prompt and execute a script to restore the *employees* database using:
     
@@ -95,11 +95,11 @@ This exercise shows how to enable Query Store and use it to review performance d
 
    ![Image0177](Media/image0177.png)
 
-   >Other configuration options are available Rfefer to [Configuration options](https://docs.microsoft.com/en-us/azure/mysql/single-server/concepts-query-store#configuration-options) for further information 
+   >Other configuration options are available, refer to [Configuration options](https://docs.microsoft.com/en-us/azure/mysql/single-server/concepts-query-store#configuration-options) for further information 
    
    Click **Save**.
 
-   It should only take a few seconds for each parameter to change. When the paremters are updated you will see the notification
+   It should only take a few seconds for each parameter to change. When the parameters are updated you will see the notification
     
    ![Image0178](Media/image0178.png)
 
@@ -148,7 +148,7 @@ This exercise shows how to enable Query Store and use it to review performance d
 
    >Allow up to 20 minutes for the first batch of data to persist in the *mysql* database. You might want to take a break now
 
-   To see execution statistics for the 1st query you ran in the previous Task, connect to *mysql* and execute the following query:
+   To see execution statistics for the 1st query you ran in the previous task, execute the following query:
 
    ```sql
    SELECT *
@@ -158,9 +158,9 @@ This exercise shows how to enable Query Store and use it to review performance d
 
    ![Image0181](Media/image0181.png)
 
-   You can see the 4 executions of the query queryID (195 in the example image), the whole query test, the execution count, etc.
+   You can see the 4 executions of the query (query_id 195 in the example image), the whole query test, the execution count, etc.
 
-   To see all the waits encountered for a query, connect to *mysql*, and execute the following query:
+   To see all the waits encountered for a query, execute the following query:
 
    ```sql
    SELECT * 
@@ -174,7 +174,7 @@ This exercise shows how to enable Query Store and use it to review performance d
 
    For further details of the meaning of each event_name, refer to [Wait Instrument Elements](https://dev.mysql.com/doc/refman/8.0/en/performance-schema-instrument-naming.html#performance-schema-wait-instrument-elements)
 
-   Additionally, expand the *mysql* database and review the views with names that start with *query_store* to see what else this query store has to offer. For further infomation about the meaning of each column refer to [Views and functions](https://docs.microsoft.com/en-us/azure/mysql/single-server/concepts-query-store#views-and-functions)
+   Additionally, expand the *mysql* database and review the views with names that start with *query_store* to see what else this query store has to offer. For further information about the meaning of each column refer to [Views and functions](https://docs.microsoft.com/en-us/azure/mysql/single-server/concepts-query-store#views-and-functions)
 
 Congratulations!. You have successfully completed this exercise.
 
@@ -207,7 +207,7 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
 
    ![Image0183](Media/image0183.png)
     
-   Notice that the queries executed in the previuos Exercise are reported.
+   Notice that the queries executed in the previous exercise are reported.
        
    Under **Wait Statistic** tab, you will be able to see the Top Events (waits) by either individual Queries or by Event type.
     
@@ -223,7 +223,7 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
 
    Due to privacy concerns, the query text is not shown in the Query Performance Insight
    
-   To access query text, connect to the *mysql* database and execute
+   To access query text, execute:
 
    ```sql
    SELECT *
@@ -243,7 +243,7 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
 
 1. Basic troubleshooting
 
-   Connect to the **employees** database and run the query using EXPLAIN 
+   Connect to the **employees** database and run the query using EXPLAIN to get the execution plan:
 
    ```sql
    EXPLAIN SELECT * FROM salaries WHERE to_date = '9999-01-01';
@@ -255,7 +255,7 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
 
    As *possible_keys* is also null, you can tell there is no index that can help the query
    
-   The query has a simple conditin in the WHERE clause to filter by *to_date*
+   The query has a simple condition in the WHERE clause to filter by *to_date*
 
    Review the indexes for *salaries* by executing:
 
@@ -265,7 +265,7 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
 
    ![Image0188](Media/image0188.png)
 
-   There is only only index, the one for the primary key by columns emp_no and from_date
+   There is only one index, the one for the primary key by columns *emp_no* and *from_date*
       
    To optimize this query, an index on column *to_date* on table *salaries* could help. 
 
@@ -306,13 +306,13 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
     
    ![Image0189](Media/image0189.png)
     
-   Azure is recommending to create some indexes and rewriting a query (queryID 196 in this example), the same query idenitified on the previous exercise that could benfit of an index on column *to_date* on table *salaries*. 
+   Azure is recommending to create some indexes and rewriting a query (query_id 196 in this example), the same query identified on the previous exercise that could benefit of an index on column *to_date* on table *salaries*. 
 
    ![Image0190](Media/image0190.png)
 
-1. Apply index recommendation and evaluate resuts 
+1. Apply index recommendation and evaluate results 
 
-    Create the index using the command in the "Recomendation description"
+    Create the index using the command in the "Recommendation description"
 
     ```sql
     alter table `employees`.`salaries` add index `idx_to_date` (`to_date`)
@@ -330,6 +330,6 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
 
     The query now uses an Non-Unique Key Lookup using index *idx_to_date* on *salaries* instead of a Full Table Scan. 
 
-    The recomendation was valid and helpuful for performance.
+    The recommendation was valid and helpful for performance.
 
 Congratulations!. You have successfully completed this exercise and the Lab.
