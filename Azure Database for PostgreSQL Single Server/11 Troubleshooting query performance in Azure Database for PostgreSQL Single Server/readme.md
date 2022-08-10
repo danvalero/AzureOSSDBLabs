@@ -359,18 +359,46 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
    - Second, to get the best possible analysis, you should enable the query store first, since this will allow the service to use the query store to evaluate the historic performance of the database.
 
    ![](Media/image0187.png)
-   
   
-1. Review the results
+1. Review recommendations
     
-   If you ran the query in Task 10 of Exercise 2 you should get a similar result as the one shown below.
+   You should get a similar result as the one shown below.
     
    ![](Media/image0188.png)
     
    The recommendation includes the command you need to execute to create the index and it even indicates the size for the index
-    
-   In a production environment you would evaluate the recommendations and apply those that you believe will improve the performance of your queries.
 
-   - You can show *10* or *15* groups by changing the value of the *Number of Groups* pulldown, with *5* as the default number of groups
+   Notice the recommendation is to create an index on table *largetable* by column *id*. This is same conclusion we got on previuos exercise
+   
+ 1. Apply recommendation and evaluate resuts 
+
+    Create the index using the command in the "Recomendation description"
+
+    ```sql
+    create index on "public"."largetable"("id");
+    ```
+
+    > In a production environment you would evaluate the recommendations and apply those that you believe will improve the performance of your queries.
+
+    Run the affected query again:
+
+    ```sql
+    SELECT * FROM LargeTable WHERE id = 5000;
+    ```
+
+    It now runs in less than a second. Great improvement
+
+    Review the execution plan by executing
+
+    ```sql
+    EXPLAIN ANALYZE
+    SELECT * FROM LargeTable WHERE id = 5000;
+    ```
+
+    ![Image0192](Media/image0192.png)
+
+    The query now uses and Index Scan using index *largetable_id_idx* on *largetable* instead of a Seq Scan . The cost has also gone down to cost=0.44..2.65 
+
+    The recomendation was valid and helpuful for performance.
 
 Congratulations!. You have successfully completed this exercise and the Lab.

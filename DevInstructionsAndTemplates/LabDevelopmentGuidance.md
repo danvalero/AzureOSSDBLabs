@@ -86,7 +86,7 @@ Respect the style defined for the manual elements
 
     produces the following result 
 
-    ![guidance_img10.jpg](Media/guidance_img10.jpg)
+    ![guidance_img10.JPG](Media/guidance_img10.JPG)
 
 Notice that the list was correctly numbered and different leves were defined.
 
@@ -114,7 +114,7 @@ Notice that the list was correctly numbered and different leves were defined.
 
      produces a task that can be hard to follow
 
-     ![guidance_img4.jpg](Media/guidance_img4.jpg)
+     ![guidance_img4.JPG](Media/guidance_img4.JPG)
 
    - a recommended task writing style:
 
@@ -128,7 +128,7 @@ Notice that the list was correctly numbered and different leves were defined.
 
      produces a more elegant document:
 
-     ![guidance_img5.jpg](Media/guidance_img5.jpg)
+     ![guidance_img5.JPG](Media/guidance_img5.JPG)
 
 1. For tasks name use imperative sentences
 
@@ -164,7 +164,7 @@ For URLs use external link sintax. For example:
 
 will produce an ouput like: 
 
-![guidance_img6.jpg](Media/guidance_img6.jpg)
+![guidance_img6.JPG](Media/guidance_img6.JPG)
 
 
 ---
@@ -189,7 +189,7 @@ The queries used in this exercise are in the **Lab_Script1.sql** script file fou
 
 produces the following result 
 
-![guidance_img1.jpg](Media/guidance_img1.jpg)
+![guidance_img1.JPG](Media/guidance_img1.JPG)
 
 
 ---
@@ -204,7 +204,7 @@ Open PgAdmin. If you are asked to set a master password, use *Password1!*
 
 will produce an ouput like
 
-![guidance_img14.jpg](Media/guidance_img14.jpg)
+![guidance_img14.JPG](Media/guidance_img14.JPG)
 
 ---
 
@@ -242,7 +242,7 @@ will produce an ouput like
 
     produces the following result 
 
-    ![guidance_img11.jpg](Media/guidance_img11.jpg)
+    ![guidance_img11.JPG](Media/guidance_img11.JPG)
 
     Notice that different leves were defined by using Tab, and the bullet style is different in each level.
 
@@ -262,7 +262,7 @@ To write questions and answers consider:
 
     creates a text box that looks like
 
-    ![guidance_img7.jpg](Media/guidance_img7.jpg)
+    ![guidance_img7.JPG](Media/guidance_img7.JPG)
 
 - To present an answer, use the following format:
 
@@ -274,7 +274,7 @@ To write questions and answers consider:
 
     creates text box that looks like  
 
-    ![guidance_img8.jpg](Media/guidance_img8.jpg)
+    ![guidance_img8.JPG](Media/guidance_img8.JPG)
 
 ---
 
@@ -303,4 +303,4 @@ for example, writing:
 
 it will generate an output like:
 
-![guidance_img9.jpg](Media/guidance_img9.jpg)
+![guidance_img9.JPG](Media/guidance_img9.JPG)
