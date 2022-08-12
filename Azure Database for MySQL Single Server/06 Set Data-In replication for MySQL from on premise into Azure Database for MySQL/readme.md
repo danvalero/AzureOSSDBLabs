@@ -480,7 +480,7 @@ This exercise shows how to link the primary and replica server to start Data-In 
 
 Congratulations!. You have successfully completed this exercise.
 
-===
+---
 
 # Exercise 4: Stop Replication 
 
@@ -502,20 +502,17 @@ This exercise shows how to rename old and new databases
   
    ```SQL 
    show slave status;
-   ```SQL  
+   ```  
    
    Notice that the state of **Slave_IO_Running** and **Slave_SQL_Running** is now **no**
 
 Congratulations!. You have successfully completed this exercise.
 
-
-===
+---
 
 # Exercise 5: Remove replication relationship 
 
 This exercise shows how to rename old and new databases
-
----
 
 **Tasks**
 
