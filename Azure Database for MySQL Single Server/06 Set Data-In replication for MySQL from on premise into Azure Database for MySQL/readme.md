@@ -46,7 +46,6 @@ In this exercise, MySQL will be installed in an Azure VM to be used as primary s
    - **Security type**: Standard
    - **Image**: Windows Server 2019 Datacenter
    - **Size**: Any tier with at least 2vCores and 8GB memory is ok
-   - **Authentication type**: Password
    - **Username**: vmadmin
    - **Password**: Set a strong password
    - **Public inbound ports**: Allow selected ports
@@ -67,13 +66,13 @@ In this exercise, MySQL will be installed in an Azure VM to be used as primary s
 
 1. Identify private and public IP addresses for the VM
 
-   Take note of the private and public IP addresses of the VM as we will be using them at later section.
+   Take note of the public IP addresses of the VM as we will be using them at later section.
 
    ![Image0003](Media/image0003.png)
 
 1. Connect to the *MySQLVM* virtual machine
 
-   Open Remote Desktop Application and connect to the *MySQLVM* virtual machine using using the Public IP Address of the VM and the *vmadmni* user
+   Open Remote Desktop Application and connect to the *MySQLVM* virtual machine using using the Public IP Address of the VM and the *vmadmin* user
 
    ![Image0004](Media/image0004.png)
 
@@ -92,25 +91,24 @@ In this exercise, MySQL will be installed in an Azure VM to be used as primary s
 
    >This installation is a simple configuration for lab purposes so not all the security best practices are follows in interest of time and becuase it is out of the scope of this lab.
 
-   In the MySQL VM, open Internet Explorer and 
-   Method 1: Disable software with invalid signature to run in Internet Explorer
+   In the MySQL VM, open Internet Explorer and disable software with invalid signature to run in Internet Explorer
+   - Open Internet Explorer browser from Desktop.
+   - From the menu bar select Tools Select Internet Options.
+   - In the Internet Options window, select Advanced tab.
+   - Scroll down and un-check the Allow software to run or install even if the signature is invalid
+   - Click OK to save the settings. Then close the Internet Options window.
 
- a)      Open Internet Explorer browser from Desktop.
-
-b)      From the menu bar select Tools Select Internet Options.
-
-c)      In the Internet Options window, select Advanced tab.
-
-d)      Scroll down and un-check the Allow software to run or install even if the signature is invalid
-
-e)      Click OK to save the settings. Then close the Internet Options window.
-
-
-   go to https://dev.mysql.com/downloads/windows/installer/8.0.html
+   Restart Internet Explorer and go to https://dev.mysql.com/downloads/windows/installer/8.0.html
    
    ![Image0007](Media/image0007.png)
 
+   Select the mysql-installer-community msi option.
+
    ![Image0008](Media/image0008.png)
+
+![Image0040](Media/image0040.png)
+
+![Image0041](Media/image0041.png)
 
    Start the installer, 
 
@@ -119,23 +117,26 @@ e)      Click OK to save the settings. Then close the Internet Options window.
    Select:
    - MySQL Server
    - MySQL Workbench
-   - MySL Shell
 
    and click **Next**
 
    ![Image0009](Media/image0009.png)
 
-   follow with the installation. During server configuration set a strong password for the *root* user and create a ew user *admin* with the *DB ADmin* role
+   follow with the installation. During server configuration set a strong password for the *root* user and create a new user *admin* with the *DB ADmin* role
 
    ![Image0010](Media/image0010.png)
 
    Add the MySQL bin folder to Windows PATH using Powershell as an Administrator
 
+   ```bash
+   [Environment]::SetEnvironmentVariable("PATH", $Env:PATH + ";C:\Program Files\MySQL\MySQL Server 8.0\bin", [EnvironmentVariableTarget]::Machine)
+   ```
+
    ![Image0011](Media/image0011.png)
       
 1. Create the *sakila* sample database
 
-   Download https://downloads.mysql.com/docs/sakila-db.zip and extract the content in *C:\\\temp* 
+   Using Internet Explorer, download https://downloads.mysql.com/docs/sakila-db.zip and extract the content in *C:\\\temp* 
 
    Open a Windows Command Prompt and and connect to the local instance
 
@@ -147,42 +148,42 @@ e)      Click OK to save the settings. Then close the Internet Options window.
 
    >Type the commands, do not copy/paste
       
-   ```sql
-   SOURCE C:\\temp\\sakila-db\sakila-schema.sql
-   SOURCE C:\\temp\\sakila-db\\sakila-data.sql;
+   ```text
+   SOURCE C:\temp\sakila-db\sakila-schema.sql
+   SOURCE C:\temp\sakila-db\sakila-data.sql;
    ```
 
    Exit MySQL
 
    ```
-   \\q
+   \q
    ```
 
 1. Open port 3306 in the VM
 
    >The default port for MySQL is 3306
 
-   In Azure portal, go to the VM PgBouncerVM
+   In Azure portal, go to the MySQL VM 
 
-   Go to **Networking** under **Settings**. Click **Add inbound port rule**
-![Image0010](Media/image0010.png)
+   Go to **Networking** under **Settings**.
+   
+   ![Image0040](Media/image0040.png)
+
+   For all the ecurity groups associated, click **Add inbound port rule**
 
    Configure the rule using the following information:
-   - **Destination port ranges**: 6432
-   - **Name**: PgBouncer_Port
+   - **Service**: MySQL
+   - **Name**: MySQL
    - Use default values for all other settings
  
-   ![Image0011](Media/image0011.png)
- 
+   ![Image0015](Media/image0015.png)
+    
    Click **Add**
  
    Wait until the rule is created. The final configuration should look like:
 
-  [Image0012](Media/image0012.png)
-
-   > When creating the inbound port rule, consider security implication and limit the possible sources for the connection. Ideally, the possible sources should be limited to valid clients that need to connect to Azure Database for PostgreSQL Single Server through the PgBouncer service in this VM. In this delivery you can use enable connections from any source but that is not recommended from security perspective.
-
-   
+   ![Image0012](Media/image0012.png)
+  
 Congratulations!. You have successfully completed this exercise.
 
 ---
@@ -233,7 +234,7 @@ This exercise shows how to enable binary logging on the primary server and enabl
  
    To check the current configuration execute:
 
-    ```
+    ```sql
     SHOW VARIABLES LIKE 'lower_case_table_names';
     ```
 
@@ -272,7 +273,7 @@ This exercise shows how to dump primary server and restore in Azure Database for
       
 1. Connect to the *MySQLVM* virtual machine
 
-   Open Remote Desktop Application and connect to the *MySQLVM* virtual machine using using the Public IP Address of the VM and the *vmadmni* user
+   Open Remote Desktop Application and connect to the *MySQLVM* virtual machine using using the Public IP Address of the VM and the *vmadmin* user
 
 1. Set the primary server to read-only mode
     
@@ -304,7 +305,7 @@ This exercise shows how to dump primary server and restore in Azure Database for
    On the MySQLVM, open a Windows Prompt and dump the sakila database (or schema in MySQL terms):
    
    ```sql
-   mysqldump -u admin -B sakila --add-drop-database -p > c:\\temp\\sakila_backup.sql
+   mysqldump -u admin -B sakila --add-drop-database -p > c:\temp\sakila_backup.sql
    ```
   
    ![Image0066](Media/image0066.png)
@@ -323,25 +324,22 @@ This exercise shows how to dump primary server and restore in Azure Database for
    ![Image0067](Media/image0067.png)
 
 1. Make necessary changes to the **c:\temp\sakila_backup.sql** file
-    
-    Using MySQL Workbench, open the **c:\temp\sakila_backup.sql** file and comment lines 386 and 404. Save the File.
-    
-    >[!Note] To comment a line, add two hyphen and a space at the begging of the line
-    
-    DEFINER is not supported in Azure Database for MySQL Single Server as domuented at [Unsupported](https://docs.microsoft.com/en-us/azure/mysql/single-server/concepts-limits#unsupported-1)
 
-    Open the **c:\temp\sakila_backup.sql** file and replace
+   DEFINER is not supported in Azure Database for MySQL Single Server as domuented at [Unsupported](https://docs.microsoft.com/en-us/azure/mysql/single-server/concepts-limits#unsupported-1)
+
+   Using Notepad, open the **c:\temp\sakila_backup.sql** replace
     
-    ```
-    DEFINER=`admin`@`%`*/
-    ```
+   ```
+   DEFINER=`admin`@`%`
+   ```
 
-    with 
-    ```
-    DEFINER=CURRENT_USER
-    ```
+   with 
+   
+   ```
+   DEFINER=CURRENT_USER
+   ```
 
-![Image0068](Media/image0068.png)
+   ![Image0068](Media/image0068.png)
 
  1. Enable **log_bin_trust_function_creators** on your Azure Database for MySQL Single Server
 
@@ -368,11 +366,18 @@ This exercise shows how to dump primary server and restore in Azure Database for
    for example:
     
    ```bash
-   mysql -h mysqlserverdvvr.mysql.database.azure.com -u admmysql@mysqlserverdvvr -p < c:\\temp\\sakila_backup.sql
+   mysql -h mysqlserverdvvr.mysql.database.azure.com -u admmysql@mysqlserverdvvr -p < c:\temp\sakila_backup.sql
    ```
    
    ![Image0072](Media/image0072.png)
     
+   If you get error:
+   >ERROR 9000 (HY000): Client with IP address '20.25.18.177' is not allowed to connect to this MySQL server.
+
+   Add a firewall rule in the Azure Database for MySQL Single Server for the Public IP Address of the MySQL VM
+
+   ![Image0090](Media/image0090.png)
+
 Congratulations!. You have successfully completed this exercise.
 
 ---
@@ -414,7 +419,7 @@ This exercise shows how to link the primary and replica server to start Data-In 
     
     NOTE: Syncuser is the user you created on step 4 of exercise 2. The **master_log_file** and the **master_log_pos** are the values that you got at step 7 of exercise 1 at the end of exercise 1. 
         
-    ![Image0074](Media/image0074.png)![Image0074](Media/image0074.png)
+    ![Image0074](Media/image0074.png)
 
 1. Start replication
     
@@ -452,7 +457,7 @@ This exercise shows how to link the primary and replica server to start Data-In 
     
     ![Image0077](Media/image0077.png)
 
-    Now, connect to the MySQL server on the VM and insert a row for the department IT in the on-premise MySQL database by executing:
+    Now, connect to the MySQL server on the VM and insert a new row in the table *sakila.actor* source MySQL database by executing:
 
     ```SQL    
     INSERT INTO sakila.actor VALUES (500,'DANIEL','VALERO',current_timestamp());
@@ -460,7 +465,7 @@ This exercise shows how to link the primary and replica server to start Data-In 
 
     ![Image0078](Media/image0078.png)
     
-    Once again, query the sakila.department table on the Azure Database for MySQL server to see that the row has been replicated. Execute:
+    Once again, query the *sakila.actor* table on the Azure Database for MySQL server to see that the row has been replicated. Execute:
 
     ```SQL    
     SELECT * 
