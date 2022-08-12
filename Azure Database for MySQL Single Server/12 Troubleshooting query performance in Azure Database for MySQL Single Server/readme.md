@@ -14,7 +14,7 @@ After completing this lab, you will be able to:
 
 **Considerations**
 
-This lab considers that an Azure Database for MySQL Single Server named pgserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
+This lab considers that an Azure Database for MySQL Single Server named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 50 minutes
 
