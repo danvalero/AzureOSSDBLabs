@@ -10,7 +10,7 @@ Data-in Replication allows you to synchronize data from a primary MySQL server r
 
 After completing this lab, you will be able to: 
 
-- Prepare an MySQL server running in an Azure VM (the primary server) and the Azure Database for MySQL Server Single Server (the replica server) for data-in replication
+- Prepare a MySQL server running in an Azure VM (the primary server) and the Azure Database for MySQL Server Single Server (the replica server) for data-in replication
 - Link the primary and replica servers and start data-in replication
 - Stop data-in replication and remove replication relationships
 
@@ -24,7 +24,7 @@ This lab considers that an Azure Database for MySQL Single Server named mysqlser
 
 # Exercise 1: Create a source server
 
-In this exercise, MySQL will be installed in an Azure VM to be used as primary serer in the DataIn replication connfiguration. 
+In this exercise, MySQL will be installed in an Azure VM to be used as primary server in the DataIn replication configuration. 
 
 **Tasks**
 
@@ -66,13 +66,13 @@ In this exercise, MySQL will be installed in an Azure VM to be used as primary s
 
 1. Identify private and public IP addresses for the VM
 
-   Take note of the public IP addresses of the VM as we will be using them at later section.
+   Take note of the public IP addresses of the VM as we will be using them at later sections.
 
    ![Image0003](Media/image0003.png)
 
 1. Connect to the *MySQLVM* virtual machine
 
-   Open Remote Desktop Application and connect to the *MySQLVM* virtual machine using using the Public IP Address of the VM and the *vmadmin* user
+   Open Remote Desktop Application and connect to the *MySQLVM* virtual machine using the Public IP Address of the VM and the *vmadmin* user
 
    ![Image0004](Media/image0004.png)
 
@@ -89,7 +89,7 @@ In this exercise, MySQL will be installed in an Azure VM to be used as primary s
 
 1. Install MySQL
 
-   >This installation is a simple configuration for lab purposes so not all the security best practices are follows in interest of time and becuase it is out of the scope of this lab.
+   >This installation is a simple configuration for lab purposes so not all the security best practices are followed in interest of time and because it is out of the scope of this lab.
 
    In the MySQL VM, open Internet Explorer and disable software with invalid signature to run in Internet Explorer
    - Open Internet Explorer browser from Desktop.
@@ -138,7 +138,7 @@ In this exercise, MySQL will be installed in an Azure VM to be used as primary s
 
    Using Internet Explorer, download https://downloads.mysql.com/docs/sakila-db.zip and extract the content in *C:\\\temp* 
 
-   Open a Windows Command Prompt and and connect to the local instance
+   Open a Windows Command Prompt and connect to the local instance
 
    ```
    mysql -u admin -p
@@ -169,7 +169,7 @@ In this exercise, MySQL will be installed in an Azure VM to be used as primary s
    
    ![Image0040](Media/image0040.png)
 
-   For all the ecurity groups associated, click **Add inbound port rule**
+   For all the security groups associated, click **Add inbound port rule**
 
    Configure the rule using the following information:
    - **Service**: MySQL
@@ -198,7 +198,7 @@ This exercise shows how to enable binary logging on the primary server and enabl
 
    Using MySQL Workbench or any other MySQL client took and connect to the MySQL running on the VM using the *admin* mysql user.
 
-   >You can connet remotly or you can connect to the VM using RDP and use the mysql tool from there
+   >You can connect remotely or you can connect to the VM using RDP and use the mysql tool from there
 
    > In this lab, MySQL Workbench will be used
     
@@ -240,7 +240,7 @@ This exercise shows how to enable binary logging on the primary server and enabl
 
     ![Image0060](Media/image0060.png)
     
-    >This is a MySQL Server running on Winhdows, the default value for **lower_case_table_names** is 1. If the source server is a Linux server, consider that on Linux and other Unix-like systems, the default is 0. In MySQL 8.0, you can change the default value during server inizialization.
+    >This is a MySQL Server running on Windows, the default value for **lower_case_table_names** is 1. If the source server is a Linux server, consider that on Linux and other Unix-like systems, the default is 0. In MySQL 8.0, you can change the default value during server initialization.
 
 1. Create a new replication role and set up
     
@@ -273,7 +273,7 @@ This exercise shows how to dump primary server and restore in Azure Database for
       
 1. Connect to the *MySQLVM* virtual machine
 
-   Open Remote Desktop Application and connect to the *MySQLVM* virtual machine using using the Public IP Address of the VM and the *vmadmin* user
+   Open Remote Desktop Application and connect to the *MySQLVM* virtual machine using the Public IP Address of the VM and the *vmadmin* user
 
 1. Set the primary server to read-only mode
     
@@ -357,7 +357,7 @@ This exercise shows how to dump primary server and restore in Azure Database for
 
 1. Restore the dump file to an Azure Database for MySQL
 
-   Open a Windows Prompt and restore the sakila database (or schema in MySQL terms) using the following syntax:
+   Open a Windows Prompt and restore the *sakila* database (or schema in MySQL terms) using the following syntax:
     
    ```bash
    mysql -h mysqldemo<your name initials>.mysql.database.azure.com -u <adminuser>@<your name initials> -p sakila < c:\temp\sakila_backup.sql
@@ -447,7 +447,7 @@ This exercise shows how to link the primary and replica server to start Data-In 
 
 1. Verify the replication is working
     
-    Connect to you Azure Database for MySQL server and confirm that there is no department IT in the sakila.departments table by executing:
+    Connect to your Azure Database for MySQL server and confirm that there is no department IT in the sakila.departments table by executing:
 
     ```SQL  
     SELECT * 
