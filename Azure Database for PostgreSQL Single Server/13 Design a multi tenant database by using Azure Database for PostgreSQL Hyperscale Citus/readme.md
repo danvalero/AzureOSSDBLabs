@@ -58,7 +58,7 @@ Azure Database for PostgreSQL is a managed service that you use to run, manage, 
    - **Subscription**: Select your subscription
    - **Resource group:** Create a new resource group named *labpgcitus*
    - **Server group name:** cituslab[your name initials]
-   - **PostgreSQL version:** select the latest version available
+   - **PostgreSQL version:** 13
    - **Admin username:** Currently required to be *citus* and can't be changed.
    - **Password:** Must be at least eight characters long and contain characters from three of the following categories – English uppercase letters, English lowercase letters, numbers (0-9), and non-alphanumeric characters ("\!, $, \#, %," and so on.)
    
