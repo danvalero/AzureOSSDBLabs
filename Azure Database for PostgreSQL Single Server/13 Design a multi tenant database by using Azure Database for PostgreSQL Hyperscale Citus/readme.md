@@ -311,23 +311,23 @@ Finishing the previous exercises are the pre-requisites for completing this exer
    Connect back to psql to bulk load the data by executing the following commands:
 
    ```nocolor
-   \\copy companies from 'C:\\cituslab\\companies.csv' with csv
+   \copy companies from 'C:\cituslab\companies.csv' with csv
    ```
 
    ```nocolor
-   \\copy campaigns from 'C:\\cituslab\\campaigns.csv' with csv
+   \copy campaigns from 'C:\cituslab\campaigns.csv' with csv
    ```
 
    ```nocolor
-   \\copy ads from 'C:\\cituslab\\ads.csv' with csv
+   \copy ads from 'C:\cituslab\ads.csv' with csv
    ```
 
    ```nocolor
-   \\copy clicks from 'C:\\cituslab\\clicks.csv' with csv
+   \copy clicks from 'C:\cituslab\clicks.csv' with csv
    ```
 
    ```nocolor
-   \\copy impressions from 'C:\\cituslab\\impressions.csv' with csv
+   \copy impressions from 'C:\cituslab\impressions.csv' with csv
    ```
 
    ![Image0380](Media/image0380.png)
@@ -401,7 +401,7 @@ Finishing the previous exercises are the pre-requisites for completing this exer
    Then load the data using the copy command in psql.
 
    ```sql
-   \\copy geo_ips from 'C:\\cituslab\\geo_ips.csv' with csv
+   \copy geo_ips from 'C:\cituslab\geo_ips.csv' with csv
    ```
   
    ![Image0384](Media/image0384.png)
@@ -744,6 +744,8 @@ Finishing the previous exercises are the pre-requisites for completing this exer
    SELECT rebalance_table_shards('companies');
    ```
   
+   ![Image0408](Media/image0408.png)
+
    Check again how many shards there are in each node. The shards have been balanced
 
    ```sql
@@ -752,6 +754,8 @@ Finishing the previous exercises are the pre-requisites for completing this exer
    GROUP BY table_name,nodename
    ORDER BY table_name,nodename;
    ```
+
+   ![Image0409](Media/image0409.png)
 
 1. Cleanup the environment, delete the resource group
 

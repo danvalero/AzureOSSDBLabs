@@ -79,6 +79,7 @@ This exercise shows how to configure audit logging
 1. Once you have changed the parameters, click Save.
     
    ![Image0281](Media/image0281.png)
+
 Congratulations!. You have successfully completed this exercise.
 
 ---

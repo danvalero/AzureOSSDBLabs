@@ -397,7 +397,7 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
 
     ![Image0192](Media/image0192.png)
 
-    The query now uses and Index Scan using index *largetable_id_idx* on *largetable* instead of a Seq Scan . The cost has also gone down to cost=0.44..2.65 
+    The query now uses an Index Scan using index *largetable_id_idx* on *largetable* instead of a Seq Scan . The cost has also gone down to cost=0.44..2.65 
 
     The recomendation was valid and helpuful for performance.
 
