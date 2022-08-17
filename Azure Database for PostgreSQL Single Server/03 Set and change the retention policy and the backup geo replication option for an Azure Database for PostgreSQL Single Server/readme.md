@@ -31,17 +31,22 @@ This exercise shows how to configure the retention policy and backup geo replica
    
    Look for **Azure Database for PostgreSQL** and select it.
    
-   ![](Media/image0052.png)
+   ![Image01](Media/image01.png)
    
    Click on **Create**
    
-   ![](Media/image0053.png)
+   ![Image02](Media/image02.png)
    
    Select **Single Server**
    
-   ![](Media/image0054.png)
+   ![Image03](Media/image03.png)
+
+   Click on **No - Create Single erver**
+
+   ![Image04](Media/image04.png)
    
    Configure the new server using the following information:
+
    | Property             | Value      |
    | -------------------- | -----------------------------------|
    | **Subscription**     | Select your subscription           |
@@ -70,7 +75,7 @@ This exercise shows how to configure the retention policy and backup geo replica
 
    >A note indicates clearly that changing to and from the Basic pricing tier or changing the backup redundancy options after server creation is not supported, so you have to decide which tier supports your need before creating the server.
 
-   ![](Media/image0055.png)
+   ![Image05](Media/image05.png)
 
    Select *General Purpose* or *Memory Optimized*.
 
@@ -86,7 +91,7 @@ This exercise shows how to configure the retention policy and backup geo replica
    - 35 days backup retention
    - "Geo-Redundant" for the backup redundancy option.
   
-   ![](Media/image0056.png)
+   ![Image06](Media/image06.png)
     
    Click **OK**
 
@@ -94,13 +99,13 @@ This exercise shows how to configure the retention policy and backup geo replica
     
    Select **Create + Review**
     
-   ![](Media/image0057.png)
+   ![Image07](Media/image07.png)
     
    Review the configuration and click on **Create** to provision the server. This operation may take a few minutes
     
    Wait for the server to be created and pin it to the dashboard
     
-   ![](Media/image0058.png)
+   ![Image08](Media/image08.png)
 
 Congratulations! You have successfully completed this exercise.
 
@@ -114,9 +119,8 @@ This exercise shows how to change the retention policy and backup geo replicatio
 
 1. Connect to Microsoft Azure Portal
     
-  Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
-    
-   ![](Media/image0051.png)
+   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+ 
 
 1. Go to your PostgreSQL Server
     
@@ -126,12 +130,16 @@ This exercise shows how to change the retention policy and backup geo replicatio
     
    To change the retention policies, go to **Pricing Tier**
     
-   ![](Media/image0059.png)
+   ![Image09](Media/image09.png)
     
    You can change the retention period to any value between 7 days and 35 days. Set it to 14 days
     
    Notice that it is not possible to change the backup redundancy option once the server is created and only the one you selected during server creating is displayed and cannot unselect it. For this reason, you must define your redundancy needs before creating your server as you cannot change it later.
     
+   Click **Ok**
+
+   ![Image10](Media/image10.png)
+
    Click **Ok**
 
 1. Delete the Azure Database for PostgreSQL Single Server
@@ -140,6 +148,6 @@ This exercise shows how to change the retention policy and backup geo replicatio
     
    On the Overview Pane, select **Delete**. Type the server name and click on **Delete**
     
-   ![](Media/image0060.png)
+   ![Image11](Media/image11.png)
 
 Congratulations!. You have successfully completed this exercise and the Lab.
