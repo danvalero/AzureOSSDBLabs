@@ -23,7 +23,7 @@ This exercise shows how to configure the retention policy and backup geo replica
 
 1. Connect to Microsoft Azure Portal
     
-  Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
     
 1. Create Azure Database for PostgreSQL Resource
     
@@ -41,7 +41,7 @@ This exercise shows how to configure the retention policy and backup geo replica
    
    ![Image03](Media/image03.png)
 
-   Click on **No - Create Single erver**
+   Click on **No - Create Single server**
 
    ![Image04](Media/image04.png)
    
