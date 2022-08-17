@@ -9,12 +9,12 @@ During this lab, you will learn how to create an Azure Database for MySQL with t
 
 After completing this lab, you will be able to: 
 
-- Create an Azure Database for MySQL through the Portal.
-- Create an Azure Database for MySQL through the Azure CLI Shell.
+- Create an Azure Database for MySQL Single Server through the Portal.
+- Create an Azure Database for MySQL Single Server through the Azure CLI Shell.
 - Configure a server-level firewall rule
 - Get the connection information
-- Connect to the MySQL Database by using psql in Cloud Shell and MySQL Workbench
-- Create new databases using psql and  MySQL Workbench
+- Connect to the MySQL Database by using mysql in Cloud Shell or MySQL Workbench
+- Create new databases using mysql or MySQL Workbench
 
 **Estimated Time:** 60 minutes
 
@@ -28,9 +28,9 @@ The steps below show you how to create an Azure Database for MySQL Single Server
 
 1. Connect to Microsoft Azure Portal
     
-   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credentials.
     
- 1. Create Azure Database for MySQL Resource
+ 1. Create an Azure Database for MySQL Resource
     
    Click on **+ Create a resource** in the upper-left corner of the portal
     
@@ -79,7 +79,7 @@ The steps below show you how to create an Azure Database for MySQL Single Server
     
    ![](Media/image0009.png)
     
-   The Azure Database for MySQL have been created and it is ready for use.
+   The Azure Database for MySQL Single Server has been created and it is ready for use.
     
    ![](Media/image0010.png)
 
@@ -287,14 +287,14 @@ There are several applications you can use to connect to your Azure Database for
     
    ![](Media/image0033.png)
 
-1. Connect to your Azure Database for MySQL Single Server using psql tool.
+1. Connect to your Azure Database for MySQL Single Server using mysql tool.
     
-   At the Cloud Shell prompt, connect to a database in your Azure Database for MySQL Single Server by typing the psql command line.
+   At the Cloud Shell prompt, connect to a database in your Azure Database for MySQL Single Server by typing the mysql command line.
     
-   To connect to an Azure Database for MySQL Single Server with the psql utility, use the following as format:
+   To connect to an Azure Database for MySQL Single Server with the mysql utility, use the following as format:
     
    ```bash
-   psql -h <yourserver> -u <server admin login> -p
+   mysql -h <yourserver> -u <server admin login> -p
    ```
     
     Example
@@ -303,7 +303,7 @@ There are several applications you can use to connect to your Azure Database for
     mysql -h mysqlserverdvvr.mysql.database.azure.com -u admmysql@mysqlserverdvvr -p
    ```
     
-   After you run the psql command with your own parameter values, you're prompted to enter the server admin password. This password is the same one that you provided when you created the server
+   After you run the mysql command with your own parameter values, you're prompted to enter the server admin password. This password is the same one that you provided when you created the server
     
    ![](Media/image0050.png)
 
@@ -326,7 +326,7 @@ There are several applications you can use to connect to your Azure Database for
    ![](Media/image0051.png)
 
    
-   switch connections to the newly created database by executing :
+   switch connections to the newly created database by executing:
     
    ```sql
    use <your initials>db;
@@ -334,7 +334,7 @@ There are several applications you can use to connect to your Azure Database for
     
    ![](Media/image0037.png)
     
-   Type **exit**, and then press the **Enter** key to quit ,ysql. You can close Cloud Shell after you're finished.
+   Type **exit**, and then press the **Enter** key to quit mysql. You can close Cloud Shell after you're finished.
     
    ![](Media/image0038.png)
 
@@ -352,45 +352,40 @@ Congratulations! You have successfully completed this exercise.
     
    Open **MySQL Workbench**.
    
-   On the left panel, right click on **Servers**, select **Create** and then **Server**
+   On the main dashboard, click on '+' to add a new connection
    
    ![](Media/image0041.png)
    
-   In the **Create - Server** dialog box, on the **General** tab, enter a unique friendly name or the server.
+   In the **Set up New Connection** dialog box, enter a unique friendly name or the server. Then fill in the user name and host name. Use the connection information you got in exercise 2.
    
    ![](Media/image0042.png)
+       
     
-   In the **Create - Server** dialog box, on the **Connection** tab, fill in the settings table. Use the connection information you got in exercise 2.
-    
-   Select the option **Save password?**
+   Select the option **Store password in vault**
     
    ![](Media/image0043.png)
     
-   Select **Save**
+   Select **OK**
     
-   In the Browser pane on the left, expand the **Servers** node and select your server.
+   In the MySQL Workbench main dashboard, select your server.
     
    ![](Media/image0044.png)
     
-   Expand your server node, and then expand **Databases** under it. The list should include the database you create in the exercise 3.
+   After the connection is established; you can click on 'Administration' and then on Dashboard to see the following view:
     
    ![](Media/image0045.png)
 
 1. Create a new database in your Azure Database for MySQL Single Server
     
-   You can create multiple databases per server with Azure Database for MySQL. To create a database, right-click **Databases**, choose the **Create** menu, and then select **Database**
+   You can create multiple databases per server with Azure Database for MySQL. To create a database, use the query tool with the following statement:
+   ```sql
+   create database <database__name>;
+   ```
+
     
    ![](Media/image0046.png)
     
-   In the **Create – Database** form
-    
-   Type a database name of your choice in the Database field, such as [your initials]db2
-    
-   Use the server admin user as database owner.
-    
-   ![](Media/image0047.png)
-   
-   Select **Save** to create a new blank database
+  
     
    In the Browser pane, once the database is successfully created, you can see it in the list of databases under your server name. Double click on it
     
