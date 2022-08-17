@@ -215,7 +215,7 @@ Azure Database for MySQL creates a firewall at the server level. It prevents ext
 
    ![](Media/image0027.png)
 
-1. Allow access to Azure services option to ON
+1. Allow access to Azure services option to YES
     
    On your MySQL server page, under **Settings** page, click **Connection security** to open the Connection security page for the Azure Database for MySQL
     

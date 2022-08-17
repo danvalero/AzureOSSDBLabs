@@ -149,11 +149,11 @@ This exercise shows how to test an alert on metrics for Azure Database for MySQL
 
 1. Force a failed connection to the Azure Database for MySQL from pgAdmin
 
-   Open **pgAdmin** and register your Azure Database for MySQL using the admin user.
+   Open **MySQL Workbench** and register your Azure Database for MySQL using the admin user.
 
-   From the toolbar go to Object, hover over Create, and select Server.
+   On the main dashboard, click on '+' to add a new connection
 
-   In the **Create - Server** dialog box, on the **General** tab, enter a unique friendly name for the server, such as *mysqlserver[your name initials]*.
+   In the **Set up new connection** dialog box, enter a unique friendly name for the server, such as *mysqlserver[your name initials]*.
 
    ![](Media/image0146.png)
 
@@ -173,7 +173,7 @@ This exercise shows how to test an alert on metrics for Azure Database for MySQL
 
    ![](Media/image0149.png)
 
-   >If you had already allowed access to you IP Address to the Azure Database for PostgresSQL server, you will not get the previous error. It is OK, you will get a message indicating the user/password provided is not valid and the alert will trigger any way because you will try to connect using an invalid password.
+   >If you had already allowed access to you IP Address to the Azure Database for MySQL server, you will not get the previous error. It is OK, you will get a message indicating the user/password provided is not valid and the alert will trigger any way because you will try to connect using an invalid password.
 
 1. Validate the failed connection attempts
   
@@ -227,11 +227,15 @@ This exercise shows how to, manage alerts configured for Azure Database for MySQ
 
 1. See and modify the alerts
     
-   Click on **Manage alert rules**
+   Click on **Alert rules**
     
    ![](Media/image0155.png)
+
+Then click on the three dots and the edit option for the rule.
+
+![](Media/image0155a.png)
     
-   Click on the failed connections rule to see the current configuration
+   This will show the current rule configuration
     
    ![](Media/image0156.png)
     
