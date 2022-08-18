@@ -2,7 +2,7 @@
 
 **Introduction**
 
-During this lab, you will learn how to scale up/down vcores ad how to scale up storage and IOP for an existing Azure Database for PostgreSQL Single Server
+During this lab, you will learn how to scale up/down vcores ad how to scale up storage and IOPS for an existing Azure Database for PostgreSQL Single Server
 
 **Objectives**
 
