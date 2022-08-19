@@ -38,17 +38,17 @@ This lab considers that an Azure Database for MySQL Single Server named mysqlser
 
 1. Create the *employees* database on the Azure Database for MySQL Single Server
    
-   Downlad and extract the content of [employees demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20MySQL%20Single%20Server/MySQLSSLabFiles/create_employees.zip) in **C:\\\MySQLSSLabFiles** folder
+   Downlad and extract the content of [employees demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20MySQL%20Single%20Server/MySQLSSLabFiles/create_employees.zip) in **C:\\MySQLSSLabFiles** folder
 
    Open a Windows Prompt and execute a script to restore the *employees* database using:
     
    ```bash
-   mysql -h <server_name>.mysql.database.azure.com -u <admin_user>@<server_name> -p sys < C:\\MySQLSSLabFiles\\create_employees.sql
+   mysql -h <server_name>.mysql.database.azure.com -u <admin_user>@<server_name> -p sys < C:\MySQLSSLabFiles\create_employees.sql
    ```
    for example:    
     
    ```bash
-   mysql -h mysqlserverdvvr.mysql.database.azure.com -u admmysql@mysqlserverdvvr -p sys < C:\\MySQLSSLabFiles\\create_employees.sql
+   mysql -h mysqlserverdvvr.mysql.database.azure.com -u admmysql@mysqlserverdvvr -p sys < C:\MySQLSSLabFiles\create_employees.sql
    ```
 
    >You need to enter password when prompted. 
