@@ -31,15 +31,15 @@ This exercise shows how to configure the retention policy and backup geo replica
     
    Look for **Azure Database for MySQL** and select it.
     
-   ![](Media/image0052.png)
+   ![Image01](Media/image01.png)
     
    Click on **Create**
     
-   ![](Media/image0053.png)
+   ![Image02](Media/image02.png)
     
-   Select **Single Server**
+   Select **Single Server** and click on **Create**
     
-   ![](Media/image0054.png)
+   ![Image03](Media/image03.png)
     
    Configure the new server using the following information:
 
@@ -72,7 +72,7 @@ This exercise shows how to configure the retention policy and backup geo replica
 
    >A note indicates clearly that changing to and from the Basic pricing tier or changing the backup redundancy options after server creation is not supported, so you have to decide which tier supports your need before creating the server.
 
-   ![](Media/image0055.png)
+   ![Image04](Media/image04.png)
 
    Select *General Purpose* or *Memory Optimized*.
 
@@ -88,7 +88,7 @@ This exercise shows how to configure the retention policy and backup geo replica
    - 35 days backup retention
    - "Geo-Redundant" for the backup redundancy option.
   
-   ![](Media/image0056.png)
+   ![Image05](Media/image05.png)
     
    Click **OK**
 
@@ -96,13 +96,13 @@ This exercise shows how to configure the retention policy and backup geo replica
     
    Select **Create + Review**
     
-   ![](Media/image0057.png)
+   ![Image6](Media/image6.png)
     
    Review the configuration and click on **Create** to provision the server. This operation may take a few minutes
     
    Wait for the server to be created and pin it to the dashboard
     
-   ![](Media/image0058.png)
+   ![Image7](Media/image7.png)
 
 Congratulations! You have successfully completed this exercise.
 
@@ -118,7 +118,6 @@ This exercise shows how to change the retention policy and backup geo replicatio
     
    Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
     
-   ![](Media/image0051.png)
 
 1. Go to your MySQL Server
     
@@ -128,7 +127,7 @@ This exercise shows how to change the retention policy and backup geo replicatio
     
    To change the retention policies, go to **Pricing Tier**
     
-   ![](Media/image0059.png)
+   ![Image8](Media/image8.png)
     
    You can change the retention period to any value between 7 days and 35 days. Set it to 14 days
     
@@ -136,12 +135,16 @@ This exercise shows how to change the retention policy and backup geo replicatio
     
    Click **Ok**
 
+   ![Image9](Media/image9.png)
+
+   Click **Ok**
+
 1. Delete the Azure Database for MySQL Single Server
     
    To save money, delete the server you created during this exercise: mysqlserver[your name initials]2
     
-   On the Overview Pane, select **Delete**. Type the server name and click on **Delete**
+   On the Overview Pane, select **Delete**. Mark the check box and click on **Delete**
     
-   ![](Media/image0060.png)
+   ![Image00](Media/image00.png)
 
 Congratulations!. You have successfully completed this exercise and the Lab. 

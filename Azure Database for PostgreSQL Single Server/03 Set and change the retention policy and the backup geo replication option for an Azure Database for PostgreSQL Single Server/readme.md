@@ -146,7 +146,7 @@ This exercise shows how to change the retention policy and backup geo replicatio
     
    To save money, delete the server you created during this exercise: pgserver[your name initials]2
     
-   On the Overview Pane, select **Delete**. Type the server name and click on **Delete**
+   On the Overview Pane, select **Delete**. Mark the check box and click on **Delete**
     
    ![Image11](Media/image11.png)
 
