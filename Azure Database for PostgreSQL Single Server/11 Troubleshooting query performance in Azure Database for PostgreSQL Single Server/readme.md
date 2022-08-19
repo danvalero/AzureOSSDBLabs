@@ -38,7 +38,7 @@ This lab considers that an Azure Database for PostgreSQL Single Server named pgs
 
 1. Create the *adventureworks* database on the Azure Database for PostgreSQL Single Server
    
-   Dowonlad the [adventureworks demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20PostgreSQL%20Single%20Server/PostgresSQLSSLabFiles/adventureworks.dump) in **C:\\\PostgresSQLSSLabFiles** folder
+   Dowonlad the [adventureworks demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20PostgreSQL%20Single%20Server/PostgresSQLSSLabFiles/adventureworks.dump) in **C:\\PostgresSQLSSLabFiles** folder
 
    Open a Windows Prompt and execute a script to create the adventureworks schema, create objects and load the demo employee data using:
     
@@ -47,7 +47,7 @@ This lab considers that an Azure Database for PostgreSQL Single Server named pgs
    ```
 
    ```bash
-   pg_restore -v --no-owner --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=adventureworks C:\\PostgresSQLSSLabFiles\\adventureworks.dump
+   pg_restore -v --no-owner --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=adventureworks C:\PostgresSQLSSLabFiles\adventureworks.dump
    ```
     
    for example:
@@ -57,7 +57,7 @@ This lab considers that an Azure Database for PostgreSQL Single Server named pgs
    ```
 
    ```bash
-   pg_restore -v --no-owner --host=pgserverdvvr.postgres.database.azure.com --port=5432 --username=admpg@pgserverdvvr --dbname=adventureworks C:\\PostgresSQLSSLabFiles\\adventureworks.dump
+   pg_restore -v --no-owner --host=pgserverdvvr.postgres.database.azure.com --port=5432 --username=admpg@pgserverdvvr --dbname=adventureworks C:\PostgresSQLSSLabFiles\adventureworks.dump
    ```
 
    >For both commands, you need to enter password when prompted. 
