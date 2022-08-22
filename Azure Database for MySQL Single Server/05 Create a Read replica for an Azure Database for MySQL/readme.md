@@ -25,35 +25,45 @@ This exercise shows how to create a sample schema on the Azure Database for MySQ
 
 **Tasks**
 
-1. Create the employees schema on the Azure Database for MySQL Single Server
-    
-   Locate the connection information for your Azure Database for MySQL Single Server in the **Overview** page of the server. If you do not have an Azure Database for MySQL Single Server, create one.
-   
-   Open a Windows Prompt and execute a script to create the employees schema, create objects and load the demo employee data using:
-    
-   ```nocolor-wrap
-   mysql -h <your_azure_mysql_server>.mysql.database.azure.com -u <username>@<your_azure_mysql_server> -p employees < C:\MySQLSSLabFiles\create_employees.sql
-   ```
+1. ## Exercise 1: Create a sample database on the Azure Database for MySQL Single Server
 
-   For example:
+**Tasks**
+
+
+1. Create the *employees* database on the Azure Database for MySQL Single Server
+   
+   Downlad and extract the content of [employees demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20MySQL%20Single%20Server/MySQLSSLabFiles/create_employees.zip) in **C:\\\MySQLSSLabFiles** folder
+
+   Open a Windows Prompt and execute a script to restore the *employees* database using:
     
    ```bash
-   mysql -h mysqldemoirts.mysql.database.azure.com -u myadmin@mysqldemoirts -p < C:\MySQLSSLabFiles\create_employees.sql
+   mysql -h <server_name>.mysql.database.azure.com -u <admin_user>@<server_name> -p sys < C:\\MySQLSSLabFiles\\create_employees.sql
    ```
+   for example:    
     
-   >IMPORTANT: This is destructive action. If there is a database named moviesdb in the Azure Database for MySQL Single Server, the existing moviesdb will be dropped and replace
+   ```bash
+   mysql -h mysqlserver--ms.mysql.database.azure.com -u admmysql@mysqlserver--ms -p sys < C:\\MySQLSSLabFiles\\create_employees.sql
+   ```
+
+   >You need to enter password when prompted. 
+   
+   >This is destructive action. If there is a database named employees in the Azure Database for MySQL Single Server, the existing *employees* database will be dropped and replaced.
+   
+   If the operation does not seem to complete after 5 minutes, press enter again
+
+Congratulations!. You have successfully completed this exercise.
+
+
     
-   ![](Media/image0082.png)
-    
-   >If the operation does not seem to complete after 5 minutes, press enter again
-    
+  
+  
    If you get a message like:
    
-   Client with IP address **40.124.1.212** is not allowed to connect to this MySQL server.
+   Client with IP address **45.23.185.251** is not allowed to connect to this MySQL server.
    
    You must allow access from the Virtual Machine to the Azure Database for MySQL by adding a rule for the client machine IP address. Go to Connection security in Settings, add the rule and click Save.
    
-   ![](Media/image0083.png)
+   ![Msedge J X Lh Bf Xh0x](msedge_jXLhBfXh0x.png)
 
 Congratulations!. You have successfully completed this exercise. 
 
@@ -73,11 +83,11 @@ This exercise shows how to add a read replica for an Azure Database for MySQL Si
 
    Go to your Azure Database for MySQL Single Server in any way you prefer to look for a resource on Azure
 
-1. Got to Replication
+1. Go to Replication
     
    Select **Replication** from the menu, under **SETTINGS**
     
-   ![](Media/image0084.png)
+   ![Msedge V C Yp7gd Hjw](msedge_vCYp7gdHjw.png)
     
    Notice that no replica has been set.
 
@@ -97,7 +107,7 @@ This exercise shows how to add a read replica for an Azure Database for MySQL Si
     
      Read replicas are created with the same server configuration as the master. The replica server configuration can be changed after it has been created. It is recommended that the replica server's configuration should be kept at equal or greater values than the master to ensure the replica is able to keep up with the master.
     
-   ![](Media/image0085.png)
+     ![Msedge D Ny P N O P F Mt](msedge_DNyPNOPFMt.png)
     
    Click **OK** and wait until the server creation finishes. It can take up to 30 minutes, this is good time to take a break, or even better, use this time to ask questions to the instructor.
     
@@ -107,17 +117,18 @@ This exercise shows how to add a read replica for an Azure Database for MySQL Si
     
    In the replication panel you will see that the replica is now listed.
     
-   ![](Media/image0086.png)
+   ![Msedge Wd Aqn P U B Gm](msedge_WdAqnPUBGm.png)
     
    You have configured a read replica for your Azure Database MySQL Server.
 
-Congratulations!. You have successfully completed this exercise.
+
+Congratulations!!! You have successfully completed this exercise.
 
 ---
 
 # Exercise 3: Read from a replica
 
-This exercise shows a data notification being replicated a how to red from a replica server.
+This exercise shows a data notification being replicated a how to read from a replica server.
 
 **Tasks**
 
@@ -125,7 +136,7 @@ This exercise shows a data notification being replicated a how to red from a rep
     
    Register your Azure Database for MySQL on MySQL Workbench and connect to it.
     
-   ![](Media/image0087.png)
+   ![My S Q L Workbench Yh F K6 S9xnf](MySQLWorkbench_YhFK6S9xnf.png)
     
    Create a New SQL Tab by pressing **Ctrl+T**, and execute:
     
@@ -133,7 +144,7 @@ This exercise shows a data notification being replicated a how to red from a rep
    SELECT * FROM employees.departments;
    ```
 
-   ![](Media/image0088.png)
+   ![Scsc](scsc.png)
     
    9 rows must be returned.
 
@@ -141,15 +152,17 @@ This exercise shows a data notification being replicated a how to red from a rep
     
    Register your Azure Database for MySQL replica on MySQL Workbench and connect to it.
     
-   ![](Media/image0089.png)
+   ![Sscs](sscs.png)
     
-   You will not be able to connect as your IP is not authorized on the replica server.
+   You will not be able to connect as your IP is not authorized on the replica server and prompt the following error below:
+
+   ![Ss](ss.png)
     
    When you create a replica, it doesn't inherit the firewall rules or VNet service endpoint of the master server. These rules must be set up independently for the replica.
     
    You must allow access from the Virtual Machine to the Azure Database for MySQL by adding a rule for the client machine IP address. Go to Connection security in Settings, add the rule and click Save.
     
-   ![](Media/image0083.png)
+   ![Msedge 7As8 B8 T Kob](msedge_7as8B8TKob.png)
     
    Once the firewall rules are set, connect to the server and create a New SQL Tab for executing queries by pressing **Control+T**, and execute:
     
@@ -157,7 +170,7 @@ This exercise shows a data notification being replicated a how to red from a rep
    SELECT * FROM employees.departments;
    ```
     
-   ![](Media/image0090.png)
+   ![Dcd](dcd.png)
     
    9 rows must be returned. You see the same data than in the master server.
 
@@ -169,7 +182,7 @@ This exercise shows a data notification being replicated a how to red from a rep
    INSERT INTO employees.departments VALUES ('d025 ', 'IT ');
    ```
 
-   ![](Media/image0091.png)
+   ![Dvdvdv](dvdvdv.png)
 
 1. Verify the replication is working
     
@@ -178,10 +191,10 @@ This exercise shows a data notification being replicated a how to red from a rep
    ```sql
    SELECT * FROM employees.departments;
    ```
+  
+   ![Dvd](dvd.png)
     
-   ![](Media/image0092.png)
-    
-   Now the query returns 10 rows, including the row you just inserted on the master. The row inserted on the master server was already replicated to the replica.
+   Now the query returns 4 rows, including the row you just inserted on the master. The row inserted on the master server was already replicated to the replica.
 
 Congratulations!. You have successfully completed this exercise.
 
@@ -211,11 +224,11 @@ This exercise shows how to stop the replication
 
    - Select the replica server you wish to stop replication for. In this case, you only have one replica.
     
-     ![](Media/image0093.png)
+   ![Sqcq](sqcq.png)
 
    - Click **Stop Replication** and click on **OK** to confirm the operation.
     
-     ![](Media/image0094.png)
+    ![665.](665..png)
    
    >The stop action causes the replica to restart and to remove its replication settings. Once you stopped the replication, the former replica server became a regular standalone server.
 

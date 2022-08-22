@@ -6,9 +6,9 @@ During this lab, you will learn how to install and setup pgbouncer connection po
 
 **Objectives**
 
-After completing this lab, you will be able to: 
+After completing this lab, you will be able to:
 
-- Install pgbouncer service on an Ubuntu VM.
+- Install pgbouncer service on an Ubuntu VM. 
 - Setup and Configure pgbouncer service for connection pooling with Azure Database for PostgreSQL.
 - Connect to Azure PostgreSQL service using pgbouncer.
 - Understand how to check the Pool and Stats Information.

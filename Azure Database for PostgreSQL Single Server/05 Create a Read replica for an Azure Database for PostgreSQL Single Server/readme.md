@@ -23,42 +23,48 @@ This lab considers that an Azure Database for PostgreSQL Single Server named pgs
 
 **Tasks**
 
-1. Create the **moviesdb** database on the Azure Database for PostgreSQL Single Server
-    
-   Locate the connection information for your Azure Database for PostgreSQL Single Server in the **Overview** page of the server. If you do not have an Azure Database for PostgreSQL Single Server, create one.
+1. Create the *adventureworks* database on the Azure Database for PostgreSQL Single Server
    
-   Open a Windows Prompt and execute a script to create the moviesdb schema, create objects and load the demo data using:
+   Dowonlad the [adventureworks demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20PostgreSQL%20Single%20Server/PostgresSQLSSLabFiles/adventureworks.dump) in **C:\\\PostgresSQLSSLabFiles** folder
+
+   Open a Windows Prompt and execute a script to create the adventureworks schema, create objects and load the demo employee data using:
     
    ```bash
-   psql --file=C:\PostgresSQLSSLabFiles\moviesdb_creation.sql --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=postgres
+   psql --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=postgres -c "DROP DATABASE IF EXISTS adventureworks;" -c "CREATE DATABASE adventureworks;"
    ```
 
    ```bash
-   pg_restore -v --no-owner --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=moviesdb C:\PostgresSQLSSLabFiles\M02L04Lab01\moviesdb.dump
+   pg_restore -v --no-owner --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=adventureworks C:\\PostgresSQLSSLabFiles\\adventureworks.dump
    ```
     
    for example:
-   
+
    ```bash
-   psql --file=C:\PostgresSQLSSLabFiles\moviesdb_creation.sql --host=pgserverdvvr.postgres.database.azure.com --port=5432 --username=admpg@pgserverdvvr --dbname=postgres
-   ```
-   ```bash
-   pg_restore -v --no-owner --host=pgserverdvvr.postgres.database.azure.com --port=5432 --username=admpg@pgserverdvvr --dbname=moviesdb C:\PostgresSQLSSLabFiles\M02L04Lab01\moviesdb.dump
+   psql --host=pgserverdvvr.postgres.database.azure.com --port=5432 --username=admpg@pgserverdvvr --dbname=postgres -c "DROP DATABASE IF EXISTS adventureworks;" -c "CREATE DATABASE adventureworks;"
    ```
 
+   ```bash
+   pg_restore -v --no-owner --host=pgserverdvvr.postgres.database.azure.com --port=5432 --username=admpg@pgserverdvvr --dbname=adventureworks C:\\PostgresSQLSSLabFiles\\adventureworks.dump
+   ```
+
+   
+   
+   
    >IMPORTANT: For both commands, you need to enter password when prompted. 
 
    >IMPORTANT: This is destructive action. If there is a database named moviesdb in the Azure Database for PostgreSQL Single Server, the existing moviesdb will be dropped and replaced.
     
-   ![](Media/image0073.png)
+   
+   ![Application Frame Host Y9 Evn5 Y1g A 2](Media/ApplicationFrameHost_y9Evn5Y1gA_2.png)
+   
     
    If you get a message like:
     
-   *Psql: FATAL:  no pg_hba.conf entry for host "127.172.166.85", user "admpg", database "postgres",  SSL on*
+   *Psql: FATAL:  no pg_hba.conf entry for host "45.23.185.251", user "admpg", database "postgres",  SSL on*
     
    You must allow access from the Virtual Machine to the Azure Database for PostgreSQL by adding a rule for the client machine IP address. Go to **Connection security** in **Settings**, add the rule and click **Save**.
     
-   ![](Media/image0074.png)
+   ![Msedge Bz O Zv Mt X L I](Media/msedge_bzOZvMtXLI.png)
 
 Congratulations!. You have successfully completed this exercise.
 
@@ -82,19 +88,19 @@ This exercise shows how to add a read replica for an Azure Database for PostgreS
     
    Select **Replication** from the menu, under **Settings**
     
-   ![](Media/image0075.png)
+   h2u8![Msedge Dir M K X I S Ky](Media\msedge_dirMKXISKy.png)
     
    Notice that no replica has been set.
 
 1. Add a replica
     
-   IF not enabled replication support is not enabled, click on **Enable replication support.** and then click **Yes**.
+   If Azure replication support is not set to at least __Replica__, set it. Select __Save__.
     
-   ![](Media/image0076.png)
+   ![Msedge Hy6 K G L Kn5 J](Media/msedge_Hy6KGLKn5J.png)
     
    >When you create a replica for a master that has no existing replicas, the master will first restart to prepare itself for replication. Please take this into consideration and perform these operations during an off-peak period.
     
-   ![](Media/image0077.png)
+   ![Msedge 2 Lwuy F V5r T](Media/msedge_2LwuyFV5rT.png)
     
    After replication support is enabled, click on **Add Replica**.
     
@@ -110,7 +116,7 @@ This exercise shows how to add a read replica for an Azure Database for PostgreS
     
    >Read replicas are created with the same server configuration as the master. The replica server configuration can be changed after it has been created. It is recommended that the replica server's configuration should be kept at equal or greater values than the master to ensure the replica is able to keep up with the master.
     
-   ![](Media/image0078.png)
+   ![Msedge N7y Img Z K O A](Media/msedge_n7yImgZKOA.png)
     
    Click **OK** and wait until the server creation finishes. It can take several minutes, this is good time to take a break, or even better, use this time to ask questions to the instructor.
 
@@ -118,7 +124,7 @@ This exercise shows how to add a read replica for an Azure Database for PostgreS
     
    In the replication panel you will see that the replica is now listed.
     
-   ![](Media/image0079.png)
+   ![Msedge 9 Q9 N Hch W D D](Media/msedge_9Q9NHchWDD.png)
     
    You have configured a read replica for your Azure Database PostgreSQL Server.
 
@@ -138,65 +144,62 @@ This exercise shows a data motification being replicated a how to red from a rep
 
    If you have not done it yet, register your Azure Database for PostgreSQL on pgAmdin and connect to it.
     
-   ![](Media/image0080.png)
+   ![Pg Admin4 G L Z5 O Hii A6](Media/pgAdmin4_gLZ5OHiiA6.png)
     
-   Connect to *moviesdb* and open a Query Tool. Execute:
+   Connect to *adventureworks* and open a Query Tool. Execute:
     
    ```sql
-   SELECT * FROM actor;
+    Select * from largetable where id<5;
    ```
     
-   ![](Media/image0081.png)
-   
-   200 rows must be returned.
+   ![Pg Admin4 Mz8 V G F27 Sy](Media/pgAdmin4_Mz8VGF27Sy.png)
+
+   4 rows must be returned.
 
 1. Query the read replica
     
    Register your Azure Database for PostgreSQL replica on pgAdmin  and connect to it. Use the same user and password you use to connect to the source server.
+    You will not be able to connect as your IP is not authorized on the replica server.
     
-   ![](Media/image0082.png)
-    
-   You will not be able to connect as your IP is not authorized on the replica server.
-    
-   ![](Media/image0083.png)
+   ![Pg Admin4 Ok7 E Vw Oln Y](Media/pgAdmin4_Ok7EVwOlnY.png)
    
    >When you create a replica, it doesn't inherit the firewall rules or VNet service endpoint of the master server. These rules must be set up independently for the replica.
     
    You must allow access to the Azure Database for PostgreSQL by adding a rule for the client machine IP address. In the Azure Database for PostgreSQL replica server, go to **Connection security** in **Settings**, add the rule and click **Save**.
     
-   ![](Media/image0084.png)
+   ![Msedge U Wd L V W6 G16](Media/msedge_uWdLVW6G16.png)
     
-   Once the firewall rules are set, connect to *moviesdb* on the read replica, open a Query Tool and Execute:
+   Once the firewall rules are set, connect to *adventureworks* on the read replica, open a Query Tool and Execute:
     
    ```sql
-   SELECT * FROM actor;
+   Select * from largetable where id<5;
    ```
     
-   ![](Media/image0085.png)
+   ![Pg Admin4 6C9vdsaf Qf](Media/pgAdmin4_6c9vdsafQf.png)
    
-   200 rows must be returned. You see the same data than in the master server.
+   4 rows must be returned. You see the same data than in the master server.
 
 1. Insert a new record on the master server
     
    Connect to *moviesdb* on the master replica, open a Query Tool and Execute:
 
    ```sql
-   INSERT INTO actor (first_name, last_name) VALUES ('Scarlett','Johansson');
+   INSERT INTO largetable (id, largecolum) VALUES (2,'Replica-test');
    ```
 
-   ![](Media/image0086.png)
+   ![Pg Admin4 0Db I B N R5y W](Media/pgAdmin4_0dbIBNR5yW.png)
 
 1. Verify replication is working
     
    Go back to the tab where you queried the actor table on the read replica server and execute again:
     
    ```sql
-   SELECT * FROM actor;
+   Select * from largetable where id<5;
    ```
     
-   ![](Media/image0087.png)
+   ![Pg Admin4 P X5z D Sbn J6](Media/pgAdmin4_PX5zDSbnJ6.png)
     
-   Now the query returns 201 rows, including the row you just inserted on the master. The row inserted on the master server was already replicated to the replica.
+   Now the query returns 5 rows, including the row you just inserted on the master. The row inserted on the master server was already replicated to the replica.
 
 Congratulations!. You have successfully completed this exercise.
 
@@ -224,23 +227,23 @@ This exercise shows how to stop the replication
     
    To stop replication between the primary and replica server:
 
-   - Go to the master Azure Database for MySQL Single Server
+   - Go to the master Azure Database for Postgres Single Server
 
    - Select **Replication** from the menu, under **SETTINGS**
 
    - Select the replica server you wish to stop replication for. In this case, you only have one replica.
     
-     ![](Media/image0088.png)
+     ![Msedge T K Sjq9d Us Y](Media/msedge_tKSjq9dUsY.png)
 
    - Click **Stop Replication** and click on **OK** to confirm the operation.
     
-     ![](Media/image0089.png)
+     ![Msedge S N4i I5go T V](Media/msedge_SN4iI5goTV.png)
     
    >The stop action causes the replica to restart and to remove its replication settings. Once you stopped the replication, the former replica server became a regular standalone server.
     
    Wait until replication is stopped
     
-   ![](Media/image0090.png)
+      ![Msedge Ohfee Slqlc](Media/msedge_ohfeeSlqlc.png)
 
 1. Delete the Azure Database for PostgreSQL Single Server used as replica server
     
@@ -248,6 +251,6 @@ This exercise shows how to stop the replication
     
    On the Overview Pane, select **Delete**. Type the server name and click on **Delete**
     
-   ![](Media/image0091.png)
+   ![Msedge Qw K Ifgik7w](Media/msedge_qwKIfgik7w.png)
 
 Congratulations!. You have successfully completed this exercise and the Lab. 
