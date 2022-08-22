@@ -63,7 +63,7 @@ Congratulations!. You have successfully completed this exercise.
    
    You must allow access from the Virtual Machine to the Azure Database for MySQL by adding a rule for the client machine IP address. Go to Connection security in Settings, add the rule and click Save.
    
-   ![Msedge J X Lh Bf Xh0x](msedge_jXLhBfXh0x.png)
+   ![Msedge J X Lh Bf Xh0x](Media/msedge_jXLhBfXh0x.png)
 
 Congratulations!. You have successfully completed this exercise. 
 
@@ -87,7 +87,7 @@ This exercise shows how to add a read replica for an Azure Database for MySQL Si
     
    Select **Replication** from the menu, under **SETTINGS**
     
-   ![Msedge V C Yp7gd Hjw](msedge_vCYp7gdHjw.png)
+   ![Msedge V C Yp7gd Hjw](Media/msedge_vCYp7gdHjw.png)
     
    Notice that no replica has been set.
 
@@ -107,7 +107,7 @@ This exercise shows how to add a read replica for an Azure Database for MySQL Si
     
      Read replicas are created with the same server configuration as the master. The replica server configuration can be changed after it has been created. It is recommended that the replica server's configuration should be kept at equal or greater values than the master to ensure the replica is able to keep up with the master.
     
-     ![Msedge D Ny P N O P F Mt](msedge_DNyPNOPFMt.png)
+     ![Msedge D Ny P N O P F Mt](Media/msedge_DNyPNOPFMt.png)
     
    Click **OK** and wait until the server creation finishes. It can take up to 30 minutes, this is good time to take a break, or even better, use this time to ask questions to the instructor.
     
@@ -117,7 +117,7 @@ This exercise shows how to add a read replica for an Azure Database for MySQL Si
     
    In the replication panel you will see that the replica is now listed.
     
-   ![Msedge Wd Aqn P U B Gm](msedge_WdAqnPUBGm.png)
+   ![Msedge Wd Aqn P U B Gm](Media/msedge_WdAqnPUBGm.png)
     
    You have configured a read replica for your Azure Database MySQL Server.
 
@@ -136,7 +136,7 @@ This exercise shows a data notification being replicated a how to read from a re
     
    Register your Azure Database for MySQL on MySQL Workbench and connect to it.
     
-   ![My S Q L Workbench Yh F K6 S9xnf](MySQLWorkbench_YhFK6S9xnf.png)
+   ![My S Q L Workbench Yh F K6 S9xnf](Media/MySQLWorkbench_YhFK6S9xnf.png)
     
    Create a New SQL Tab by pressing **Ctrl+T**, and execute:
     
@@ -144,7 +144,7 @@ This exercise shows a data notification being replicated a how to read from a re
    SELECT * FROM employees.departments;
    ```
 
-   ![Scsc](scsc.png)
+   ![Scsc](Media/scsc.png)
     
    9 rows must be returned.
 
@@ -152,17 +152,17 @@ This exercise shows a data notification being replicated a how to read from a re
     
    Register your Azure Database for MySQL replica on MySQL Workbench and connect to it.
     
-   ![Sscs](sscs.png)
+   ![Sscs](Media/sscs.png)
     
    You will not be able to connect as your IP is not authorized on the replica server and prompt the following error below:
 
-   ![Ss](ss.png)
+   ![Ss](Media/ss.png)
     
    When you create a replica, it doesn't inherit the firewall rules or VNet service endpoint of the master server. These rules must be set up independently for the replica.
     
    You must allow access from the Virtual Machine to the Azure Database for MySQL by adding a rule for the client machine IP address. Go to Connection security in Settings, add the rule and click Save.
     
-   ![Msedge 7As8 B8 T Kob](msedge_7as8B8TKob.png)
+   ![Msedge 7As8 B8 T Kob](Media/msedge_7as8B8TKob.png)
     
    Once the firewall rules are set, connect to the server and create a New SQL Tab for executing queries by pressing **Control+T**, and execute:
     
@@ -170,7 +170,7 @@ This exercise shows a data notification being replicated a how to read from a re
    SELECT * FROM employees.departments;
    ```
     
-   ![Dcd](dcd.png)
+   ![Dcd](Media/dcd.png)
     
    9 rows must be returned. You see the same data than in the master server.
 
@@ -182,7 +182,7 @@ This exercise shows a data notification being replicated a how to read from a re
    INSERT INTO employees.departments VALUES ('d025 ', 'IT ');
    ```
 
-   ![Dvdvdv](dvdvdv.png)
+   ![Dvdvdv](Media/dvdvdv.png)
 
 1. Verify the replication is working
     
@@ -192,7 +192,7 @@ This exercise shows a data notification being replicated a how to read from a re
    SELECT * FROM employees.departments;
    ```
   
-   ![Dvd](dvd.png)
+   ![Dvd](Media/dvd.png)
     
    Now the query returns 4 rows, including the row you just inserted on the master. The row inserted on the master server was already replicated to the replica.
 
@@ -224,11 +224,11 @@ This exercise shows how to stop the replication
 
    - Select the replica server you wish to stop replication for. In this case, you only have one replica.
     
-   ![Sqcq](sqcq.png)
+   ![Sqcq](Media/sqcq.png)
 
    - Click **Stop Replication** and click on **OK** to confirm the operation.
     
-    ![665.](665..png)
+    ![665.](Media/m665..png)
    
    >The stop action causes the replica to restart and to remove its replication settings. Once you stopped the replication, the former replica server became a regular standalone server.
 
