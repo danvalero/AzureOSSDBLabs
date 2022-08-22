@@ -228,7 +228,7 @@ This exercise shows how to stop the replication
 
    - Click **Stop Replication** and click on **OK** to confirm the operation.
     
-    ![665.](Media/m665..png)
+    ![665.](Media/665..png)
    
    >The stop action causes the replica to restart and to remove its replication settings. Once you stopped the replication, the former replica server became a regular standalone server.
 
