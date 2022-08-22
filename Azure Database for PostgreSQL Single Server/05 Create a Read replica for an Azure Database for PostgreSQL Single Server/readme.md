@@ -88,7 +88,7 @@ This exercise shows how to add a read replica for an Azure Database for PostgreS
     
    Select **Replication** from the menu, under **Settings**
     
-   h2u8![Msedge Dir M K X I S Ky](Media\msedge_dirMKXISKy.png)
+   ![Msedge Dir M K X I S Ky 2](Media/msedge_dirMKXISKy_2.png)
     
    Notice that no replica has been set.
 
