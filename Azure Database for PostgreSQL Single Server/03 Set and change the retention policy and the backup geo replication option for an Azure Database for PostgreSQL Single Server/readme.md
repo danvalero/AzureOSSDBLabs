@@ -81,7 +81,7 @@ This exercise shows how to configure the retention policy and backup geo replica
 
    Play around with the **Backup Retention Period** bar and notice that the minimum retention is 7 days and the maximum is 35 days.
 
-   Notice that you have two options for the backup redundancy: *Locally Redundant* and *Geo-Redundant*. Notice that you must select one of the two options, there it is no way to disable redundancy.
+   Notice that you have two options for the backup redundancy: *Locally Redundant* and *Geo-Redundant*. Notice that you must select one of the two options, there is no way to disable redundancy.
 
    For this server, select:
    - General Purpose tier
