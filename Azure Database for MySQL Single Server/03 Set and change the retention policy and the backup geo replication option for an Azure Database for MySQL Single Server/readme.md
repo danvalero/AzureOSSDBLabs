@@ -8,8 +8,8 @@ During this lab, you will learn how to configure the retention policy and backup
 
 After completing this lab, you will be able to: 
 
-- How to set the backup retention policy and set backup geo replication during an Azure Database for MySQL Single Server creation
-- How to change the backup retention policy for an existing Azure Database for MySQL Single Server
+- Set the backup retention policy and set backup geo replication during an Azure Database for MySQL Single Server creation
+- Change the backup retention policy for an existing Azure Database for MySQL Single Server
 
 **Estimated Time:** 20 minutes
 
@@ -49,13 +49,12 @@ This exercise shows how to configure the retention policy and backup geo replica
    | **Resource group**   | mysqllab                           |
    | **Servername**       | mysqlserver[your name initials]2   |
    | **Data source**      | none                               |
+   | **Location**         | Select a Location near to you      |
+   | **Version**          | 8.0                                |
    | **Admin Username**   | admmysql                           |
    | **Password**         | Use a complex password. The server admin login and password that you specify here are required to sign into the server and its databases. Remember or record this information for later use                              |
    | **Confirm Password** | Use same value used for Password   |
-   | **Location**         | Select a Location near to you    |
-   | **Version**          | 8.0                                |
-   | **Compute + storage**| General Purpose, 2Vcores, 15GB storage. Use default values for other setting |        
-
+   
    >**NOTE:** If the server exists, use a different number at the end of the name. The server name must be unique across all Azure customers.
    
    >**Important:** Do not create the server yet
@@ -78,7 +77,7 @@ This exercise shows how to configure the retention policy and backup geo replica
 
    Play around with the **Backup Retention Period** bar and notice that the minimum retention is 7 days and the maximum is 35 days.
 
-   Notice that you have two options for the backup redundancy: *Locally Redundant* and *Geo-Redundant*. Notice that you must select one of the two options, it is not way to disable redundancy.
+   Notice that you have two options for the backup redundancy: *Locally Redundant* and *Geo-Redundant*. Notice that you must select one of the two options, there it is no way to disable redundancy.
 
    For this server, select:
    - General Purpose tier
@@ -135,9 +134,6 @@ This exercise shows how to change the retention policy and backup geo replicatio
     
    Click **Ok**
 
-   ![Image9](Media/image9.png)
-
-   Click **Ok**
 
 1. Delete the Azure Database for MySQL Single Server
     
