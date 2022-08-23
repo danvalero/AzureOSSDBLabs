@@ -94,7 +94,7 @@ This exercise shows how to, create alerts on metrics for Azure Database for MySQ
    Fill out the **Add action group** using the following information:
    - Action group name: DBAOperator
    - Short name: DBAOperator
-   - Resource Group: use the same Resource Group of the Azure Database for MySQL Single Server. It should be wsppg
+   - Resource Group: use the same Resource Group of the Azure Database for MySQL Single Server. It should be mysqllab
    - Action Name: SendEmail
    - Action Type: Email/SMS/Push/Voice
    
@@ -231,9 +231,9 @@ This exercise shows how to, manage alerts configured for Azure Database for MySQ
     
    ![](Media/image0155.png)
 
-Then click on the three dots and the edit option for the rule.
+    Then click on the three dots and the edit option for the rule.
 
-![](Media/image0155a.png)
+    ![](Media/image0155a.png)
     
    This will show the current rule configuration
     
