@@ -8,8 +8,8 @@ During this lab, you will learn how to configure the retention policy and backup
 
 After completing this lab, you will be able to: 
 
-- How to set the backup retention policy and set backup geo replication during an Azure Database for PostgreSQL Single Server creation
-- How to change the backup retention policy for an existing Azure Database for PostgreSQL Single Server
+- Set the backup retention policy and set backup geo replication during an Azure Database for PostgreSQL Single Server creation
+- Change the backup retention policy for an existing Azure Database for PostgreSQL Single Server
 
 **Estimated Time:** 20 minutes
 
@@ -53,11 +53,11 @@ This exercise shows how to configure the retention policy and backup geo replica
    | **Resource group**   | postgresqllab                      |
    | **Servername**       | pgserver[your name initials]2      |
    | **Data source**      | none                               |
+   | **Location**         | Select a Location near to you      |
+   | **Version**          | 11                                 |
    | **Admin Username**   | admpg                              |
    | **Password**         | Use a complex password. The server admin login and password that you specify here are required to sign into the server and its databases. Remember or record this information for later use                              |
    | **Confirm Password** | Use same value used for Password   |
-   | **Location**         | Select a Location near to you    |
-   | **Version**          | 11                                 |
 
    >**NOTE:** If the server exists, use a different number at the end of the name. The server name must be unique across all Azure customers.
    
@@ -81,7 +81,7 @@ This exercise shows how to configure the retention policy and backup geo replica
 
    Play around with the **Backup Retention Period** bar and notice that the minimum retention is 7 days and the maximum is 35 days.
 
-   Notice that you have two options for the backup redundancy: *Locally Redundant* and *Geo-Redundant*. Notice that you must select one of the two options, it is not way to disable redundancy.
+   Notice that you have two options for the backup redundancy: *Locally Redundant* and *Geo-Redundant*. Notice that you must select one of the two options, there it is no way to disable redundancy.
 
    For this server, select:
    - General Purpose tier
@@ -136,10 +136,6 @@ This exercise shows how to change the retention policy and backup geo replicatio
     
    Notice that it is not possible to change the backup redundancy option once the server is created and only the one you selected during server creating is displayed and cannot unselect it. For this reason, you must define your redundancy needs before creating your server as you cannot change it later.
     
-   Click **Ok**
-
-   ![Image10](Media/image10.png)
-
    Click **Ok**
 
 1. Delete the Azure Database for PostgreSQL Single Server
