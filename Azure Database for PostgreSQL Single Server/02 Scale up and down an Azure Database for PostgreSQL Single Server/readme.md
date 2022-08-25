@@ -15,7 +15,7 @@ After completing this lab, you will be able to:
 
 **Considerations**
 
-This lab considers that an Azure Database for PostgreSQL Single Server named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
+This lab considers that an Azure Database for PostgreSQL Single Server General Purpose named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 20 minutes
 
