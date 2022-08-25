@@ -43,15 +43,13 @@ This exercise shows how to, for an existing Azure Database for MySQL Single Serv
 
 1. Scale up the server
     
-   Select the *Memory Optimized* tier. Please note that changing to the Basic pricing tier after server creation is not supported.
-    
-   >You can increase the number of vCores and storage without changing the Pricing Tier. It is done in this lab for demonstration purposes.
-    
+   We will change the tier to *Memory Optimized*. Select the *Memory Optimized* tier. Please note that changing to the Basic pricing tier after server creation is not supported.
+       
    Increase the number of vCores. For this lab, move the vCore scale to 4 vCores. Notice that the estimated monthly cost is updated to reflect the option you selected.
-    
+   
    Move the Storage scale to a value between 50GB and 75GB. Notice that the available IOPS increases when you provision more storage and that the estimated monthly cost is updated to reflect the option you selected.
     
-   >Notice that you can scale up the vCores and the storage independently. 
+   >Notice that you can scale up the vCores and the storage independently.
     
    ![](Media/image0069.png)
     
