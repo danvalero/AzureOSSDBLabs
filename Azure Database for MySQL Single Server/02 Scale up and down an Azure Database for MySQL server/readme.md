@@ -39,7 +39,7 @@ This exercise shows how to, for an existing Azure Database for MySQL Single Serv
     
    ![](Media/image0068.png)
     
-   In this example, the server is a General Purpose server with 2 vCores and it can grow up to 5GB with 100 IOPS top
+   In this example, the server is a General Purpose server with 2 vCores and disk size is 20GB with 100 IOPS top
 
 1. Scale up the server
     
@@ -51,7 +51,7 @@ This exercise shows how to, for an existing Azure Database for MySQL Single Serv
     
    Move the Storage scale to a value between 50GB and 75GB. Notice that the available IOPS increases when you provision more storage and that the estimated monthly cost is updated to reflect the option you selected.
     
-   >Notice that you can scale up the vCores and the storage independently.
+   >Notice that you can scale up the vCores and the storage independently. 
     
    ![](Media/image0069.png)
     
