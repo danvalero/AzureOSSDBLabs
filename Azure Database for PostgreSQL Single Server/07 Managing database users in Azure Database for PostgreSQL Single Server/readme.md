@@ -27,11 +27,33 @@ This exercise shows how to create additional admin users in Azure Database for P
 
 1. Connect to Microsoft Azure Portal
     
-   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+   Open Microsoft Edge and navigate to the Azure Portal ([http://ms.portal.azure.com](http://ms.portal.azure.com)) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
 
-1. Connect to your Azure Database for PostgreSQL Single Server
+1. Select the three lines in the top left, Home and Azure Database for PostgreSQL
+   ![](Media/image0206.png)
+
+1. Select the database server you want to work with
+   ![](Media/image0207.png)
+
+1. You will see the server details including server name and admin user
+   ![](Media/image0208.png)
+
+1. Connect to your Azure Database for PostgreSQL Single Server using the details from the previous step
 
    Open **pgAdmin** and connect to your server using the admin user.
+   ![](Media/image0209.png)
+   ![](Media/image0210.png)
+
+   Double click on the entry you just created
+
+   ![](Media/image0211.png)
+
+   Open the Query Tool
+
+   ![](Media/image0212.png)
+
+
+
 
 1. Review the default roles defined when The Azure Database for PostgreSQL Single Server is created
            
@@ -48,7 +70,7 @@ This exercise shows how to create additional admin users in Azure Database for P
    - azure_superuser
    - your server admin user
     
-   ![](Media/image0117.png)
+   ![](Media/image0213.png)
     
    >Your server admin user is a member of the *azure_pg_admin* role. However, the server admin account is not part of the azure_superuser role. Since this service is a managed PaaS service, only Microsoft is part of the super user role.
     
