@@ -30,35 +30,37 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
 1. Connect to Microsoft Azure Portal
     
    Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
-1. In search box, look for Virtual Machine, after that click on **Creat** and choose **Azure Virtual Machine**
-   
-  ![](Media/msedge_2wqFsPyN7s.png)
 
+1. Create an Ubuntu VM
     
-   Look for **Ubuntu Server** and select the most recent LTS version (use at least Ubuntu 20.04)
+   Click on **+ Create a resource**
     
+   Look for **Ubuntu Server** and select the most recent LTS version (use at least Ubuntu 18.04)
+    
+   ![](Media/image0192.png)
+    
+   Click on **Create**
     
    Configure the VM using the following information in the **Basics** section:
    - **Resource Group**: Use the same the resource group that hosts the Azure Database for PostgreSQL Single Server (*wsppg* if you used the name used in other labs)
    - **Name**: PgBouncerVM
    - **Region**: The same region as the Azure Database for PostgreSQL Single Server
-   - **Image**: Look for **Ubuntu Server** and select the most recent LTS version (use at least Ubuntu 20.04)
-
+   - **Image**: The most recent Ubuntu Server LTS available
    - **Authentication type**: Password
    - **Username**: pgadminuser
    - **Password**: Set a strong password
    - Use default values for other settings
  
-   ![](Media/VMcreate.png)
+   ![](Media/image0193.png)
  
    Click **Next** until you get to the **Networking** section
  
    Use the following information in the Networking section:
    - **Public IP**: (Create new)
-   - **Routing preference**: Leave it at  default **Microsoft network**
-   - **Availability zone**: Choose the zone selection as Azure Database for Postgres server in this lab I will choose **Zone 1**   
+   - **Public IP name**: PgBouncerVM-pip
+   - **Public IP assignment**: Static (To avoid connectivity errors due to a change of IP after a server restart)
     
-   ![](Media/createIP.png)
+   ![](Media/image0194.png)
     
    Once the new IP address is configured, click on **Review + Create**
     
@@ -66,12 +68,14 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
     
    Wait until the VM is created
 
-. Identify private and public IP addresses for the VM
+1. Identify private and public IP addresses for the VM
 
    In Azure portal, go to VM **PgBouncerVM**
  
    Take note of the private and public IP addresses of the VM as we will be using them at later section.
-![](Media/publicandprivateIPs.png)
+
+   ![](Media/image0195.png)
+
 1. Open port 6432 in the VM
 
    >The default port for PgBouncer is 6432
@@ -85,30 +89,29 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
    - **Name**: PgBouncer_Port
    - Use default values for all other settings
  
-   ![](Media/pg-vminboundrule.png)
+   ![](Media/image0196.png)
  
    Click **Add**
  
    Wait until the rule is created. The final configuration should look like:
 
-   ![](Media/inboundruless.png)
+   ![](Media/image0197.png)
 
    > When creating the inbound port rule, consider security implication and limit the possible sources for the connection. Ideally, the possible sources should be limited to valid clients that need to connect to Azure Database for PostgreSQL Single Server through the PgBouncer service in this VM. In this delivery you can use enable connections from any source but that is not recommended from security perspective.
 
-2. Connect to the PgBouncerVM machine
+1. Connect to the PgBouncerVM machine
 
    Open **Putty**
-![](Media/publicandprivateIPs.png)
-   Connect using the Public IP Address of the VM
-   ![](Media/puttylogin.png)
-        
-    
-    Authenticate with the user **pgadminuser** and the password you set during VM creation
 
-    
+   Connect using the Public IP Address of the VM
+
+   ![](Media/image0198.png)
+
+   Authenticate with the user **pgadminuser** and the password you set during VM creation
+
    ![](Media/image0199.png)
 
-3. Install PgBouncer
+1. Install PgBouncer
 
    Update packages information and install PgBouncer by executing:
 
@@ -122,7 +125,7 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
 
    >You might need to provide the password for the user pgadminuser when use sudo
 
-4. Install PostgreSQL client
+1. Install PostgreSQL client
 
    Install postgresql-client in the VM by executing:
 
@@ -152,8 +155,7 @@ You will modify just some basic parameters. However, it is important you get fam
 
    Get the public IP address for the VM in the portal
      
-
-   ![](Media/publicandprivateIPs.png)
+   ![](Media/image0195.png)
     
    Open **Putty**
     
@@ -205,7 +207,7 @@ You will modify just some basic parameters. However, it is important you get fam
 
    Save modifications.
 
-   In the **pgbouncer.ini** file, notice that the default port for PgBouncer is 6432. If you change it, you need to create an inbound port rule in the VM that runs PgBouncer
+   In the **pgbouncer.ini** file, notice that the default por for PgBouncer is 6432. If you change it, you need to create an inbound port rule in the VM that runs PgBouncer
 
 1. Configure the authentication file for PgBouncer
 
@@ -246,7 +248,7 @@ You will modify just some basic parameters. However, it is important you get fam
    - As Host use the Public IP address of PgBouncerVM
    - As user name, use the user you created when provisioned the VM
 
-     ![](Media/bitviseloginmain.png)
+     ![](Media/image0201.png)
 
    - Click **Log in**
    - Click on **Accept and Save**
@@ -489,7 +491,7 @@ The Admin console for PgBouncer is available by connecting as normal to the data
 
    ![](Media/image0216.png)
 
-   As per the below results, we have only one connection to the PgBouncer Database and we donâ€™t have any connection to the Actual PostgreSQL Database.
+   As per the below results, we have only one connection to the PgBouncer Database and we don’t have any connection to the Actual PostgreSQL Database.
 
    Keep the session connected to the Admin console.
 
