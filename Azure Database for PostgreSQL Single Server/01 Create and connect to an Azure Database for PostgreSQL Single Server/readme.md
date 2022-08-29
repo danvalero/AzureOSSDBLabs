@@ -41,7 +41,7 @@ The steps below show you how to create an Azure Database for PostgreSQL Single S
     
    ![](Media/image0004.png)
     
-   Select **Single Service**
+   Select **Single Server**
     
    ![](Media/image0005.png)
     
@@ -158,15 +158,9 @@ For instructions on how to install Azure CLI locally refer to [Install Azure CLI
     
     The Azure Database for PostgreSQL have been created and it is ready for use.
     
-    ![](Media/image0020.png)
+    ![](Media/image0010.png)
 
-1. Delete the Azure Database for PostgreSQL Single Server
-    
-   Delete the server you created during this exercise. 
-    
-   On the Overview Pane, select **Delete**. Type the server name and click on **Delete**
-    
-   ![](Media/image0021.png)
+
 
 Congratulations! You have successfully completed this exercise.
 
@@ -181,14 +175,13 @@ Azure Database for PostgreSQL creates a firewall at the server level. It prevent
 1. Connect to Microsoft Azure Portal
     
    Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
-    
-   ![](Media/image0023.png)
+ 
 
 1. Go to your PostgreSQL Server
 
    Go to your Azure Database for PostgreSQL Single Server created in Exercise 1 (named pgserver[your name initials]) in any way you prefer to look for a resource on Azure. One method is: on the Server Resources (global) bar, type the name of your server, and select it when shown
 
-   ![](Media/image0024.png)
+   ![](Media/image0019.png)
 
 1. Configure firewall rule for your Azure Database for PostgreSQL Resource
 
@@ -232,8 +225,7 @@ When you create your Azure Database for PostgreSQL Single Server, a default data
     
   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
     
-   ![](Media/image0023.png)
-
+   
 1. Go to your PostgreSQL Server
 
    Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
@@ -259,8 +251,7 @@ There are several applications you can use to connect to your Azure Database for
 1. Connect to Microsoft Azure Portal
     
    Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
-    
-   ![](Media/image0023.png)
+
 
 1. Open Azure Cloud Shell
     
@@ -293,7 +284,7 @@ There are several applications you can use to connect to your Azure Database for
    Example
 
    ```bash
-   psql --host=pgserverdvvr.postgres.database.azure.com --port=5432 --username=admpg@pgserverdvvr --dbname=postgres
+   psql --host=pgserverpag.postgres.database.azure.com --port=5432 --username=admpg@pgserverpag --dbname=postgres
    ```
     
    After you run the psql command with your own parameter values, you're prompted to enter the server admin password. This password is the same one that you provided when you created the server
@@ -394,8 +385,8 @@ pgAdmin is an open-source tool used with PostgreSQL. You can install pgAdmin fro
 
    >This step is optional. If you will complete the next Lab soon, do not delete it to save time.
 
-   On the Overview Pane, select **Delete**. Type the server name and click on **Delete**
+   On the Overview Pane, select **Delete**. Click on the agreement box and then click on **Delete**
 
-   ![](Media/image0049.png)
+   ![](Media/image0011.png)
 
 Congratulations!. You have successfully completed this exercise and the Lab.
