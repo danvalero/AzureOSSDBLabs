@@ -39,7 +39,7 @@ This lab considers that an Azure Database for PostgreSQL Single Server named pgs
 
    Open a Windows Prompt and execute a script to create the *adventureworks* schema, create objects and load the demo employee data using:
    
-   >This is a destructive action. If there is a database named *adventureworks* in the Azure Database for MySQL Single Server, the existing *adventureworks* database will be dropped and replaced.
+   >This is a destructive action. If there is a database named *adventureworks* in the Azure Database for PostgreSQL Single Server, the existing *adventureworks* database will be dropped and replaced.
    
    ```bash
    psql --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=postgres -c "DROP DATABASE IF EXISTS adventureworks;" -c "CREATE DATABASE adventureworks;"
