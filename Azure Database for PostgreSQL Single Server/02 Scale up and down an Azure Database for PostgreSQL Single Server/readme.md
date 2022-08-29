@@ -15,7 +15,7 @@ After completing this lab, you will be able to:
 
 **Considerations**
 
-This lab considers that an Azure Database for PostgreSQL Single Server named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
+This lab considers that an Azure Database for PostgreSQL Single Server General Purpose named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 20 minutes
 
@@ -43,10 +43,8 @@ This exercise shows how to, for an existing Azure Database for PostgreSQL Single
 
 1. Scale up the server
     
-   Select the *Memory Optimized* tier. Please note that changing to the Basic pricing tier after server creation is not supported.
-    
-   >You can increase the number of vCores and storage without changing the Pricing Tier. It is done in this lab for demonstration purposes.
-  
+   We will change the tier to *Memory Optimized*. Select the *Memory Optimized* tier. Please note that changing to the Basic pricing tier after server creation is not supported.
+       
    Increase the number of vCores. For this lab, move the vCore scale to 4 vCores. Notice that the estimated monthly cost is updated to reflect the option you selected.
    
    Move the Storage scale to a value between 50GB and 75GB. Notice that the available IOPS increases when you provision more storage and that the estimated monthly cost is updated to reflect the option you selected.
@@ -83,7 +81,7 @@ This exercise shows how to, for an existing Azure Database for PostgreSQL Single
     
    ![](Media/image0070.png)
     
-   In this example, the server is a Memory Optimized server with 4 vCores and it can grow up to 70GB with 210 IOPS top
+   In this example, we have a server in a Memory Optimized server with 4 vCores and it can grow up to 70GB with 210 IOPS top
 
 1. Scale down the server
     
