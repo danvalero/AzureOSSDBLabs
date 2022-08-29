@@ -35,10 +35,12 @@ This lab considers that an Azure Database for PostgreSQL Single Server named pgs
 
 1. Create the *adventureworks* database on the Azure Database for PostgreSQL Single Server
    
-   Dowonlad the [adventureworks demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20PostgreSQL%20Single%20Server/PostgresSQLSSLabFiles/adventureworks.dump) in **C:\\PostgresSQLSSLabFiles** folder
+   Download the [adventureworks demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20PostgreSQL%20Single%20Server/PostgresSQLSSLabFiles/adventureworks.dump) in **C:\\PostgresSQLSSLabFiles** folder
 
-   Open a Windows Prompt and execute a script to create the adventureworks schema, create objects and load the demo employee data using:
-    
+   Open a Windows Prompt and execute a script to create the *adventureworks* schema, create objects and load the demo employee data using:
+   
+   >This is a destructive action. If there is a database named *adventureworks* in the Azure Database for MySQL Single Server, the existing *adventureworks* database will be dropped and replaced.
+   
    ```bash
    psql --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=postgres -c "DROP DATABASE IF EXISTS adventureworks;" -c "CREATE DATABASE adventureworks;"
    ```
@@ -192,7 +194,7 @@ This exercise shows a data motification being replicated a how to red from a rep
 
 1. Insert a new record on the master server and check the row was inserted
     
-   Connect to *moviesdb* on the master replica, open a Query Tool and Execute:
+   Connect to *adventureworks* on the master replica, open a Query Tool and Execute:
 
    ```sql
    INSERT INTO largetable (id, largecolum) VALUES (2,'Replica-test');
@@ -203,7 +205,7 @@ This exercise shows a data motification being replicated a how to red from a rep
 
 1. Verify replication is working
     
-   Go back to the tab where you queried the actor table on the read replica server and execute again:
+   Go back to the tab where you queried the *largetable* table on the read replica server and execute again:
     
    ```sql
    Select * from largetable where id<5;
@@ -255,7 +257,7 @@ This exercise shows how to stop the replication
     
      Wait until replication is stopped
     
-     ![image0032](Media/image0032png)
+     ![image0032](Media/image0032.png)
 
 1. Clean up environment.
 1.  

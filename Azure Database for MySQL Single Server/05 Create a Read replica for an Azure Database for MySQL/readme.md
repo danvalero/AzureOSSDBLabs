@@ -48,7 +48,7 @@ This exercise shows how to create a sample schema on the Azure Database for MySQ
 
    Open a Windows Command Prompt and execute a script to restore the *employees* database using:
 
-   >This is a destructive action. If there is a database named employees in the Azure Database for MySQL Single Server, the existing *employees* database will be dropped and replaced.
+   >This is a destructive action. If there is a database named *employees* in the Azure Database for MySQL Single Server, the existing *employees* database will be dropped and replaced.
     
    ```bash
    mysql -h <server_name>.mysql.database.azure.com -u <admin_user>@<server_name> -p sys < C:\MySQLSSLabFiles\create_employees.sql
@@ -201,7 +201,7 @@ This exercise shows a data notification being replicated a how to read from a re
 
 1. Verify the replication is working
     
-   Go back to the tab where you queried the employees.departments table on the read replica server and execute again:
+   Go back to the tab where you queried the *employees.departments* table on the read replica server and execute again:
     
    ```sql
    SELECT * FROM employees.departments;
