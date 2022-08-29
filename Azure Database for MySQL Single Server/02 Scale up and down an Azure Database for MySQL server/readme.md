@@ -15,7 +15,7 @@ After completing this lab, you will be able to:
 
 **Considerations**
 
-This lab considers that an Azure Database for MySQL Single Server named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
+This lab considers that an Azure Database for MySQL Single Server General Purpose named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 20 minutes
 
@@ -39,15 +39,15 @@ This exercise shows how to, for an existing Azure Database for MySQL Single Serv
     
    ![](Media/image0068.png)
     
-   In this example, the server is a General Purpose server with 2 vCores and disk size is 20GB with 100 IOPS top
+   >In this example, the server is a General Purpose server with 2 vCores and disk size is 20GB with 100 IOPS top
 
 1. Scale up the server
     
    We will change the tier to *Memory Optimized*. Select the *Memory Optimized* tier. Please note that changing to the Basic pricing tier after server creation is not supported.
        
-   Increase the number of vCores. For this lab, move the vCore scale to 4 vCores. Notice that the estimated monthly cost is updated to reflect the option you selected.
+   Increase the number of vCores. For this lab, move the vCore scale duplicate your current number of vCores. Notice that the estimated monthly cost is updated to reflect the option you selected.
    
-   Move the Storage scale to a value between 50GB and 75GB. Notice that the available IOPS increases when you provision more storage and that the estimated monthly cost is updated to reflect the option you selected.
+   Move the Storage scale to add additional 50GB. Notice that the available IOPS increases when you provision more storage and that the estimated monthly cost is updated to reflect the option you selected.
     
    >Notice that you can scale up the vCores and the storage independently.
     
@@ -55,7 +55,7 @@ This exercise shows how to, for an existing Azure Database for MySQL Single Serv
     
    Click **OK** to confirm changes.
     
-   The internal process to create a new server with the required configuration is started
+   The internal process to create a new server with the required configuration is started.
     
    Wait until it finishes.
 
@@ -81,13 +81,13 @@ This exercise shows how to, for an existing Azure Database for MySQL Single Serv
     
    ![](Media/image0070.png)
     
-   In this example, the server is a Memory Optimized server with 4 vCores and it can grow up to 70GB with 210 IOPS top
+   >In this example, the server is a Memory Optimized server with 4 vCores and it can grow up to 70GB with 210 IOPS top
 
 1. Scale down the server
     
    Note that changing to the Basic pricing tier after server creation is not supported. You can select between *General Purpose* and *Memory Optimized*. In this lab, we will keep the server as *Memory Optimized*.
    
-   Move the vCore scale to 2 vCores. Notice that the estimated monthly cost is updated to reflect the option you selected.
+   Move the vCore scale to reduce the number the vCores by half. Notice that the estimated monthly cost is updated to reflect the option you selected.
     
    Try to reduce the maximum storage. You cannot!!!
     
@@ -97,7 +97,7 @@ This exercise shows how to, for an existing Azure Database for MySQL Single Serv
     
    Click **Ok** to confirm changes.
     
-   The internal process to create a new server with the required configuration is started
+   The internal process to create a new server with the required configuration is started.
     
    Wait until it finishes.
 

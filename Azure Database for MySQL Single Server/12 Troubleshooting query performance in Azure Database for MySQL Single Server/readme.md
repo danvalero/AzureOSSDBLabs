@@ -2,15 +2,15 @@
 
 **Introduction** 
 
-During this lab, you will learn how to use multiple tools that will help you troubleshooting query performance in Azure Database for MySQL.
+During this lab, you will learn how to use multiple tools that will help you with troubleshooting query performance in Azure Database for MySQL.
 
 **Objectives** 
 
 After completing this lab, you will be able to: 
 
 - Setup Query Store for an Azure Database for MySQL Single Server.
-- Review Performance Recommendation on the Portal for Azure Database for MySQL.
-- Review Query Performance Insight on the Portal for Azure Database for MySQL.
+- Review Performance Recommendation on the Portal for Azure Database for MySQL Single Server.
+- Review Query Performance Insight on the Portal for Azure Database for MySQL Single Server.
 
 **Considerations**
 
@@ -38,9 +38,9 @@ This lab considers that an Azure Database for MySQL Single Server named mysqlser
 
 1. Create the *employees* database on the Azure Database for MySQL Single Server
    
-   Downlad and extract the content of [employees demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20MySQL%20Single%20Server/MySQLSSLabFiles/create_employees.zip) in **C:\\MySQLSSLabFiles** folder
+   Download and extract the content of [employees demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20MySQL%20Single%20Server/MySQLSSLabFiles/create_employees.zip) in **C:\\MySQLSSLabFiles** folder
 
-   Open a Windows Prompt and execute a script to restore the *employees* database using:
+   Open a Windows Command Prompt and execute a script to restore the *employees* database using:
     
    ```bash
    mysql -h <server_name>.mysql.database.azure.com -u <admin_user>@<server_name> -p sys < C:\MySQLSSLabFiles\create_employees.sql
@@ -53,7 +53,7 @@ This lab considers that an Azure Database for MySQL Single Server named mysqlser
 
    >You need to enter password when prompted. 
    
-   >This is destructive action. If there is a database named employees in the Azure Database for MySQL Single Server, the existing *employees* database will be dropped and replaced.
+   >This is a destructive action. If there is a database named employees in the Azure Database for MySQL Single Server, the existing *employees* database will be dropped and replaced.
    
    The restore takes a few minutes to complete
 
@@ -83,9 +83,9 @@ This exercise shows how to enable Query Store and use it to review performance d
 
    Search for *query_store*
     
-   Set **query_store_capture_mode** to **ALL.**.
+   Set **query_store_capture_mode** to **ALL**.
 
-   Set **query_store_retention_period_in_days** to **14**. This option will allow you to set the retention period of the query store it can be between 1 and 30 days.Avoid keeping historical data you do not plan to use. Increase the value if you need to keep data longer.
+   Set **query_store_retention_period_in_days** to **14**. This option will allow you to set the retention period of the query store, it can be between 1 and 30 days. Avoid keeping historical data you do not plan to use. Increase the value if you need to keep the data longer.
 
    Set **query_store_wait_sampling_capture_mode** to **ALL**. This option will enable the wait statistics
 
@@ -99,15 +99,15 @@ This exercise shows how to enable Query Store and use it to review performance d
    
    Click **Save**.
 
-   It should only take a few seconds for each parameter to change. When the parameters are updated you will see the notification
+   It should only take a few seconds for each parameter to change. When the parameters are updated, you will see the notification
     
    ![Image0178](Media/image0178.png)
 
 1. Run some queries to populate its statistics on the Query Store.
     
-   Using MySQL Workbench or any other MySQL client tool connect to the database server and the **employees** database
+   Using MySQL Workbench or any other MySQL client tool, connect to the database server and the **employees** database.
 
-   Execute 4 times the following query:
+   Execute the following query four times:
 
    ```sql
    SELECT E.emp_no AS employee_numnber
@@ -134,7 +134,7 @@ This exercise shows how to enable Query Store and use it to review performance d
    
    ![Image0179](Media/image0179.png)
       
-   Also, execute 3 times the following query:
+   Also, execute the following query three times:
    
    ```sql
    SELECT * FROM salaries WHERE to_date = '9999-01-01';
@@ -201,7 +201,7 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
    Under **Long Running Queries** tab, you will be able to see the different execution for the longest running queries.
 
    In this tab:
-   - By default you will see the top five longest running queries but you can view the top *10* or top *15* queries by changing the value of the *Number of Queries* pulldown.
+   - By default, you will see the top five longest running queries but you can view the top *10* or top *15* queries by changing the value of the *Number of Queries* pulldown.
    - You can also see the *min, max, sum* values by changing the *Selected by* pulldown, with *avg* as the default value.
    - You can change the *Time Period* pull down to see the queries for the last *6 hours, last week* or *last month*, with the last *24 hours* as the default value.
 
@@ -235,7 +235,7 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
 
    ![Image0185](Media/image0185.png)
 
-   Notice is the query you executed 3 times in the previos exercise
+   Notice it is the query you executed three times in the previous exercise
 
    ```sql
    SELECT * FROM salaries WHERE to_date = '9999-01-01';   
@@ -251,11 +251,11 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
 
    ![Image0187](Media/image0187.png)
 
-   This is a simple query, however, MySQL is doing a Full Table Scan on *salaries*. You can tell this as *key* is null
+   This is a simple query, however, MySQL is doing a Full Table Scan on *salaries*. You can tell this as *key* is null.
 
-   As *possible_keys* is also null, you can tell there is no index that can help the query
+   As *possible_keys* is also null, you can tell there is no index that can help the query.
    
-   The query has a simple condition in the WHERE clause to filter by *to_date*
+   The query has a simple condition in the WHERE clause to filter by *to_date*.
 
    Review the indexes for *salaries* by executing:
 
@@ -265,7 +265,7 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
 
    ![Image0188](Media/image0188.png)
 
-   There is only one index, the one for the primary key by columns *emp_no* and *from_date*
+   There is only one index, the one for the primary key by columns *emp_no* and *from_date*.
       
    To optimize this query, an index on column *to_date* on table *salaries* could help. 
 
@@ -291,14 +291,13 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
 
 1. Go to **Performance Recommendations** under **Intelligent Performance**
     
-   The first time you run this service, it will show no recommendations, and advice you to perform and analysis. 
+   The first time you run this service, it will show no recommendations, and advice you to perform an analysis. 
    
-   Click on the **Analyze** option
+   Click on the **Analyze** option.
 
    ![Image0186](Media/image0186.png)
 
    Wait for the recommendations to be generated.
-
 
 1. Review recommendations
     
@@ -306,7 +305,7 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
     
    ![Image0189](Media/image0189.png)
     
-   Azure is recommending to create some indexes and rewriting a query (query_id 196 in this example), the same query identified on the previous exercise that could benefit of an index on column *to_date* on table *salaries*. 
+   Azure is recommending to create some indexes and rewriting a query (query_id 196 in this example), the same query identified on the previous exercise that could benefit from an index on column *to_date* on table *salaries*. 
 
    ![Image0190](Media/image0190.png)
 
@@ -318,7 +317,7 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
     alter table `employees`.`salaries` add index `idx_to_date` (`to_date`)
     ```
 
-    > In a production environment you would evaluate the recommendations and apply those that you believe will improve the performance of your queries.
+    > In a production environment you must evaluate the recommendations and apply those that you believe will improve the performance of your queries.
 
     Review the execution plan by executing
 
@@ -328,7 +327,7 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
 
     ![Image0191](Media/image0191.png)
 
-    The query now uses an Non-Unique Key Lookup using index *idx_to_date* on *salaries* instead of a Full Table Scan. 
+    The query now uses a Non-Unique Key Lookup using index *idx_to_date* on *salaries* instead of a Full Table Scan. 
 
     The recommendation was valid and helpful for performance.
 

@@ -2,15 +2,15 @@
 
 **Introduction** 
 
-During this lab, you will learn how to use multiple tools that will help you troubleshooting query performance in Azure Database for PostgreSQL.
+During this lab, you will learn how to use multiple tools that will help you with troubleshooting query performance in Azure Database for PostgreSQL.
 
 **Objectives** 
 
 After completing this lab, you will be able to: 
 
 - Setup Query Store for an Azure Database for PostgreSQL Single Server.
-- Review Performance Recommendation on the Portal for Azure Database for PostgreSQL.
-- Review Query Performance Insight on the Portal for Azure Database for PostgreSQL.
+- Review Performance Recommendation on the Portal for Azure Database for PostgreSQL Single Server.
+- Review Query Performance Insight on the Portal for Azure Database for PostgreSQL Single Server.
 
 **Considerations**
 
@@ -38,9 +38,9 @@ This lab considers that an Azure Database for PostgreSQL Single Server named pgs
 
 1. Create the *adventureworks* database on the Azure Database for PostgreSQL Single Server
    
-   Dowonlad the [adventureworks demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20PostgreSQL%20Single%20Server/PostgresSQLSSLabFiles/adventureworks.dump) in **C:\\PostgresSQLSSLabFiles** folder
+   Download the [adventureworks demo database](https://github.com/danvalero/AzureOSSDBLabs/raw/main/Azure%20Database%20for%20PostgreSQL%20Single%20Server/PostgresSQLSSLabFiles/adventureworks.dump) in **C:\\PostgresSQLSSLabFiles** folder
 
-   Open a Windows Prompt and execute a script to create the adventureworks schema, create objects and load the demo employee data using:
+   Open a Windows Command Prompt and execute a script to create the adventureworks schema, create objects and load the demo employee data using:
     
    ```bash
    psql --host=<server_name>.postgres.database.azure.com --port=5432 --username=<admin_user>@<server_name> --dbname=postgres -c "DROP DATABASE IF EXISTS adventureworks;" -c "CREATE DATABASE adventureworks;"
@@ -62,7 +62,7 @@ This lab considers that an Azure Database for PostgreSQL Single Server named pgs
 
    >For both commands, you need to enter password when prompted. 
    
-   >This is destructive action. If there is a database named adventureworks in the Azure Database for PostgreSQL Single Server, the existing adventureworks will be dropped and replaced.
+   >This is a destructive action. If there is a database named adventureworks in the Azure Database for PostgreSQL Single Server, the existing adventureworks will be dropped and replaced.
    
    ![Image0176](Media/image0176.png)
 
@@ -110,13 +110,13 @@ This exercise shows how to enable Query Store and use it to review performance d
 
    Search for *pg_qs*
     
-   Set **pg_qs.query_capture_mode** to **ALL.**.
+   Set **pg_qs.query_capture_mode** to **ALL**.
 
    Set **pg_qs.retention_period_in_days** to **14**. 
    
-   >This option will allow you to set the retention period of the query store it can be between 1 and 30 days.Avoid keeping historical data you do not plan to use. Increase the value if you need to keep data longer.
+   >This option will allow you to set the retention period of the query store, it can be between 1 and 30 days. Avoid keeping historical data you do not plan to use. Increase the value if you need to keep the data longer.
 
-       ![Image0178](Media/image0178.png)
+   ![Image0178](Media/image0178.png)
 
    Search for *pgms_wait_sampling.*
     
@@ -128,11 +128,11 @@ This exercise shows how to enable Query Store and use it to review performance d
 
    ![Image0179](Media/image0179.png)
 
-   >Other configuration options are available Rfefer to [Configuration options](https://docs.microsoft.com/en-us/azure/postgresql/single-server/concepts-query-store#configuration-options) for further information 
+   >Other configuration options are available refer to [Configuration options](https://docs.microsoft.com/en-us/azure/postgresql/single-server/concepts-query-store#configuration-options) for further information 
    
    Click **Save**.
 
-   It should only take a few seconds for each parameter to change. When the paremters are updated you will see the notification
+   It should only take a few seconds for each parameter to change. When the parameters are updated, you will see the notification
     
    ![Image0181](Media/image0181.png)
 
@@ -140,7 +140,7 @@ This exercise shows how to enable Query Store and use it to review performance d
     
    Using PostgreSQL pgAdmin or any other PostgreSQL client tool connect to the database server and the **adventureworks** database
 
-   Execute 4 times the following query:
+   Execute the following query four times:
 
    ```sql
    SELECT p.title
@@ -182,7 +182,7 @@ This exercise shows how to enable Query Store and use it to review performance d
    
    ![Image0182](Media/image0182.png)
       
-   Also, execute 3 times the following query:
+   Also, execute the following query three times:
    
    ```sql
    SELECT * FROM LargeTable WHERE id = 5000;
@@ -190,7 +190,7 @@ This exercise shows how to enable Query Store and use it to review performance d
    
    ![Image0183](Media/image0183.png)
 
-   Notice it takes several seconds tu run een when it is a simple query looking a row by id.
+   Notice it takes several seconds to run even when it is a simple query looking a row by id.
 
 1. Review the query statistics on the Query Store
     
@@ -225,7 +225,7 @@ This exercise shows how to enable Query Store and use it to review performance d
 
    ![Image0185](Media/image0185.png)
 
-   Additionally, expand the *azure_sys* database and review the tables and views under the *query_store* schema to see what else this query store has to offer. For further infomation about the meaning of each column refer to [query_store.qs_view](https://docs.microsoft.com/en-us/azure/postgresql/single-server/concepts-query-store#query_storeqs_view)
+   Additionally, expand the *azure_sys* database and review the tables and views under the *query_store* schema to see what else this query store has to offer. For further information about the meaning of each column refer to [query_store.qs_view](https://docs.microsoft.com/en-us/azure/postgresql/single-server/concepts-query-store#query_storeqs_view)
 
 
 Congratulations!. You have successfully completed this exercise.
@@ -236,7 +236,7 @@ Congratulations!. You have successfully completed this exercise.
 
 Query Performance Insight helps you to quickly identify what your longest running queries are, how they change over time, and what waits are affecting them.
 
-This exercise shows how to use Query Performance Insight for Azure Database for PostgreSQL Single Server
+This exercise shows how to use Query Performance Insight for Azure Database for PostgreSQL Single Server.
 
 **Tasks**
 
@@ -246,20 +246,20 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
 
 1. Go to your PostgreSQL Server
 
-   Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
+   Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure.
 
 1. Go to **Query Performance Insight** under **Intelligent Performance**
     
    Under **Long Running Queries** tab, you will be able to see the different execution for the longest running queries.
 
    In this tab:
-   - By default you will see the top five longest running queries but you can view the top *10* or top *15* queries by changing the value of the *Number of Queries* pulldown.
+   - By default, you will see the top five longest running queries but you can view the top *10* or top *15* queries by changing the value of the *Number of Queries* pulldown.
    - You can also see the *min, max, sum* values by changing the *Selected by* pulldown, with *avg* as the default value.
    - You can change the *Time Period* pull down to see the queries for the last *6 hours, last week* or *last month*, with the last *24 hours* as the default value.
 
    ![Image0189](Media/image0189.png)
     
-   Notice that the queries executed in the previuos Exercise are reported.
+   Notice that the queries executed in the previous exercise are reported.
        
    Under **Wait Statistic** tab, you will be able to see the Top Events (waits) by either individual Queries or by Event type.
     
@@ -273,9 +273,9 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
     
 1. Identify the query text
 
-   Due to privacy concerns, the query text is not shown in the Query Performance Insight
+   Due to privacy concerns, the query text is not shown in the Query Performance Insight.
    
-   To access query text, connect to the azure_sys database and execute
+   To access query text, connect to the azure_sys database and execute:
 
    ```sql
    SELECT qsv.*
@@ -283,11 +283,11 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
    WHERE query_id = <query_id>  
    ```
 
-   >Make sure you replace *\<query_id\>* with the id you see in the query Performance Insight screen for the query that was executed 3 times
+   >Make sure you replace *\<query_id\>* with the id you see in the query Performance Insight screen for the query that was executed 3 times.
 
    ![Image0190](Media/image0190.png)
 
-   Notice is the query you executed 3 times in the previos exercise
+   Notice it is the query you executed 3 times in the previous exercise
 
    ```sql
    SELECT * FROM LargeTable WHERE id = 5000;
@@ -295,7 +295,7 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
 
 1. Basic troubleshooting
 
-   Connect to the **adventureworks** database and run the query using EXPLAIN 
+   Connect to the **adventureworks** database and run the query using EXPLAIN:
 
    ```sql
    EXPLAIN ANALYZE
@@ -308,7 +308,7 @@ This exercise shows how to use Query Performance Insight for Azure Database for 
 
    >Seq Scan means PostgreSQL is examining the whole table to get the rows it needs to return... not efficient at all! 
 
-   There query has contidion in the WHERE clause to filter by *id*
+   The query has a condition in the WHERE clause to filter by *id*.
 
    Review the indexes for *largetable* by executing:
 
@@ -344,15 +344,15 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
 
 1. Go to **Performance Recommendations** under **Intelligent Performance**
     
-   The first time you run this service, it will show no recommendations, and advice you to perform and analysis. Click on the **Analyze** option
+   The first time you run this service, it will show no recommendations, and advice you to perform an analysis. Click on the **Analyze** option
     
    ![Image0186](Media/image0186.png)
 
 1. Analyze the database
  
-   Change the database to *adventureworks* and click on **Analyze**
+   Change the database to *adventureworks* and click on **Analyze**.
    
-   It can take a few minutes for the analysis to complete
+   It can take a few minutes for the analysis to complete.
    
    Notice a couple of things:
    - First, it recommends not to perform the analysis when the server is under high load, this is because the analysis will need to evaluate your database and that will most likely produce additional I/O and CPU. We will ignore this recommendation for lab purposes.
@@ -370,15 +370,15 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
 
    Notice the recommendation is to create an index on table *largetable* by column *id*. This is same conclusion we got on previuos exercise
    
- 1. Apply recommendation and evaluate resuts 
+ 1. Apply recommendation and evaluate results 
 
-    Create the index using the command in the "Recomendation description"
+    Create the index using the command in the "Recommendation description"
 
     ```sql
     create index on "public"."largetable"("id");
     ```
 
-    > In a production environment you would evaluate the recommendations and apply those that you believe will improve the performance of your queries.
+    > In a production environment you must evaluate the recommendations and apply those that you believe will improve the performance of your queries.
 
     Run the affected query again:
 
@@ -399,6 +399,6 @@ This exercise shows how to use the Azure Portal's Performance Recommendations fo
 
     The query now uses an Index Scan using index *largetable_id_idx* on *largetable* instead of a Seq Scan . The cost has also gone down to cost=0.44..2.65 
 
-    The recomendation was valid and helpuful for performance.
+    The recommendation was valid and helpful for performance.
 
 Congratulations!. You have successfully completed this exercise and the Lab.
