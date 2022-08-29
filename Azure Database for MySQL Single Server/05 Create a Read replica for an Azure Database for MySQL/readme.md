@@ -4,6 +4,8 @@
 
 During this lab, you will learn how to create a Read replica for an Azure Database for MySQL Single Server using the Azure Portal
 
+The read replica feature allows you to replicate data from an Azure Database for MySQL server to a read-only server. You can replicate from the source server to up to five replicas. Replicas are updated asynchronously using the MySQL engine's native binary log (binlog) file position-based replication technology
+
 The read replica feature helps to improve the performance and scale of read-intensive workloads. Read workloads can be isolated to the replicas, while write workloads can be directed to the source.
 
 A common scenario is to have BI and analytical workloads use the read replica as the data source for reporting.
@@ -11,6 +13,9 @@ A common scenario is to have BI and analytical workloads use the read replica as
 Because replicas are read-only, they don't directly reduce write-capacity burdens on the source. This feature isn't targeted at write-intensive workloads.
 
 The read replica feature uses MySQL asynchronous replication. The feature isn't meant for synchronous replication scenarios. There will be a measurable delay between the source and the replica. The data on the replica eventually becomes consistent with the data on the source. Use this feature for workloads that can accommodate this delay.
+
+>The read replica feature is only available for Azure Database for MySQL Single Servers in the General Purpose or Memory Optimized pricing tiers.
+
 
 **Objectives**
 
@@ -43,7 +48,7 @@ This exercise shows how to create a sample schema on the Azure Database for MySQ
 
    Open a Windows Command Prompt and execute a script to restore the *employees* database using:
 
-   >This is destructive action. If there is a database named employees in the Azure Database for MySQL Single Server, the existing *employees* database will be dropped and replaced.
+   >This is a destructive action. If there is a database named employees in the Azure Database for MySQL Single Server, the existing *employees* database will be dropped and replaced.
     
    ```bash
    mysql -h <server_name>.mysql.database.azure.com -u <admin_user>@<server_name> -p sys < C:\MySQLSSLabFiles\create_employees.sql
@@ -73,8 +78,6 @@ Congratulations!. You have successfully completed this exercise.
 # Exercise 2: Add a replica
 
 This exercise shows how to add a read replica for an Azure Database for MySQL Single Server.
-
-The read replica feature is only available for Azure Database for MySQL Single Servers in the General Purpose or Memory Optimized pricing tiers.
 
 **Tasks**
 
