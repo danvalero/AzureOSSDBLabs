@@ -140,12 +140,12 @@ For instructions on how to install Azure CLI locally refer to [Install Azure CLI
 
 1. Create the Azure Database for PostgreSQL Single Server
     
-    NOTE: You will use the resource group (**wsppg**) created on exercise 1 for the new server
+    NOTE: You will use the resource group (**postgresqllab**) created on exercise 1 for the new server
     
     To create a server named pgserver[your name initials]2 on westus and using a similar configuration used in exercise 1, execute:
 
     ```bash
-    az postgres server create --resource-group wsppg --name pgserver<your name initials>2 --location westus --admin-user admpg --admin-password <server_admin_password> --sku-name GP_Gen5_2 --version 10
+    az postgres server create --resource-group postgresqllab --name pgserver<your name initials>2 --location eastus --admin-user admpg --admin-password <server_admin_password> --sku-name GP_Gen5_2 --version 11
     ```
 
     NOTE: Make sure you modify the server name and server admin password before executing the command. You can use a region closer to you.
@@ -158,7 +158,7 @@ For instructions on how to install Azure CLI locally refer to [Install Azure CLI
     
     The Azure Database for PostgreSQL have been created and it is ready for use.
     
-    ![](Media/image0010.png)
+    ![](Media/image0020.png)
 
 
 
@@ -199,7 +199,7 @@ Azure Database for PostgreSQL creates a firewall at the server level. It prevent
 
    ![](Media/image0027.png)
 
-1. Allow access to Azure services option to ON
+1. Allow access to Azure services option to Yes
     
    On your PostgreSQL server page, under **Settings** page, click **Connection security** to open the Connection security page for the Azure Database for PostgreSQL
     
@@ -223,7 +223,7 @@ When you create your Azure Database for PostgreSQL Single Server, a default data
 
 1. Connect to Microsoft Azure Portal
     
-  Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
     
    
 1. Go to your PostgreSQL Server
@@ -263,10 +263,7 @@ There are several applications you can use to connect to your Azure Database for
     
    ![](Media/image0031.png)
    
-   If this is the first time we are opening, Azure will prompt us to select a subscription to create a storage account and Microsoft Azure Files share If so, click on **Create storage** and wait until the creation ends.
-    
-   ![](Media/image0032.png)
-    
+       
    When the Azure Cloud Shell is ready to use you will see a screen as the following:
     
    ![](Media/image0033.png)
@@ -296,7 +293,7 @@ There are several applications you can use to connect to your Azure Database for
    Create your own database to work with by executing:
     
    ```sql
-   CREATE DATABASE <your initials>db;
+   create database <your initials>db;
    ```
   
    ![](Media/image0035.png)
@@ -343,7 +340,7 @@ pgAdmin is an open-source tool used with PostgreSQL. You can install pgAdmin fro
    
    ![](Media/image0042.png)
     
-   In the **Create - Server** dialog box, on the **Connection** tab, fill in the settings table. Use the connection information you got in exercise 2.
+   In the **Create - Server** dialog box, on the **Connection** tab, fill in the settings table. Use the connection information you got in exercise 4.
     
    Select the option **Save password?**
     
@@ -355,7 +352,7 @@ pgAdmin is an open-source tool used with PostgreSQL. You can install pgAdmin fro
     
    ![](Media/image0044.png)
     
-   Expand your server node, and then expand **Databases** under it. The list should include the database you create in the exercise 3.
+   Expand your server node, and then expand **Databases** under it. The list should include the database you create in the exercise 5.
     
    ![](Media/image0045.png)
 
@@ -388,5 +385,7 @@ pgAdmin is an open-source tool used with PostgreSQL. You can install pgAdmin fro
    On the Overview Pane, select **Delete**. Click on the agreement box and then click on **Delete**
 
    ![](Media/image0011.png)
+
+   Repeat this step for the server created in exercise 2 if you would like to delete that server as well.
 
 Congratulations!. You have successfully completed this exercise and the Lab.

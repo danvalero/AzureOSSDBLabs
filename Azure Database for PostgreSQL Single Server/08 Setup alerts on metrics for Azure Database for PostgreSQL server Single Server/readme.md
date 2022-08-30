@@ -93,18 +93,21 @@ This exercise shows how to, create alerts on metrics for Azure Database for Post
     
    Fill out the **Add action group** using the following information:
    - Action group name: DBAOperator
-   - Short name: DBAOperator
+   - Display name: DBAOperator
    - Resource Group: use the same Resource Group of the Azure Database for PostgreSQL Single Server. It should be wsppg
    - Action Name: SendEmail
    - Action Type: Email/SMS/Push/Voice
    
-   ![](Media/image0141.png)
+   ![](Media/image0142.png)
     
    >For this Lab you will use Action Type: Email/SMS/Voice, for production environments we recommend using Azure RBAC to notify via Azure Roles.
     
    When you select the action type **Email/SMS/Push/Voice**, a dialog opens to configure the action. Select **Email**, type your email address and click **OK**
     
-   ![](Media/image0142.png)
+   ![](Media/image0142a.png)
+
+  
+    
     
    Click **OK** to create the action group.
     
@@ -227,7 +230,7 @@ This exercise shows how to, manage alerts configured for Azure Database for Post
 
 1. See and modify the alerts
     
-   Click on **Manage alert rules**
+   Click on the three dots at the left of the alert and then on **Edit**
     
    ![](Media/image0155.png)
     

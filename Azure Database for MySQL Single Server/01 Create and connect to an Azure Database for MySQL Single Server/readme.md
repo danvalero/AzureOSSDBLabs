@@ -148,7 +148,7 @@ For instructions on how to install Azure CLI locally refer to [Install Azure CLI
    To create a server named mysqlserver[your name initials]2 on westus and using a similar configuration used in exercise 1, execute:
 
    ```bash
-   az mysql server create --name mysqlserver[your name initials]2 --resource-group mysqllab --location westus --admin-user mysqladmin --admin-password  <server_admin_password> --sku-name GP_Gen5_2
+   az mysql server create --name mysqlserver[your name initials]2 --resource-group mysqllab --location westus --admin-user mysqladmin --admin-password  <server_admin_password> --sku-name GP_Gen5_2 --version 8.0
    ```
 
    NOTE: Make sure you modify the server name and server admin password before executing the command. You can use a region closer to you.
@@ -259,10 +259,7 @@ There are several applications you can use to connect to your Azure Database for
     
    ![](Media/image0031.png)
    
-   If this is the first time we are opening, Azure will prompt us to select a subscription to create a storage account and Microsoft Azure Files share If so, click on **Create storage** and wait until the creation ends.
-    
-   ![](Media/image0032.png)
-    
+  
    When the Azure Cloud Shell is ready to use you will see a screen as the following:
     
    ![](Media/image0033.png)
@@ -292,7 +289,7 @@ There are several applications you can use to connect to your Azure Database for
    Create your own database to work with by executing:
     
    ```sql
-   CREATE DATABASE <your initials>db;
+   create database <your initials>db;
    ```
   
    ![](Media/image0035.png)
@@ -300,7 +297,7 @@ There are several applications you can use to connect to your Azure Database for
    List databases in the server (you will find your new database) by executing 
 
    ```sql
-   Show Databases
+   show databases;
    ```
 
    ![](Media/image0051.png)
@@ -314,7 +311,7 @@ There are several applications you can use to connect to your Azure Database for
     
    ![](Media/image0037.png)
     
-   Type **exit**, and then press the **Enter** key to quit mysql. You can close Cloud Shell after you're finished.
+   Type **\q**, and then press the **Enter** key to quit mysql. You can close Cloud Shell after you're finished.
     
    ![](Media/image0038.png)
 
@@ -381,4 +378,6 @@ Congratulations! You have successfully completed this exercise.
 
     ![](Media/image0021.png)
 
-Congratulations!. You have successfully completed this exercise and the Lab. 
+1. Repeat these steps for excerise 2 if you would like to delete the server created with Azure CLI.
+
+Congratulations! You have successfully completed this exercise and the Lab. 
