@@ -84,6 +84,7 @@ In this exercise, MySQL will be installed in an Azure VM to be used as primary s
 
    ![Image0005](Media/image0005.png)
 
+   Select *Off* for the Administrator.
 
    ![Image0006](Media/image0006.png)
 
@@ -136,7 +137,7 @@ In this exercise, MySQL will be installed in an Azure VM to be used as primary s
       
 1. Create the *sakila* sample database
 
-   Using Internet Explorer, download https://downloads.mysql.com/docs/sakila-db.zip and extract the content in *C:\\\temp* 
+   Using Internet Explorer, download https://downloads.mysql.com/docs/sakila-db.zip and extract the content in *C:\\temp* 
 
    Open a Windows Command Prompt and connect to the local instance
 
