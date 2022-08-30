@@ -73,7 +73,7 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
 
    In Azure portal, go to your Virtual Machine **PgBouncerVM** in any way you prefer to look for a resource on Azure
 
-   In the **Overview** pane, you can see the public and private IPs. Take note of both as they will be used at later section.
+   In the **Overview** pane, you can see the public and private IP addresses. Take note of both as they will be used at later section.
 
    ![Image0004](Media/image0004.png)
 
@@ -102,7 +102,7 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
 
    ![Image0008](Media/image0008.png)
 
-   > When creating the inbound port rule, consider security implication and limit the possible sources for the connection. Ideally, the possible sources should be limited to valid clients that need to connect to Azure Database for PostgreSQL Single Server through the PgBouncer service in this VM. In this lab you can enable connections from any source but that is not recommended from security perspective.
+   > When creating the inbound port rule, consider security implication and limit the possible sources for the connection. Ideally, the possible sources should be limited to valid clients that need to connect to Azure Database for PostgreSQL Single Server through the PgBouncer service in this VM. In this lab, you can enable connections from any source but that is not recommended from security perspective.
 
 1. Install PgBouncer and PostgreSQL client
 
@@ -110,7 +110,7 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
 
    >On Windows you can use [Putty](https://www.putty.org/). If using Windows 10 or superior, you can use built-in ssh client in the Windows Command Prompt
 
-   Authenticate with the user **pgadminuser** and the password you set during VM creation
+   Authenticate with the user **pgbounceradmin** and the password you set during VM creation
 
    ![Image0009](Media/image0009.png)
 
@@ -126,7 +126,7 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
    sudo apt-get install -y pgbouncer postgresql-client
    ```
 
-   >You might need to provide the password for the user pgadminuser when use sudo
+   >You might need to provide the password for the user pgbounceradmin when use sudo
 
 Congratulations!. You have successfully completed this exercise.
 
@@ -154,7 +154,7 @@ You will modify just some basic parameters. However, it is important you get fam
 
    >On Windows you can use [Putty](https://www.putty.org/). If using Windows 10 or superior, you can use built-in ssh client in the Windows Command Prompt
 
-   Authenticate with the user **pgadminuser** and the password you set during VM creation
+   Authenticate with the user **pgbounceradmin** and the password you set during VM creation
 
 1. Download certificate file used to connect to Azure DB for PostgreSQL using SSL connection
 
@@ -301,7 +301,7 @@ In this exercise you will connect to the Azure Database for PostgreSQL Single Se
 
    >On Windows you can use [Putty](https://www.putty.org/). If using Windows 10 or superior, you can use built-in ssh client in the Windows Command Prompt
 
-   Authenticate with the user **pgadminuser** and the password you set during VM creation
+   Authenticate with the user **pgbounceradmin** and the password you set during VM creation
 
 1. Test the direct connectivity between the VM and the Azure Database for PostgreSQL Single Server
 
@@ -421,7 +421,7 @@ The Admin console for PgBouncer is available by connecting as normal to the data
 
    >On Windows you can use [Putty](https://www.putty.org/). If using Windows 10 or superior, you can use built-in ssh client in the Windows Command Prompt
 
-   Authenticate with the user **pgadminuser** and the password you set during VM creation
+   Authenticate with the user **pgbounceradmin** and the password you set during VM creation
 
 1. Clean up stats information
 
