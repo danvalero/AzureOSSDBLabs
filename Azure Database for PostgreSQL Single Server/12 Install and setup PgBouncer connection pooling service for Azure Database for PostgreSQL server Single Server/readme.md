@@ -601,12 +601,12 @@ The Admin console for PgBouncer is available by connecting as normal to the data
 
  1. Clean up environmet
     
-   To save money, delete the reources you created as part of PgBouncerVM craation. The easiest way is to delete the Resource Group
+    To save money, delete the reources you created as part of PgBouncerVM craation. The easiest way is to delete the Resource Group
     
-   Go to your ResourceGroup in any way you prefer to look for a resource on Azure
+    Go to your ResourceGroup in any way you prefer to look for a resource on Azure
 
-   On the Overview Pane, select **Delete resource group** and then confirm deletion.
+    On the Overview Pane, select **Delete resource group** and then confirm deletion.
 
-   ![Image0060](Media/image0060.png)
+    ![Image0060](Media/image0060.png)
 
 Congratulations!. You have successfully completed this exercise and the Lab.
