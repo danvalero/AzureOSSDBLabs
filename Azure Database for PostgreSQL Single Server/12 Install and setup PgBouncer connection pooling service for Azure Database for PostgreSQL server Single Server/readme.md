@@ -205,7 +205,7 @@ You will modify just some basic parameters. However, it is important you get fam
 
    ![Image0021](Media/image0021.png)
 
-   >In the *pgbouncer.ini* file, notice that the default port for PgBouncer is 6432. If you change it, you need to create an inbound port rule in the VM that runs PgBouncer
+       >In the *pgbouncer.ini* file, notice that the default port for PgBouncer is 6432. If you change it, you need to create an inbound port rule in the VM that runs PgBouncer
 
 1. Configure the authentication file for PgBouncer
 
@@ -233,7 +233,7 @@ You will modify just some basic parameters. However, it is important you get fam
 
    and add it as the first line of the file
       
-   In the previous task, you made sure the file **pgbouncer.ini** set *admin1* as admin user. Only users listed in the configuration parameters admin_users or stats_users are allowed to log in to the pgbouncer stat database
+   In the previous task, you set *admin1* as admin user in the file **pgbouncer.ini** . Only users listed in the configuration parameters admin_users or stats_users are allowed to log in to the pgbouncer stat database
 
    Add a second line with the text:
 
@@ -268,7 +268,7 @@ You will modify just some basic parameters. However, it is important you get fam
 
    Applications can now connect to the backend PostgreSQL using the PgBouncer service running on the VM.
 
-1. Allow access from the VM running PgBouncer to the Azure Database for PostgreSQL Single Server
+1. Allow traffic from the VM running PgBouncer to the Azure Database for PostgreSQL Single Server
  
    Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
     
@@ -347,7 +347,7 @@ In this exercise you will connect to the Azure Database for PostgreSQL Single Se
 
 1. Connect to the PostgreSQL Database using the PgBouncer service from an external machine
 
-   >In this lab, you connect to the PgBouncerVM using its public access, however, it can be done using a name register in a DNS. DNS configuration for the VM is out of the scope of this lab
+   >In this task, you connect to the PgBouncerVM using its public access, however, it can be done using a name register in a DNS. DNS configuration for the VM is out of the scope of this lab
 
    From an external machine (e.g. your laptop) connect to the Azure Database for PostgreSQL Single Server through PgBouncer using psql.
 
@@ -369,7 +369,7 @@ In this exercise you will connect to the Azure Database for PostgreSQL Single Se
 
    ![Image0032](Media/image0032.png)
 
-   The connection must succeed. this connection was made to PgBouncer and not directly tothe database server.
+   The connection must succeed. This connection was made to PgBouncer and not directly tothe database server.
 
    Type **\q** and press **Enter** to quit psql
 
@@ -382,7 +382,7 @@ In this exercise you will connect to the Azure Database for PostgreSQL Single Se
 
    ![Image0034](Media/image0034.png)
 
-   Connect to PgBouncer-AzurePG and explore the server
+   Connect to *PgBouncer-AzurePG* and explore the server
 
    ![Image0035](Media/image0035.png)
 
@@ -400,7 +400,7 @@ In this exercise you will check the pool and stats information for the PgBouncer
 
 When using PgBouncer, the application connects to the PgBouncer proxy service while PgBouncer service in-turn connects to the Azure Database for PostgreSQL service using the credentials and configuration settings specified in the pgbouncer.ini file.
 
-![](Media/image0213.jpeg)
+![Image0200](Media/image0200.png)
 
 We have 3 Pool modes: **Session(default), Transaction, and Statement**.
 - **Session** - Server is released back to pool after client disconnects. This is the Default pool mode.
@@ -431,7 +431,7 @@ The Admin console for PgBouncer is available by connecting as normal to the data
    sudo service pgbouncer restart
    ```
 
-1. Checking Pool and Stats information
+1. Check Pool and Stats information
 
    Connect to the Admin console:
 
@@ -484,9 +484,7 @@ The Admin console for PgBouncer is available by connecting as normal to the data
 
    ![Image0044](Media/image0044.png)
 
-   You can see a pool to database postgresql with the user for your Azure Database for PostgreSQL Single Server with:
-   - a **cl_active value** of 1. **cl_active** indicates the Client connections that are linked to server connection and can process queries
-   - a **
+   You can see a pool to database postgresql with the user for your Azure Database for PostgreSQL Single Server with a **cl_active value** of 1. **cl_active** indicates the Client connections that are linked to server connection and can process queries
 
    Check the connections open from PgBouncer to the database server by executing:
 
@@ -496,11 +494,9 @@ The Admin console for PgBouncer is available by connecting as normal to the data
 
    ![Image0045](Media/image0045.png)
 
-   You can see the connection open to the Azure Database for PostgreSQL Single Server and the details for the connection such as user, conenction time and the process id in the database server (remote_pid)
+   You can see the connections open to the Azure Database for PostgreSQL Single Server (only one at this time) and the details for the connection such as user, conenction time and the process id in the database server (remote_pid)
 
-   On an external machine (e.g. your laptop), open a second Windows Command Prompt and create a second connection to the Azure Database for PostgreSQL Single Server through the PgBouncer service.
-
-   On an external machine (e.g. your laptop), open a third Windows Command Prompt and create a third connection to the Azure Database for PostgreSQL Single Server through the PgBouncer service.
+   On an external machine (e.g. your laptop), open a two Windows Command Prompts and create a second and a third connection to the Azure Database for PostgreSQL Single Server through the PgBouncer service.
 
    Go back to the ssh session where you are connected to the Admin console and execute:
 
@@ -520,7 +516,7 @@ The Admin console for PgBouncer is available by connecting as normal to the data
 
    ![Image0047](Media/image0047.png)
 
-   Notice that only one connection to the server exists. Three connections have been open to PgBouncer but as no operation has been executed in any of them, PgBouncer has not opened more than one connection to the database server... pooling in action
+   Notice that only one connection to the server exists. Three connections have been open to PgBouncer but as no operation has been executed in any of them, PgBouncer has not opened more than one connection to the database server... pooling in action!!!
 
    Now go to the first connection to the PostgreSQL Database and open a transaction by running:
 
@@ -560,7 +556,7 @@ The Admin console for PgBouncer is available by connecting as normal to the data
 
    ![Image0051](Media/image0051.png)
 
-   Notice that a second connections was opened to the server as it is needed to run the second transaction as the first one has not ended
+   Notice that a second connections was opened to the server to run the second transaction as the first one has not ended (and still in use)
 
    Go to both the sessions where you started transaction and execute:
    ```sql
@@ -602,5 +598,15 @@ The Admin console for PgBouncer is available by connecting as normal to the data
    ```
 
    ![Image0056](Media/image0056.png)
+
+ 1. Clean up environmet
+    
+   To save money, delete the reources you created as part of PgBouncerVM craation. The easiest way is to delete the Resource Group
+    
+   Go to your ResourceGroup in any way you prefer to look for a resource on Azure
+
+   On the Overview Pane, select **Delete resource group** and then confirm deletion.
+
+   ![Image0060](Media/image0060.png)
 
 Congratulations!. You have successfully completed this exercise and the Lab.
