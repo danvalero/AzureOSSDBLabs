@@ -107,9 +107,7 @@ In this exercise, MySQL will be installed in an Azure VM to be used as primary s
 
    ![Image0008](Media/image0008.png)
 
-![Image0040](Media/image0040.png)
-
-![Image0041](Media/image0041.png)
+   ![Image0041](Media/image0041.png)
 
    Start the installer, 
 
@@ -123,7 +121,7 @@ In this exercise, MySQL will be installed in an Azure VM to be used as primary s
 
    ![Image0009](Media/image0009.png)
 
-   follow with the installation. During server configuration set a strong password for the *root* user and create a new user *admin* with the *DB ADmin* role
+   Complete the installation steps (use default values if not instructed otherwise in this manual). During server configuration set a strong password for the *root* user and create a new user *admin* with the *DB Admin* role
 
    ![Image0010](Media/image0010.png)
 
@@ -151,7 +149,7 @@ In this exercise, MySQL will be installed in an Azure VM to be used as primary s
       
    ```text
    SOURCE C:\temp\sakila-db\sakila-schema.sql
-   SOURCE C:\temp\sakila-db\sakila-data.sql;
+   SOURCE C:\temp\sakila-db\sakila-data.sql
    ```
 
    Exit MySQL
@@ -245,7 +243,7 @@ This exercise shows how to enable binary logging on the primary server and enabl
 
 1. Create a new replication role and set up
     
-    Create a user account on the primary server that is configured with replication privileges. This can be done through SQL commands or a tool like MySQL Workbench. Consider whether you plan on replicating with SSL as this will need to be specified when creating the user. For this lab, SSL will not be used, but you can refer to the MySQL documentation to understand how to [add user accounts](https://dev.mysql.com/doc/refman/5.7/en/adding-users.html) on your primary server.
+    Create a user account on the primary server that is configured with replication privileges. This can be done through SQL commands or a tool like MySQL Workbench. Consider whether you plan on replicating with SSL as this will need to be specified when creating the user. For this lab, SSL will not be used, but you can refer to the MySQL documentation to understand how to [create users](https://dev.mysql.com/doc/refman/8.0/en/create-user.html) on your primary server.
 
     To create the user for replication, execute the commands below:
     
@@ -361,7 +359,7 @@ This exercise shows how to dump primary server and restore in Azure Database for
    Open a Windows Prompt and restore the *sakila* database (or schema in MySQL terms) using the following syntax:
     
    ```bash
-   mysql -h mysqldemo<your name initials>.mysql.database.azure.com -u <adminuser>@<your name initials> -p sakila < c:\temp\sakila_backup.sql
+   mysql -h mysqldemo<your name initials>.mysql.database.azure.com -u <adminuser>@<your name initials> -p < c:\temp\sakila_backup.sql
    ```
    
    for example:
@@ -442,13 +440,13 @@ This exercise shows how to link the primary and replica server to start Data-In 
     
     ![Image0076](Media/image0076.png)
     
-    If the state of Slave_IO_Running and Slave_SQL_Running are **Yes** and the value of **Seconds_Behind_Master** is **0**, replication is working well. It can take some seconds for both columns to show **Yes**. If you don't see them in **yes**, execute the command again.
+    If the state of Slave_IO_Running and Slave_SQL_Running are **Yes** and the value of **Seconds_Behind_Master** is **0**, replication is working well. It can take some seconds for both columns to show **Yes**. If you don't see them in **yes**, execute the previous command again.
     
     **Seconds_Behind_Master** indicates how late the replica is. If the value is not **0**, it means that the replica is processing updates.
 
 1. Verify the replication is working
     
-    Connect to your Azure Database for MySQL server and confirm that there is no department IT in the sakila.departments table by executing:
+    Connect to your Azure Database for MySQL server and confirm that there is no department IT in the sakila.actors table by executing:
 
     ```SQL  
     SELECT * 
