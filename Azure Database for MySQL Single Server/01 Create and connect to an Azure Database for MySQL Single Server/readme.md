@@ -9,12 +9,12 @@ During this lab, you will learn how to create an Azure Database for MySQL with t
 
 After completing this lab, you will be able to: 
 
-- Create an Azure Database for MySQL through the Portal.
-- Create an Azure Database for MySQL through the Azure CLI Shell.
+- Create an Azure Database for MySQL Single Server through the Portal.
+- Create an Azure Database for MySQL Single Server through the Azure CLI Shell.
 - Configure a server-level firewall rule
 - Get the connection information
-- Connect to the MySQL Database by using psql in Cloud Shell and MySQL Workbench
-- Create new databases using psql and  MySQL Workbench
+- Connect to the MySQL Database by using mysql in Cloud Shell or MySQL Workbench
+- Create new databases using mysql or MySQL Workbench
 
 **Estimated Time:** 60 minutes
 
@@ -28,9 +28,9 @@ The steps below show you how to create an Azure Database for MySQL Single Server
 
 1. Connect to Microsoft Azure Portal
     
-   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credentials.
     
- 1. Create Azure Database for MySQL Resource
+1. Create an Azure Database for MySQL Resource
     
    Click on **+ Create a resource** in the upper-left corner of the portal
     
@@ -79,19 +79,11 @@ The steps below show you how to create an Azure Database for MySQL Single Server
     
    ![](Media/image0009.png)
     
-   The Azure Database for MySQL have been created and it is ready for use.
+   The Azure Database for MySQL Single Server has been created and it is ready for use.
     
    ![](Media/image0010.png)
 
-1. Delete the Azure Database for MySQL Single Server (optional)
-    
-   To save money, delete the server you just created
 
-   >This step is optional. If you will complete the next Lab soon, do not delete it to save time.
-
-   On the **Overview** Pane, select **Delete**. Type the server name and click on **Delete**
-
-   ![](Media/image0011.png)
 
 Congratulations! You have successfully completed this exercise.
 
@@ -156,7 +148,7 @@ For instructions on how to install Azure CLI locally refer to [Install Azure CLI
    To create a server named mysqlserver[your name initials]2 on westus and using a similar configuration used in exercise 1, execute:
 
    ```bash
-   az mysql server create --name mysqlserver[your name initials]2 --resource-group mysqllab --location westus --admin-user mysqladmin --admin-password  <server_admin_password> --sku-name GP_Gen5_2
+   az mysql server create --name mysqlserver[your name initials]2 --resource-group mysqllab --location westus --admin-user mysqladmin --admin-password  <server_admin_password> --sku-name GP_Gen5_2 --version 8.0
    ```
 
    NOTE: Make sure you modify the server name and server admin password before executing the command. You can use a region closer to you.
@@ -171,15 +163,7 @@ For instructions on how to install Azure CLI locally refer to [Install Azure CLI
     
    ![](Media/image0020.png)
 
-1. Delete the Azure Database for MySQL Single Server
-    
-   To save money, delete the server you created during this exercise
-    
-   On the Overview Pane, select **Delete**. Type the server name and click on **Delete**
-    
-   ![](Media/image0021.png)
-
-Congratulations! You have successfully completed this exercise.
+   Congratulations! You have successfully completed this exercise.
 
 ## Exercise 3: Configure a server-level firewall rule
 
@@ -191,8 +175,7 @@ Azure Database for MySQL creates a firewall at the server level. It prevents ext
     
    Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
     
-   ![](Media/image0023.png)
-
+ 
 1. Go to your MySQL Server
 
    Go to your Azure Database for MySQL Single Server in any way you prefer to look for a resource on Azure. One method is: on the Server Resources (global) bar, type the name of your server, and select it when shown
@@ -215,7 +198,7 @@ Azure Database for MySQL creates a firewall at the server level. It prevents ext
 
    ![](Media/image0027.png)
 
-1. Allow access to Azure services option to ON
+1. Allow access to Azure services option to YES
     
    On your MySQL server page, under **Settings** page, click **Connection security** to open the Connection security page for the Azure Database for MySQL
     
@@ -239,7 +222,6 @@ When you create your Azure Database for MySQL Single Server, a default database 
     
    Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
     
-   ![](Media/image0023.png)
 
 1. Go to your MySQL Server
 
@@ -267,8 +249,6 @@ There are several applications you can use to connect to your Azure Database for
     
    Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
     
-   ![](Media/image0023.png)
-
 1. Open Azure Cloud Shell
     
    Select the **Cloud Shell** button on the menu in the upper-right corner of the Azure Portal.
@@ -279,31 +259,28 @@ There are several applications you can use to connect to your Azure Database for
     
    ![](Media/image0031.png)
    
-   If this is the first time we are opening, Azure will prompt us to select a subscription to create a storage account and Microsoft Azure Files share If so, click on **Create storage** and wait until the creation ends.
-    
-   ![](Media/image0032.png)
-    
+  
    When the Azure Cloud Shell is ready to use you will see a screen as the following:
     
    ![](Media/image0033.png)
 
-1. Connect to your Azure Database for MySQL Single Server using psql tool.
+1. Connect to your Azure Database for MySQL Single Server using mysql tool.
     
-   At the Cloud Shell prompt, connect to a database in your Azure Database for MySQL Single Server by typing the psql command line.
+   At the Cloud Shell prompt, connect to a database in your Azure Database for MySQL Single Server by typing the mysql command line.
     
-   To connect to an Azure Database for MySQL Single Server with the psql utility, use the following as format:
+   To connect to an Azure Database for MySQL Single Server with the mysql utility, use the following as format:
     
    ```bash
-   psql -h <yourserver> -u <server admin login> -p
+   mysql -h <yourserver> -u <server admin login> -p
    ```
     
     Example
 
    ```bash
-    mysql -h mysqlserverdvvr.mysql.database.azure.com -u admmysql@mysqlserverdvvr -p
+    mysql -h mysqlserverpag.mysql.database.azure.com -u admmysql@mysqlserverpag -p
    ```
     
-   After you run the psql command with your own parameter values, you're prompted to enter the server admin password. This password is the same one that you provided when you created the server
+   After you run the mysql command with your own parameter values, you're prompted to enter the server admin password. This password is the same one that you provided when you created the server
     
    ![](Media/image0050.png)
 
@@ -312,7 +289,7 @@ There are several applications you can use to connect to your Azure Database for
    Create your own database to work with by executing:
     
    ```sql
-   CREATE DATABASE <your initials>db;
+   create database <your initials>db;
    ```
   
    ![](Media/image0035.png)
@@ -320,13 +297,13 @@ There are several applications you can use to connect to your Azure Database for
    List databases in the server (you will find your new database) by executing 
 
    ```sql
-   Show Databases
+   show databases;
    ```
 
    ![](Media/image0051.png)
 
    
-   switch connections to the newly created database by executing :
+   switch connections to the newly created database by executing:
     
    ```sql
    use <your initials>db;
@@ -334,7 +311,7 @@ There are several applications you can use to connect to your Azure Database for
     
    ![](Media/image0037.png)
     
-   Type **exit**, and then press the **Enter** key to quit ,ysql. You can close Cloud Shell after you're finished.
+   Type **\q**, and then press the **Enter** key to quit mysql. You can close Cloud Shell after you're finished.
     
    ![](Media/image0038.png)
 
@@ -352,45 +329,40 @@ Congratulations! You have successfully completed this exercise.
     
    Open **MySQL Workbench**.
    
-   On the left panel, right click on **Servers**, select **Create** and then **Server**
+   On the main dashboard, click on '+' to add a new connection
    
    ![](Media/image0041.png)
    
-   In the **Create - Server** dialog box, on the **General** tab, enter a unique friendly name or the server.
+   In the **Set up New Connection** dialog box, enter a unique friendly name or the server. Then fill in the user name and host name. Use the connection information you got in exercise 2.
    
    ![](Media/image0042.png)
+       
     
-   In the **Create - Server** dialog box, on the **Connection** tab, fill in the settings table. Use the connection information you got in exercise 2.
-    
-   Select the option **Save password?**
+   Select the option **Store password in vault**
     
    ![](Media/image0043.png)
     
-   Select **Save**
+   Select **OK**
     
-   In the Browser pane on the left, expand the **Servers** node and select your server.
+   In the MySQL Workbench main dashboard, select your server.
     
    ![](Media/image0044.png)
     
-   Expand your server node, and then expand **Databases** under it. The list should include the database you create in the exercise 3.
+   After the connection is established; you can click on 'Administration' and then on Dashboard to see the following view:
     
    ![](Media/image0045.png)
 
 1. Create a new database in your Azure Database for MySQL Single Server
     
-   You can create multiple databases per server with Azure Database for MySQL. To create a database, right-click **Databases**, choose the **Create** menu, and then select **Database**
+   You can create multiple databases per server with Azure Database for MySQL. To create a database, use the query tool with the following statement:
+   ```sql
+   create database <database__name>;
+   ```
+
     
    ![](Media/image0046.png)
     
-   In the **Create – Database** form
-    
-   Type a database name of your choice in the Database field, such as [your initials]db2
-    
-   Use the server admin user as database owner.
-    
-   ![](Media/image0047.png)
-   
-   Select **Save** to create a new blank database
+  
     
    In the Browser pane, once the database is successfully created, you can see it in the list of databases under your server name. Double click on it
     
@@ -404,6 +376,8 @@ Congratulations! You have successfully completed this exercise.
 
    On the Overview Pane, select **Delete**. Type the server name and click on **Delete**
 
-   ![](Media/image0049.png)
+    ![](Media/image0021.png)
 
-Congratulations!. You have successfully completed this exercise and the Lab. 
+1. Repeat these steps for excerise 2 if you would like to delete the server created with Azure CLI.
+
+Congratulations! You have successfully completed this exercise and the Lab. 
