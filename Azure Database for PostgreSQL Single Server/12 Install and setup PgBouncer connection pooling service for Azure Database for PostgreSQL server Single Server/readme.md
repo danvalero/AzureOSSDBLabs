@@ -17,7 +17,7 @@ After completing this lab, you will be able to:
 
 This lab considers that an Azure Database for PostgreSQL Single Server named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
 
-**Estimated Time:** 120 minutes
+**Estimated Time:** 90 minutes
 
 ---
 
@@ -39,9 +39,9 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
 
    Configure the VM using the following information in the **Basics** section:
    - **Resource Group**: pgbouncerlab
-   - **Name**: PgBouncerVM
+   - **Virtual machine name**: PgBouncerVM
    - **Region**: The same region as the Azure Database for PostgreSQL Single Server
-   - **Availability zone**: Choose *No infrastructure redundancy required*   
+   - **Availability options**: Choose *No infrastructure redundancy required*   
    - **Scecurity type**: Standard
    - **Image**: Look for **Ubuntu Server** and select the most recent LTS version (use at least Ubuntu 20.04)
    - **Authentication type**: Password
@@ -61,7 +61,7 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
    - **Select inbound ports**: select *SHH (22)*
    - Use default values for other settings
    
-   NOTE: You can use an existing VNET, however, for lab purposes it is recommended to create a new VNET you can delete when the lab ends. Take a note of the new VNET being created
+   NOTE: You can use an existing VNET, however, for lab purposes it is recommended to create a new VNET you can delete when the lab ends.
 
    ![Image0003](Media/image0003.png)
 
@@ -127,6 +127,23 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
    ```
 
    >You might need to provide the password for the user pgbounceradmin when use sudo
+
+1. Allow traffic from the VM running PgBouncer to the Azure Database for PostgreSQL Single Server
+ 
+   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+    
+   Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
+
+   There are three ways you can allow access from the VM running PgBouncer to the Azure Database for PostgreSQL Single Server:
+   - enable **Allow access to Azure services**
+   - create a firewall rule to allow access to the Public IP address of the VM
+   - create a virtual network rule for the VNET used by the VM.
+
+   For the purpose of this lab, you create a firewall rule to allow access from the Public IP address of the VM
+
+   Go to **Connection security** under **Settings**. Add a firewall rule for the Public IP address of *PgBouncerVM* VM. Your final configuration should look like:
+
+   ![Image0024](Media/image0024.png)
 
 Congratulations!. You have successfully completed this exercise.
 
@@ -247,13 +264,13 @@ You will modify just some basic parameters. However, it is important you get fam
 
    ![Image0022](Media/image0022.png)
 
-   
-1. Start PgBouncer service
+  
+1. Restart PgBouncer service
 
    Start the PgBouncer service by executing:
 
    ```bash
-   sudo service pgbouncer start
+   sudo service pgbouncer restart
    ```
 
    Now the PgBouncer service is configured and running on a VM. The Azure Database for PostgreSQL is also running as a separate service in Azure outside the VM.
@@ -267,23 +284,6 @@ You will modify just some basic parameters. However, it is important you get fam
    ![Image0023](Media/image0023.png)
 
    Applications can now connect to the backend PostgreSQL using the PgBouncer service running on the VM.
-
-1. Allow traffic from the VM running PgBouncer to the Azure Database for PostgreSQL Single Server
- 
-   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
-    
-   Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
-
-   There are three ways you can allow access from the VM running PgBouncer to the Azure Database for PostgreSQL Single Server:
-   - enable **Allow access to Azure services**
-   - create a firewall rule to allow access to the Public IP address of the VM
-   - create a virtual network rule for the VNET used by the VM.
-
-   For the purpose of this lab, you create a firewall rule to allow access from the Public IP address of the VM
-
-   Go to **Connection security** under **Settings**. Add a firewall rule for the Public IP address of the PgBouncerVM. Your final configuration should look like:
-
-   ![Image0024](Media/image0024.png)
 
 Congratulations!. You have successfully completed this exercise.
 
@@ -599,7 +599,7 @@ The Admin console for PgBouncer is available by connecting to the database *pgbo
 
  1. Clean up environmet
     
-    To save money, delete the reources you created as part of PgBouncerVM creation. The easiest way is to delete the Resource Group
+    To save money, delete the reources you created as part of *PgBouncerVM* VM creation. The easiest way is to delete the Resource Group
     
     Go to your ResourceGroup in any way you prefer to look for a resource on Azure
 
