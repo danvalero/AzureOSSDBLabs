@@ -155,10 +155,10 @@ In this exercise you will configure PgBouncer to connect to your Azure Database 
 
 You will modify just some basic parameters. However, it is important you get familiar with other parameters as they can be useful to meet your needs. Refer to [https://www.pgbouncer.org/config.html](https://www.pgbouncer.org/config.html)
 
->If you are doing this lab in a Windows machine and you are not familiar with Linux CLI text editors, you can use Notepad to:
->- create a local file named *pgbouncer.ini* and copy/paste the content from [pgbouncer.ini example](https://github.com/danvalero/AzureOSSDBLabs/blob/main/Azure%20Database%20for%20PostgreSQL%20Single%20Server/PostgresSQLSSLabFiles/pgbouncer/pgbouncer.ini). On line 3, update the server name with your server name. This file is used in step 3.
->- create a local file named *userlist.txt* and add the content mentioned later in this exercise, on step 4.
->- update the files to *PgBouncerVM* VM using a ssh copy tool such as [Bitvise SSH Client](https://www.bitvise.com/ssh-client-download) or **scp** from the Windows Command Prompt on Windows 10 and superior 
+>If you are doing this lab in a Windows machine and you are not familiar with Linux CLI text editors, you can:
+>- use Notepad to create a local file named *pgbouncer.ini* and copy/paste the content from [pgbouncer.ini example](https://github.com/danvalero/AzureOSSDBLabs/blob/main/Azure%20Database%20for%20PostgreSQL%20Single%20Server/PostgresSQLSSLabFiles/pgbouncer/pgbouncer.ini). On line 3, update the server name with your server name. This file is modified on task 3. so you ca skip task 3. 
+>- use Notepad to create a local file named *userlist.txt* and add the content mentioned later on task 4 in this exercise.
+>- update the files to /tmp diretory in *PgBouncerVM* VM using a ssh copy tool such as [Bitvise SSH Client](https://www.bitvise.com/ssh-client-download) or **scp** from the Windows Command Prompt on Windows 10 and superior 
 > ![Image0100](Media/image0100.png)
 >- Connect to the PgBouncerVM and move the files to the final location at /etc/pgbouncer. (Do not override permissions)
 > ![Image0101](Media/image0101.png)
@@ -267,7 +267,7 @@ You will modify just some basic parameters. However, it is important you get fam
   
 1. Restart PgBouncer service
 
-   Start the PgBouncer service by executing:
+   Restart the PgBouncer service by executing:
 
    ```bash
    sudo service pgbouncer restart
