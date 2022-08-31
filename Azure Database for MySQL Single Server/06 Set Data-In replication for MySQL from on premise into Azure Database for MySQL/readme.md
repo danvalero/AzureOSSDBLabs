@@ -446,7 +446,7 @@ This exercise shows how to link the primary and replica server to start Data-In 
 
 1. Verify the replication is working
     
-    Connect to your Azure Database for MySQL server and confirm that there is no department IT in the sakila.actors table by executing:
+    Connect to your Azure Database for MySQL server and confirm that there is no actor named *DANIEL* in the sakila.actors table by executing:
 
     ```SQL  
     SELECT * 
