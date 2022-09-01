@@ -104,63 +104,61 @@ For instructions on how to install Azure CLI locally refer to [Install Azure CLI
 
 1. Open Azure Cloud Shell
     
-    Select the **Cloud Shell** button on the menu in the upper-right corner of the Azure Portal
+   Select the **Cloud Shell** button on the menu in the upper-right corner of the Azure Portal
     
-    ![Cloud Shell button in the Azure portal](Media/image0012.png)
+   ![Cloud Shell button in the Azure portal](Media/image0012.png)
     
-    Select the PowerShell option for the Azure Cloud Shell
+   Select the PowerShell option for the Azure Cloud Shell
     
-    ![](Media/image0013.png)
+   ![](Media/image0013.png)
     
-    If this is the first time we are opening, Azure will prompt us to select a subscription to create a storage account and Microsoft Azure Files share If so, click on **Create storage** and wait until the creation ends.
+   If this is the first time we are opening, Azure will prompt us to select a subscription to create a storage account and Microsoft Azure Files share If so, click on **Create storage** and wait until the creation ends.
     
-    ![](Media/image0014.png)
+   ![](Media/image0014.png)
     
-    When the Azure Cloud Shell is ready to use you will see a screen as the following:
+   When the Azure Cloud Shell is ready to use you will see a screen as the following:
     
-    ![](Media/image0015.png)
+   ![](Media/image0015.png)
 
 1. Connect to your subscription
     
-    List the subscriptions available by executing:
+   List the subscriptions available by executing:
     
-    ```bash
-    az account list
-    ```
+   ```bash
+   az account list
+   ```
     
-    ![](Media/image0016.png)
+   ![](Media/image0016.png)
     
-    Identify the subscription you will use for this exercise and make sure you are on in by executing:
+   Identify the subscription you will use for this exercise and make sure you are on in by executing:
     
-    ```bash
-    az account set --subscription <subscription id>
-    ```
+   ```bash
+   az account set --subscription <subscription id>
+   ```
    
-    ![](Media/image0017.png)
+   ![](Media/image0017.png)
 
 1. Create the Azure Database for PostgreSQL Single Server
     
-    NOTE: You will use the resource group (**postgresqllab**) created on exercise 1 for the new server
-    
-    To create a server named pgserver[your name initials]2 on westus and using a similar configuration used in exercise 1, execute:
+   NOTE: You will use the resource group (**postgresqllab**) created on exercise 1 for the new server
+   
+   To create a server named pgserver[your name initials]2 on westus and using a similar configuration used in exercise 1, execute:
 
-    ```bash
-    az postgres server create --resource-group postgresqllab --name pgserver<your name initials>2 --location eastus --admin-user admpg --admin-password <server_admin_password> --sku-name GP_Gen5_2 --version 11
-    ```
+   ```bash
+   az postgres server create --resource-group postgresqllab --name pgserver<your name initials>2 --location eastus --admin-user admpg --admin-password <server_admin_password> --sku-name GP_Gen5_2 --version 11
+   ```
 
-    NOTE: Make sure you modify the server name and server admin password before executing the command. You can use a region closer to you.
+   NOTE: Make sure you modify the server name and server admin password before executing the command. You can use a region closer to you.
     
-    ![](Media/image0018.png)
+   ![](Media/image0018.png)
     
-    Go to the portal, and look for the server you just created and click on it
+   Go to the portal, and look for the server you just created and click on it
     
-    ![](Media/image0019.png)
+   ![](Media/image0019.png)
     
-    The Azure Database for PostgreSQL have been created and it is ready for use.
-    
-    ![](Media/image0020.png)
-
-
+   The Azure Database for PostgreSQL have been created and it is ready for use.
+   
+   ![](Media/image0020.png)
 
 Congratulations! You have successfully completed this exercise.
 
@@ -175,7 +173,6 @@ Azure Database for PostgreSQL creates a firewall at the server level. It prevent
 1. Connect to Microsoft Azure Portal
     
    Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
- 
 
 1. Go to your PostgreSQL Server
 
@@ -224,7 +221,6 @@ When you create your Azure Database for PostgreSQL Single Server, a default data
 1. Connect to Microsoft Azure Portal
     
    Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
-    
    
 1. Go to your PostgreSQL Server
 
@@ -252,7 +248,6 @@ There are several applications you can use to connect to your Azure Database for
     
    Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
 
-
 1. Open Azure Cloud Shell
     
    Select the **Cloud Shell** button on the menu in the upper-right corner of the Azure Portal.
@@ -263,7 +258,6 @@ There are several applications you can use to connect to your Azure Database for
     
    ![](Media/image0031.png)
    
-       
    When the Azure Cloud Shell is ready to use you will see a screen as the following:
     
    ![](Media/image0033.png)
@@ -376,16 +370,14 @@ pgAdmin is an open-source tool used with PostgreSQL. You can install pgAdmin fro
     
    ![](Media/image0048.png)
 
-1. Delete the Azure Database for PostgreSQL Single Server (optional)
-    
-   To save money, delete the server used during this lab.
+1. Clean up the environment (optional)
 
-   >This step is optional. If you will complete the next Lab soon, do not delete it to save time.
+   To save money, delete the two servers created during this lab.
 
-   On the Overview Pane, select **Delete**. Click on the agreement box and then click on **Delete**
+   >If you will complete the next Lab soon, do not delete thes server named pgserver[your name initials] to save time.
+
+   To delete a server, select **Delete** on the **Overview** pane, confirm deletion and click on **Delete**
 
    ![](Media/image0011.png)
-
-   Repeat this step for the server created in exercise 2 if you would like to delete that server as well.
 
 Congratulations!. You have successfully completed this exercise and the Lab.
