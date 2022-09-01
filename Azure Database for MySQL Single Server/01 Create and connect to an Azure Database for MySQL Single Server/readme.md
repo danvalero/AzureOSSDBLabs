@@ -185,17 +185,13 @@ Azure Database for MySQL creates a firewall at the server level. It prevents ext
 
    On the MySQL server page, under **Settings** heading, click **Connection security** to open the Connection security page for the Azure Database for MySQL.
 
-   ![](Media/image0025.png)
+   Click **Add client IP** on the toolbar. This automatically creates a firewall rule with the public IP address of your computer, as perceived by the Azure system. Change the name of the rule to *MyClientPublicIP*.
 
-   Click **Add client IP** on the toolbar. This automatically creates a firewall rule with the public IP address of your computer, as perceived by the Azure system. Change the name of the rule to *Lab-VM-Public-IP*.
+   >Verify your IP address before saving the configuration. In some situations, the IP address observed by Azure portal differs from the IP address used when accessing the internet and Azure servers. Therefore, you may need to change the Start IP and End IP to make the rule function as expected. Use a search engine or other online tool to check your own IP address. For example, search for "what is my IP."
 
-   ![](Media/image0026.png)
+   Click **Save** on the toolbar to save this server-level firewall rule. Your final configuration should look like:
 
-   Verify your IP address before saving the configuration. In some situations, the IP address observed by Azure portal differs from the IP address used when accessing the internet and Azure servers. Therefore, you may need to change the Start IP and End IP to make the rule function as expected. Use a search engine or other online tool to check your own IP address. For example, search for "what is my IP."
-
-   Click **Save** on the toolbar to save this server-level firewall rule. Wait for the confirmation that the update to the firewall rules was successful
-
-   ![](Media/image0027.png)
+   ![Image0027](Media/image0027.png)
 
 1. Allow access to Azure services option to YES
     
@@ -289,7 +285,7 @@ There are several applications you can use to connect to your Azure Database for
    create database <your initials>db;
    ```
   
-   ![](Media/image0035.png)
+   ![Image0035](Media/image0035.png)
    
    List databases in the server (you will find your new database) by executing 
 
@@ -297,7 +293,7 @@ There are several applications you can use to connect to your Azure Database for
    show databases;
    ```
 
-   ![](Media/image0051.png)
+   ![Image0051](Media/image0051.png)
 
    switch connections to the newly created database by executing:
     
@@ -305,11 +301,11 @@ There are several applications you can use to connect to your Azure Database for
    use <database_name>;
    ```
     
-   ![](Media/image0037.png)
+   ![Image0037](Media/image0037.png)
     
    Type **\q**, and then press the **Enter** key to quit mysql. You can close Cloud Shell after you're finished.
     
-   ![](Media/image0038.png)
+   ![Image0038](Media/image0038.png)
 
 Congratulations! You have successfully completed this exercise.
 
@@ -351,14 +347,14 @@ Congratulations! You have successfully completed this exercise.
     
    You can create multiple databases per server with Azure Database for MySQL. To create a database, use the query tool with the following statement:
    ```sql
-   create database <database_name>;
+   create database <your initials>db2;
    ```
 
-   ![](Media/image0046.png)
+   ![Image0046](Media/image0046.png)
     
-   In the Browser pane, once the database is successfully created, you can see it in the list of databases under your server name. Double click on it
+   Refresh the view in the **SCHEMAS** pane, you will see all the databases on yuor servern. Double click on it
     
-   ![](Media/image0048.png)
+   ![Image0048](Media/image0048.png)
 
 1. Clean up the environment (optional)
 

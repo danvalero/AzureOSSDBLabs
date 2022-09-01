@@ -176,25 +176,19 @@ Azure Database for PostgreSQL creates a firewall at the server level. It prevent
 
 1. Go to your PostgreSQL Server
 
-   Go to your Azure Database for PostgreSQL Single Server created in Exercise 1 (named pgserver[your name initials]) in any way you prefer to look for a resource on Azure. One method is: on the Server Resources (global) bar, type the name of your server, and select it when shown
-
-   ![](Media/image0019.png)
+   Go to your Azure Database for PostgreSQL Single Server created in Exercise 1 (named pgserver[your name initials]) in any way you prefer to look for a resource on Azure. 
 
 1. Configure firewall rule for your Azure Database for PostgreSQL Resource
 
    On the PostgreSQL server page, under **Settings** heading, click **Connection security** to open the Connection security page for the Azure Database for PostgreSQL.
+   
+   Click **Add client IP** on the toolbar. This automatically creates a firewall rule with the public IP address of your computer, as perceived by the Azure system. Change the name of the rule to *MyClientPublicIP*.
 
-   ![](Media/image0025.png)
+   >Verify your IP address before saving the configuration. In some situations, the IP address observed by Azure portal differs from the IP address used when accessing the internet and Azure servers. Therefore, you may need to change the Start IP and End IP to make the rule function as expected. Use a search engine or other online tool to check your own IP address. For example, search for "what is my IP."
 
-   Click **Add client IP** on the toolbar. This automatically creates a firewall rule with the public IP address of your computer, as perceived by the Azure system. Change the name of the rule to *Lab-VM-Public-IP*.
+   Click **Save** on the toolbar to save this server-level firewall rule. Your final configuration should look like:
 
-   ![](Media/image0026.png)
-
-   Verify your IP address before saving the configuration. In some situations, the IP address observed by Azure portal differs from the IP address used when accessing the internet and Azure servers. Therefore, you may need to change the Start IP and End IP to make the rule function as expected. Use a search engine or other online tool to check your own IP address. For example, search for "what is my IP."
-
-   Click **Save** on the toolbar to save this server-level firewall rule. Wait for the confirmation that the update to the firewall rules was successful
-
-   ![](Media/image0027.png)
+   ![Image0027](Media/image0027.png)
 
 1. Allow access to Azure services option to Yes
     
@@ -328,17 +322,17 @@ pgAdmin is an open-source tool used with PostgreSQL. You can install pgAdmin fro
    
    On the left panel, right click on **Servers**, select **Create** and then **Server**
    
-   ![](Media/image0041.png)
+   ![Image0041](Media/image0041.png)
    
    In the **Create - Server** dialog box, on the **General** tab, enter a unique friendly name or the server.
    
-   ![](Media/image0042.png)
+   ![Image0042](Media/image0042.png)
     
    In the **Create - Server** dialog box, on the **Connection** tab, fill in the settings table. Use the connection information you got in exercise 4.
     
    Select the option **Save password?**
     
-   ![](Media/image0043.png)
+   ![Image0043](Media/image0043.png)
     
    Select **Save**
     
@@ -362,11 +356,11 @@ pgAdmin is an open-source tool used with PostgreSQL. You can install pgAdmin fro
     
    Use the server admin user as database owner.
     
-   ![](Media/image0047.png)
+   ![Image0047](Media/image0047.png)
    
    Select **Save** to create a new blank database
     
-   In the Browser pane, once the database is successfully created, you can see it in the list of databases under your server name. Double click on it
+   In the Browser pane, once the database is successfully created, you can see it in the list of databases under your server name. Double click on it to explore it.
     
    ![](Media/image0048.png)
 
