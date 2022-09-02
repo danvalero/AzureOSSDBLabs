@@ -15,7 +15,7 @@ After completing this lab, you will be able to:
 
 This lab considers that an Azure Database for PostgreSQL Single Server named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
 
-**Estimated Time:** 35 minutes
+**Estimated Time:** 1 hour 35 minutes
 
 ---
 
@@ -238,13 +238,91 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
     
    ![](Media/image0201.png)
     
-   Select the subscription where your Azure Database for PostgreSQL Single Server lives by executing:
+   Acquire an access token for the Azure AD authenticated user to access Azure Database for PostgreSQL by executing:
 
    ```bash
-   az account set --subscription <name or id>
+   az account get-access-token --resource https://ossrdbms-aad.database.windows.net
+   ```
+
+   ![](Media/image0203.png)
+    
+   Use token as password for logging in with PostgreSQL using psql by executing:
+
+   ```bash
+   $accessToken = Get-AzAccessToken -ResourceUrl https://ossrdbms-aad.database.windows.net
+   $env:PGPASSWORD = $accessToken.Token
+
+   .\psql.exe "host=pgserver<your name initials>.postgres.database.azure.com user=<user@domain>@pgserver<your name initials> dbname=postgres sslmode=require"    
+   ```
+
+   >When using the psql command line client, the access token needs to be passed through the PGPASSWORD environment variable, since the access token exceeds the password length that psql can accept directly
+
+   ![](Media/image0204.png)
+
+   Get a list of databases just to validate you have successfully logged in using the Azure Active Directory admin by executing:
+
+   ```nocolor
+   \l
+   ``` 
+
+   ![](Media/image0205.png)
+
+
+   You have successfully set an Azure Active Directory admin and logged to the Azure Database for PostgreSQL Single Server with it.
+
+Congratulations!. You have successfully completed this exercise.
+
+---
+
+## Exercise 4: setting and connecting with  Azure AD regular users in Azure Database for PostgreSQL
+
+This exercise shows how to configure Azure Active Directory access with Azure Database for PostgreSQL, and how to connect using an Azure AD token
+
+> For this exercise you will need to use your user as the Administrator for the datbase server and another user in Azure Active Directory to log into the database, if you cannot add another user into your Azure Active Directory you may add a colleague to help you test, in that case you may need to also add yours colleague IP address into the PostgreSQL sever firewall [https://docs.microsoft.com/en-us/azure/postgresql/single-server/concepts-firewall-rules](https://docs.microsoft.com/en-us/azure/postgresql/single-server/concepts-firewall-rules)
+
+**Tasks**
+
+1. Connect to Microsoft Azure Portal
+    
+   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+
+1. Go to your PostgreSQL Server
+
+   Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
+
+1. Set the Azure Active Directory admin user
+    
+   Under the **Settings** section in the sidebar, select **Active Directory admin**
+    
+   Click on **Set Admin**
+    
+   ![](Media/image0124.png)
+    
+   Look for the user you want to add. For this lab, look for the user you are logged in with. Click **Select**
+    
+   ![](Media/image0125.png)
+    
+   You will see the selected user as the Active Directory Admin. Click on **Save**
+    
+   ![](Media/image0126.png)
+
+   >Only one Azure AD admin can be created per PostgreSQL single server and selection of another one will overwrite the existing Azure AD admin configured for the server. You can specify an Azure AD group instead of an individual user to have multiple administrators. Note that you will then sign in with the group name for administration purpose
+
+1. Install Azure CLI
+
+   If you have not done it yet. Isntall Azure CLI following the instrcutions at [How to install the Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) 
+
+1. Connect Azure Database for PostgreSQL Single Server using Azure Active Directory
+    
+   Open the **Windows Powershell**
+    
+   Invoke the Azure CLI tool to authenticate with Azure AD. It requires you to give your Azure AD user ID (the one you set as Azure Active Directory admin in the previous step) and the password:
+    
+   ```bash
+   az login
    ```
     
-   ![](Media/image0202.png)
+   ![](Media/image0201.png)
     
    Acquire an access token for the Azure AD authenticated user to access Azure Database for PostgreSQL by executing:
 
@@ -257,46 +335,35 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
    Use token as password for logging in with PostgreSQL using psql by executing:
 
    ```bash
-   $env:PGPASSWORD='<copy/pasted TOKEN value from az account get-access-token command>'
+   $accessToken = Get-AzAccessToken -ResourceUrl https://ossrdbms-aad.database.windows.net
+   $env:PGPASSWORD = $accessToken.Token
 
-   .\\psql.exe "host=pgserver<your name initials>.postgres.database.azure.com user=<user@domain>@pgserver<your name initials> dbname=postgres sslmode=require"    
+   .\psql.exe "host=pgserver<your name initials>.postgres.database.azure.com user=<user@domain>@pgserver<your name initials> dbname=postgres sslmode=require"    
    ```
 
    >When using the psql command line client, the access token needs to be passed through the PGPASSWORD environment variable, since the access token exceeds the password length that psql can accept directly
 
    ![](Media/image0204.png)
 
-   Get a list of databases just to validate you have successfully logged in using the Azure Active Directory admin by executing:
+1. Add the second user (the new user you created in AAD or your colleague user) executing the following command:
 
-   ```nocolor
-   \\l
-   ``` 
+   ```SQL
+   CREATE ROLE "user1@yourtenant.onmicrosoft.com" WITH LOGIN IN ROLE azure_ad_user;
+   ```
 
-   ![](Media/image0205.png)
+   ![](Media/image0214.png)
 
+1. Connect to **psql** with the user you just added in the previous step
 
-   You have successfully set an Azure Active Directory admin and logged to the Azure Database for PostgreSQL Single Server with it.
+   ```bash
+   az logout
+   az login
+   az account get-access-token --resource https://ossrdbms-aad.database.windows.net
+   $accessToken = Get-AzAccessToken -ResourceUrl https://ossrdbms-aad.database.windows.net
+   $env:PGPASSWORD = $accessToken.Token
+   .\psql.exe "host=pgserver<your name initials>.postgres.database.azure.com user=<user@domain>@pgserver<your name initials> dbname=postgres sslmode=require"    
+   ```
 
-Congratulations!. You have successfully completed this exercise.
-
----
-
-## Exercise 4: setting and connecting with  Azure AD users in Azure Database for PostgreSQL
-
-This exercise shows how to configure Azure Active Directory access with Azure Database for PostgreSQL, and how to connect using an Azure AD token
-
-**Tasks**
-
-1. Connect to Microsoft Azure Portal
-    
-   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
-
-1. Go to your PostgreSQL Server
-
-   Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
-
-*****************
-guide: -> https://docs.microsoft.com/en-us/azure/postgresql/single-server/how-to-configure-sign-in-azure-ad-authentication#creating-azure-ad-users-in-azure-database-for-postgresql
-***************
+   ![](Media/image0215.png)
 
 Congratulations! You have successfully completed this exercise and the Lab. 
