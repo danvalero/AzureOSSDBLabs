@@ -74,7 +74,7 @@ Azure Database for PostgreSQL is a managed service that you use to run, manage, 
 
    - **Tiers:** Standard
    - **Worker node count:** 2
-   - User 4 vCores and 0.5TiB for both worker and coordinators nodes
+   - Use 4 vCores and 0.5TiB for both worker and coordinators nodes
    - Use default values for all other configurations 
 
    ![Image0365](Media/image0365.png)
@@ -91,7 +91,7 @@ Azure Database for PostgreSQL is a managed service that you use to run, manage, 
 
    Click on **Review + create** 
     
-   Review the configuration and cilck on **Create** to provision the server. It can take up to 15 minutes for the provisioning to complete.
+   Review the configuration and click on **Create** to provision the server. It can take up to 15 minutes for the provisioning to complete.
    
    ![Image0367](Media/image0367.png)
 
@@ -99,7 +99,7 @@ Azure Database for PostgreSQL is a managed service that you use to run, manage, 
     
    ![Image0368](Media/image0368.png)
    
-   Wait until the server is created. When the live status changes from **Your deployment is underway** to **Your deployment is complete**, go to the Azure Database for PostgreSQL Servers, the new server will be listed there.
+   Wait until the server is created. When the live status changes from **Deployment is in Progress** to **Your deployment is complete**, go to the Azure Database for PostgreSQL Servers, the new server will be listed there.
 
    ![Image0369](Media/image0369.png)
 
@@ -115,7 +115,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ## Exercise 2: Connect to the database using psql and Create Schema
 
-When you create your Azure Database for PostgreSQL server, a default database named **citus** is created. 
+When you create your Azure Database for PostgreSQL Hyperscale server, a default database named **citus** is created. 
 
 You can connect to the server group by connecting to the coordinator node using any PostgreSQL client tool.
 
@@ -149,9 +149,9 @@ In this Exercise, you will use the [psql](https://www.postgresql.org/docs/curren
     
    ![Image0373](Media/image0373.png)
 
-1. Create the database schema.
+1. Create the database structure.
     
-   For this lab, create schema and structure that allows advertisers to track their campaigns through the application.
+   For this lab, create structure that allows advertisers to track their campaigns through the application.
     
    Multiple companies can use the app, so let's create a table to hold companies and another for their campaigns. In the psql console, run these commands:
 
@@ -408,7 +408,7 @@ Finishing the previous exercises are the pre-requisites for completing this exer
     
    Now, there is local copy of *geo_ips* in all nodes. Joining the *clicks* table with *geo_ips* is efficient on all nodes.
     
-   HTo find the locations of everyone who clicked on ad 290, rub:
+   To find the locations of everyone who clicked on ad 290, execute:
 
    ```sql
    SELECT c.id, clicked_at, latlon 
@@ -511,7 +511,7 @@ Finishing the previous exercises are the pre-requisites for completing this exer
 
    ![Image0390](Media/image0390.png)
 
-   You can see the rows for all the tables created in previous exercise. You can also see that the method used for partitioning in the partmethod column: 'h' for for all the distributed tables and 'n' for the reference table geo_ips.
+   You can see the rows for all the tables created in previous exercise. You can also see that the method used for partitioning in the partmethod column: 'h' for all the distributed tables and 'n' for the reference table geo_ips.
     
    For further information refer to [Partition table](https://docs.citusdata.com/en/v11.0/develop/api_metadata.html#partition-table)
 
@@ -690,8 +690,6 @@ Finishing the previous exercises are the pre-requisites for completing this exer
 Azure Database for PostgreSQL - Hyperscale (Citus) provides self-service scaling to deal with increased load. Adding nodes causes no downtime.
 
 To take advantage of newly added nodes, rebalance distributed table shards. Rebalancing moves shards from existing nodes to the new ones. Hyperscale (Citus) offers zero-downtime rebalancing, meaning queries continue without interruption during shard rebalancing.
-
-One trick is to use an open-ended column type like PostgreSQL's JSONB. Our schema has a JSONB field in clicks called *user_data*. A company (say company 5), can use the column to track whether the user is on a mobile device.
 
 Finishing the previous exercises are the pre-requisites for completing this exercise.
 
