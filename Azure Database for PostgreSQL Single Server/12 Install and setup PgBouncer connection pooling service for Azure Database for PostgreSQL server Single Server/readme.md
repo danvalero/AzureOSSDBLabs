@@ -1,4 +1,4 @@
-# Install and setup PgBouncer connection pooling service for Azure Database for PostgreSQL Single Server Single Server
+# Install and setup PgBouncer connection pooling service for Azure Database for PostgreSQL Single Server
 
 **Introduction**
 
@@ -42,7 +42,7 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
    - **Virtual machine name**: PgBouncerVM
    - **Region**: The same region as the Azure Database for PostgreSQL Single Server
    - **Availability options**: Choose *No infrastructure redundancy required*   
-   - **Scecurity type**: Standard
+   - **Security type**: Standard
    - **Image**: Look for **Ubuntu Server** and select the most recent LTS version (use at least Ubuntu 20.04)
    - **Authentication type**: Password
    - **Username**: pgbounceradmin
@@ -61,7 +61,7 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
    - **Select inbound ports**: select *SHH (22)*
    - Use default values for other settings
    
-   NOTE: You can use an existing VNET, however, for lab purposes it is recommended to create a new VNET you can delete when the lab ends.
+   NOTE: You can use an existing VNET, however, for lab purposes it is recommended to create a new VNET that you can delete when the lab ends.
 
    ![Image0003](Media/image0003.png)
 
@@ -134,10 +134,11 @@ In this exercise you will install the PgBouncer service on an Ubuntu VM on Azure
     
    Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
 
-   There are three ways you can allow access from the VM running PgBouncer to the Azure Database for PostgreSQL Single Server:
+   There are four ways you can allow access from the VM running PgBouncer to the Azure Database for PostgreSQL Single Server:
    - enable **Allow access to Azure services**
    - create a firewall rule to allow access to the Public IP address of the VM
    - create a virtual network rule for the VNET used by the VM.
+   - Use a Private Endpoint
 
    For the purpose of this lab, you create a firewall rule to allow access from the Public IP address of the VM
 
@@ -156,7 +157,7 @@ In this exercise you will configure PgBouncer to connect to your Azure Database 
 You will modify just some basic parameters. However, it is important you get familiar with other parameters as they can be useful to meet your needs. Refer to [https://www.pgbouncer.org/config.html](https://www.pgbouncer.org/config.html)
 
 >If you are doing this lab in a Windows machine and you are not familiar with Linux CLI text editors, you can:
->- use Notepad to create a local file named *pgbouncer.ini* and copy/paste the content from [pgbouncer.ini example](https://github.com/danvalero/AzureOSSDBLabs/blob/main/Azure%20Database%20for%20PostgreSQL%20Single%20Server/PostgresSQLSSLabFiles/pgbouncer/pgbouncer.ini). On line 3, update the server name with your server name. This file is modified on task 3. so you ca skip task 3. 
+>- use Notepad to create a local file named *pgbouncer.ini* and copy/paste the content from [pgbouncer.ini example](https://github.com/danvalero/AzureOSSDBLabs/blob/main/Azure%20Database%20for%20PostgreSQL%20Single%20Server/PostgresSQLSSLabFiles/pgbouncer/pgbouncer.ini). On line 3, update the server name with your server name. This file is modified on task 3, so you can skip task 3. 
 >- use Notepad to create a local file named *userlist.txt* and add the content mentioned later on task 4 in this exercise.
 >- update the files to /tmp diretory in *PgBouncerVM* VM using a ssh copy tool such as [Bitvise SSH Client](https://www.bitvise.com/ssh-client-download) or **scp** from the Windows Command Prompt on Windows 10 and superior 
 > ![Image0100](Media/image0100.png)
@@ -192,7 +193,7 @@ You will modify just some basic parameters. However, it is important you get fam
 
    Using your favorite Linux text editor, open */etc/pgbouncer/pgbouncer.ini*
 
-   Under the **[databases]** section, modify the line to indicate the target server and database
+   Under the **[databases]** section, modify the line to indicate the target server and database (using * means all databases in the server)
 
    ```nocolor-nocopy
    * = host=<postgresql_server_name>.postgres.database.azure.com port=5432
@@ -492,7 +493,7 @@ The Admin console for PgBouncer is available by connecting to the database *pgbo
 
    ![Image0045](Media/image0045.png)
 
-   You can see the connections open to the Azure Database for PostgreSQL Single Server (only one at this time) and the details for the connection such as user, conenction time and the process id in the database server (remote_pid)
+   You can see the connections open to the Azure Database for PostgreSQL Single Server (only one at this time) and the details for the connection such as user, connection time and the process id in the database server (remote_pid)
 
    On an external machine (e.g. your laptop), open a two Windows Command Prompts and create a second and a third connection to the Azure Database for PostgreSQL Single Server through the PgBouncer service.
 
@@ -506,7 +507,7 @@ The Admin console for PgBouncer is available by connecting to the database *pgbo
 
    You can see that for the second pool the **cl_active** value has increased to 3
 
-   Check the connections open from PgBouncer to the database erver by executing:
+   Check the connections open from PgBouncer to the database server by executing:
 
    ```bash
    SHOW SERVERS;
@@ -597,9 +598,9 @@ The Admin console for PgBouncer is available by connecting to the database *pgbo
 
    ![Image0056](Media/image0056.png)
 
- 1. Clean up environmet
+ 1. Clean up environment
     
-    To save money, delete the reources you created as part of *PgBouncerVM* VM creation. The easiest way is to delete the Resource Group
+    To save money, delete all the resources created as part of *PgBouncerVM* VM creation. The easiest way is to delete the Resource Group
     
     Go to your ResourceGroup in any way you prefer to look for a resource on Azure
 
