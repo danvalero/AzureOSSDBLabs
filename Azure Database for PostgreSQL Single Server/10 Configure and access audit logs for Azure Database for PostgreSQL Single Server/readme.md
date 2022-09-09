@@ -16,7 +16,7 @@ After completing this lab, you will be able to:
 
 **Considerations**
 
-This lab considers that an Azure Database for PostgreSQL Single Server named pgserver[your name initials] exists with a server admin login named admpg, if not, create it or use another existing server before continuing with the lab.
+This lab considers that an Azure Database for PostgreSQL Single Server named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 40 minutes
 
@@ -77,14 +77,18 @@ This exercise shows how to enable the extension pgAudit
 
     If you need any other fields to satisfy your audit requirements, use the Postgres parameter [log_line_prefix](https://www.postgresql.org/docs/current/runtime-config-logging.html#GUC-LOG-LINE-PREFIX). The string log_line_prefix is output at the beginning of every Postgres log line. 
     
-    Set log_line_prefix setting to provide timestamp, username, database name, process ID and session ID:
+    Set log_line_prefix  to provide timestamp, username, database name, process ID and session ID:
 
     - Under the **Settings** section in the sidebar, select **Server parameters**.
     - Search for **log_line_prefix.* and set it to     
       ```text
       t=%m u=%u db=%d pid=[%p] Session ID=[%c]:
       ```
+
+      >you can set *log_line_prefix* in any way you want in order to achieve your needs and preferences, The value set in this lab is an example and allows to log information commonly needed in audit reviews
+
     - Click **Save**
+
 
     ![Image0260](Media/image0260.png)
 
@@ -159,7 +163,7 @@ This exercise shows how to set up session audit logging
 
 1. Configure Session Audit Logging
 
-   >For a full list of pgAudit paramters refer to [PgAudit Documentation](https://github.com/pgaudit/pgaudit/blob/master/README.md#settings)
+       >In this lab, not all pgaudit parameters are not mentioned and can be left to there default setting. For a full list of pgAudit paramters refer to [PgAudit Documentation](https://github.com/pgaudit/pgaudit/blob/master/README.md#settings)
 
    Under the **Settings** section in the sidebar, select **Server parameters**.
    
@@ -181,13 +185,13 @@ This exercise shows how to set up session audit logging
 
      >It is recommended to only log the event types and users required for your auditing purposes to ensure your server's performance is not heavily impacted and minimum amount of data is collected.
 
-   - Set **pgaudit.log_relation** to OFF
+   - Set **pgaudit.log_relation** to OFF (default)
 
-     Specifies whether session audit logging should create a separate log entry for each relation (TABLE, VIEW, etc.) referenced in a SELECT or DML statement. 
+     *pgaudit.log_relation* specifies whether session audit logging should create a separate log entry for each relation (TABLE, VIEW, etc.) referenced in a SELECT or DML statement. 
      
      This is a useful shortcut for exhaustive logging without using object audit logging.
 
-   - Set **pgaudit.log_client** to OFF
+   - Set **pgaudit.log_client** to OFF (default)
 
      When the setting pgaudit.log_client is turned on, it redirects logs to a client process like psql instead of being written to a file. 
 
@@ -270,43 +274,44 @@ This exercise shows how to access log events using differente methods (server lo
 
    To get all AUDIT events for the server in the last day, run the following kusto query 
 
-     ```kusto
-     AzureDiagnostics
-     | where LogicalServerName_s == '<servername>'
-     | where TimeGenerated > ago(1d) 
-     | where Message contains "AUDIT:"
-     | order by TimeGenerated asc nulls last
-      ```
+   ```kusto
+   AzureDiagnostics
+   | where LogicalServerName_s == '<servername>'
+   | where TimeGenerated > ago(1d) 
+   | where Message contains "AUDIT:"
+   | order by TimeGenerated asc nulls last
+   ```
    
-     >Make sure you replace *\<servername\>* with your server name
+   >Make sure you replace *\<servername\>* with your server name
 
-     You will find the entries for the events including:
-     - when it happened (TimeGenerated[UTC])
-     - the user and session information logged based on the log_line_prefix server setting. You can see there the user (u), database (db), pid, etc.
-     - The query executed as part of Message text
+   You will find the entries for the events including:
+   - when it happened (TimeGenerated[UTC])
+   - the user and session information logged based on the log_line_prefix server setting. You can see there the user (u), database (db), pid, etc.
+   - The query executed as part of Message text
 
-     !![Image0286](Media/image0286.png)
+   !![Image0286](Media/image0286.png)
 
-     also
+   also
+ 
+   ![Image0287](Media/image0287.png)
 
-     ![Image0287](Media/image0287.png)
+   This query is just an example, you can modify it to add the filters you need to get only the information you are looking for.
+ 
+   For example, if you want to see only SELECT events on the table *people* for a specific user, you can use:
 
-     This query is just an example, you can modify it to add the filters you need to get only the information you are looking for.
-     For example, if you want to see only SELECT events on the table *people* for user *admpg*, you can use 
+   ```kusto
+   AzureDiagnostics
+   | where LogicalServerName_s == '<servername>'
+   | where TimeGenerated > ago(1d) 
+   | where Message contains "AUDIT:"
+   | where prefix_s contains "u=<username>"
+   | where Message has_all ('SELECT','people')
+   | order by TimeGenerated asc nulls last
+   ```
 
-     ```kusto
-     AzureDiagnostics
-     | where LogicalServerName_s == '<servername>'
-     | where TimeGenerated > ago(1d) 
-     | where Message contains "AUDIT:"
-     | where prefix_s contains "u=admpg"
-     | where Message has_all ('SELECT','people')
-     | order by TimeGenerated asc nulls last
-     ```
+   ![Image0288](Media/image0288.png)
 
-     ![Image0288](Media/image0288.png)
-
-     >Kusto Query Language is very powerful, if you want to get familiar with it go to [Tutorial: Use Kusto queries](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/tutorial?pivots=azuredataexplorer) 
+   >Kusto Query Language is very powerful, if you want to get familiar with it go to [Tutorial: Use Kusto queries](https://docs.microsoft.com/en-us/azure/data-explorer/kusto/query/tutorial?pivots=azuredataexplorer) 
 
 1. Consult the audit log in the Storage Account
 
