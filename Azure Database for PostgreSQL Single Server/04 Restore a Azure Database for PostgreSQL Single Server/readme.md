@@ -1,4 +1,4 @@
-# Restore a Azure Database for PostgreSQL Single Server to a point in time
+# Restore an Azure Database for PostgreSQL Single Server to a point in time
 
 **Introduction**
 
@@ -39,17 +39,17 @@ This exercise shows how to restore an Azure Database for PostgreSQL Single Serve
     
    ![Image0062](Media/image0062.png)
 
-   Select the recovery point and the name for the new server. The last recovery points depend on when the server was created and the retention policy.
+   Select the recovery point and the name of the new server. The last recovery points depend on when the server was created and the retention policy.
 
-   >For lab purposes, if you server was created recently, select a recovery point not older than 5 minutes.
+   >For lab purposes, if your server was created recently, select a recovery point not older than 5 minutes.
 
-   Notice that a message indicates the retention policy configured for this server. You will see the following message, however, you can see a different message if using another server or have not completed previous labs.
+   Notice that a message indicates the retention policy configured for this server. You will see the following message (you can see a different message if using another server or have not completed previous labs).
 
    ![Image0063](Media/image0063.png)
 
    As the name of the server, use the name of your server and add *-recovered* at the end.
 
-   Notice that the new server will be created on the same location and using the same pricing tier than the original server (but you can change it later)
+   Notice that the new server will be created at the same location and using the same pricing tier as the original server (but you can change it later.)
 
    ![Image0064](Media/image0064.png)
 
@@ -61,11 +61,11 @@ This exercise shows how to restore an Azure Database for PostgreSQL Single Serve
 
 1. Access the restored server
     
-   Go to the PostgreSQL Server you create on the previous step using your preferred method.
+   Go to the PostgreSQL Server you create in the previous step using your preferred method.
    
    ![Image0066](Media/image0066.png)
 
-   Now you can administer and access this server as you do with any other Azure Database for PostgreSQL. You can change the administrator password, change the backup retention policies, change the pricing tier and do any administrative task you want as this is server independent to the one you restored from.
+   Now you can administer and access this server as you do with any other Azure Database for PostgreSQL. You can change the administrator password, change the backup retention policies, change the pricing tier and do any administrative task you want as this is server independent of the one you restored from.
      
 1. Delete the Azure Database for PostgreSQL Single Server
     
@@ -81,9 +81,9 @@ Congratulations! You have successfully completed this exercise.
 
 This exercise shows how to restore a Deleted Azure Database for PostgreSQL Single Server
 
-When a server is deleted, the database server backup can be retained up to five days in the service a nd will work only if the backup for the server is still available and not deleted from the system.
+When a server is deleted, the database server backup can be retained up to five days in the service and will work only if the backup for the server is still available and not deleted from the system.
 
->For lab purposes you will delete the server used for this lab. 
+>For lab purposes, you will delete the server used for this lab. 
 
 **Tasks**
 
@@ -115,7 +115,7 @@ When a server is deleted, the database server backup can be retained up to five 
 
 1. Recover the deleted server 
 
-   Go to Create Server [Create Server REST API Page](https://docs.microsoft.com/en-us/rest/api/postgresql/singleserver/servers/create?tabs=HTTP)  and click on "Try It" tab highlighted in green and login in with your Azure account.
+   Go to Create Server [Create Server REST API Page](https://docs.microsoft.com/en-us/rest/api/postgresql/singleserver/servers/create?tabs=HTTP)  and click on the "Try It" tab highlighted in green and login in with your Azure account.
 
    Provide the resourceGroupName, serverName (deleted server name), subscriptionId, derived from resourceId attribute captured in task 4
 
@@ -153,7 +153,7 @@ When a server is deleted, the database server backup can be retained up to five 
 
    >The server creation can take time depending on the database size and compute resources provisioned on the original server
 
-   When the restore is done the operation will be marked as **Succeeded**
+   When the restore is done, the operation will be marked as **Succeeded**
 
    ![Image0073](Media/image0073.png)
 
@@ -175,16 +175,16 @@ When a server is deleted, the database server backup can be retained up to five 
 
    Click on **+ Add**
 
-   Set a lock name, select lock type *Delete* and add a note that explain the purpose of the lock
+   Set a lock name, select lock type *Delete* and add a note that explains the purpose of the lock
 
    ![Image0080](Media/image0080.png)
 
    Click **OK**
 
-   Go to the **Overview** panel ant try to delete the server. You delete operation will not succeed with message
+   Go to the **Overview** panel and try to delete the server. Your delete operation will not succeed, and you will see this message." 
 
    ![Image0081](Media/image0081.png)
 
-   To delete the server you must delete the lock first, so if the server is deleted it won´t be accidental.
+   To delete the server, you must delete the lock first, so if the server is deleted it won´t be accidental.
 
 Congratulations!. You have successfully completed this exercise and the Lab. 
