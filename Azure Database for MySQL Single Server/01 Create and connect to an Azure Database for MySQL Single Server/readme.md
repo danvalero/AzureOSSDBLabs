@@ -131,7 +131,7 @@ For instructions on how to install Azure CLI locally refer to [Install Azure CLI
     
    ![](Media/image0016.png)
     
-   Identify the subscription you will use for this exercise and make sure you are on in by executing:
+   Identify the subscription you will use for this exercise and make sure you are on it by executing:
     
    ```bash
    az account set --subscription <subscription id>
@@ -143,10 +143,10 @@ For instructions on how to install Azure CLI locally refer to [Install Azure CLI
     
    NOTE: You will use the resource group (**mysqllab**) created on exercise 1 for the new server
     
-   To create a server named mysqlserver[your name initials]2 on westus and using a similar configuration used in exercise 1, execute:
+   To create a server named mysqlserver[your name initials]2 on eastus and using a similar configuration used in exercise 1, execute:
 
    ```bash
-   az mysql server create --name mysqlserver[your name initials]2 --resource-group mysqllab --location westus --admin-user mysqladmin --admin-password  <server_admin_password> --sku-name GP_Gen5_2 --version 8.0
+   az mysql server create --name mysqlserver[your name initials]2 --resource-group mysqllab --location eastus --admin-user mysqladmin --admin-password  <server_admin_password> --sku-name GP_Gen5_2 --version 8.0
    ```
 
    NOTE: Make sure you modify the server name and server admin password before executing the command. You can use a region closer to you.
@@ -325,7 +325,7 @@ Congratulations! You have successfully completed this exercise.
    
    ![](Media/image0041.png)
    
-   In the **Set up New Connection** dialog box, enter a unique friendly name or the server. Then fill in the user name and host name. Use the connection information you got in exercise 2.
+       In the **Set up New Connection** dialog box, enter a unique friendly name for the server. Then fill in the user name and host name. Use the connection information you got in exercise 2.
    
    ![](Media/image0042.png)
     

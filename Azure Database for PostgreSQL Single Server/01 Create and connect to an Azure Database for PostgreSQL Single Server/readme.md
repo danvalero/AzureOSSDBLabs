@@ -130,7 +130,7 @@ For instructions on how to install Azure CLI locally refer to [Install Azure CLI
     
    ![](Media/image0016.png)
     
-   Identify the subscription you will use for this exercise and make sure you are on in by executing:
+   Identify the subscription you will use for this exercise and make sure you are on it by executing:
     
    ```bash
    az account set --subscription <subscription id>
@@ -142,7 +142,7 @@ For instructions on how to install Azure CLI locally refer to [Install Azure CLI
     
    NOTE: You will use the resource group (**postgresqllab**) created on exercise 1 for the new server
    
-   To create a server named pgserver[your name initials]2 on westus and using a similar configuration used in exercise 1, execute:
+   To create a server named pgserver[your name initials]2 on eastus and using a similar configuration used in exercise 1, execute:
 
    ```bash
    az postgres server create --resource-group postgresqllab --name pgserver<your name initials>2 --location eastus --admin-user admpg --admin-password <server_admin_password> --sku-name GP_Gen5_2 --version 11
