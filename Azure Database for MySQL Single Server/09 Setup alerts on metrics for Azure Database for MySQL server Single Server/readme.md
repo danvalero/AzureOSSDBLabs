@@ -77,15 +77,13 @@ This exercise shows how to, create alerts on metrics for Azure Database for MySQ
    - Threshold value: 3
    - Check every: 5 minutes
    - Look at the data from the last: 5 minutes
-    
-   Click **Next: Actions >**
    
+   you can see the estimated cost in the right side of the screen 
+
    ![Image0138](Media/image0138.png)
-   
-   The condition and the estimated monthly cost will be shown
-    
-   ![](Media/image0139.png)
-   
+ 
+   Click **Next: Actions >**
+
    Within the **Action** section, click on **Create action group** to create a new group to receive notifications on the alert.
     
    ![](Media/image0140.png)
@@ -157,13 +155,9 @@ This exercise shows how to test an alert on metrics for Azure Database for MySQL
 
    Open **MySQL Workbench** and register your Azure Database for MySQL using the admin user.
 
-   On the main dashboard, click on '+' to add a new connection
-
    In the **Set up new connection** dialog box, enter a unique friendly name for the server, such as *mysqlserver*
 
    ![](Media/image0146.png)
-
-   >To validate the alert rule configured “Failed connections” provide an invalid password
 
    In the **SSL** tab, select **Use SSL** as *Require*.
 
@@ -171,7 +165,7 @@ This exercise shows how to test an alert on metrics for Azure Database for MySQL
 
    Click **OK**. 
    
-   Click on the server you just registrered and enter a worng password
+   Click on the server you just registrered and enter a worng password. this will cause a failed connection to the server that will help to validate the alert.
    
    ![Image0148](Media/image0148.png)
 
@@ -191,7 +185,7 @@ This exercise shows how to test an alert on metrics for Azure Database for MySQL
     
    ![Image0150](Media/image0150.png)
 
-1. After 5 minutes the rule will generate the alert,
+1. After 5 minutes the rule will generate the alert
     
    Check your email inbox, you should have received an email as defined in the action
     
