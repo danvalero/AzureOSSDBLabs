@@ -22,7 +22,7 @@ This lab considers that an Azure Database for MySQL Single Server named mysqlser
 
 ## Exercise 1: Create metric alerts using the Azure Portal
 
-This exercise shows how to, create alerts on metrics for Azure Database for MySQL.
+This exercise shows how to, create alerts on metrics for Azure Database for MySQL Single Server.
 
 **Tasks**
 
@@ -52,13 +52,16 @@ This exercise shows how to, create alerts on metrics for Azure Database for MySQ
 
 1. Create an alert for the **Failed Connections** metric
     
-   Go to **Alerts** under **Monitoring**. Click on **+ Create++ and select ++Alert rule**
+   Go to **Alerts** under **Monitoring**. 
+   
+   Click on **+ Create** and select **Alert rule**
      
    ![](Media/image0134.png)
    
    The **Create an alert rule** page opens.
    
    >If you clik on **Scope**, you will see that the scope is predefined to the server you are working on
+
    >![](Media/image0135.png)
    
    Within the **Condition** section, click **Add condition**.
@@ -175,7 +178,7 @@ This exercise shows how to test an alert on metrics for Azure Database for MySQL
 
    ![Image0149](Media/image0149.png)
 
-   >If you had already allowed access to you IP Address to the Azure Database for MySQL server, you will not get the previous error. It is OK, you will get a message indicating the user/password provided is not valid and the alert will trigger any way because you will try to connect using an invalid password.
+   >If you had already allowed access to you IP Address to the Azure Database for MySQL Single Server, you will not get the previous error. It is OK, you will get a message indicating the user/password provided is not valid and the alert will trigger any way because you will try to connect using an invalid password.
 
 1. Validate the failed connection attempts
   
@@ -197,7 +200,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ## Exercise 3: Manage alerts configured for Azure Database for MySQL
 
-This exercise shows how to, manage alerts configured for Azure Database for MySQL.
+This exercise shows how to, manage alerts configured for Azure Database for MySQL Single Server.
 
 **Tasks**
 
