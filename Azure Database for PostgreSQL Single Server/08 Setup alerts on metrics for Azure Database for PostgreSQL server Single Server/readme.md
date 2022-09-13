@@ -22,7 +22,7 @@ This lab considers that an Azure Database for PostgreSQL Single Server named pgs
 
 ## Exercise 1: Create metric alerts using the Azure Portal
 
-This exercise shows how to, create alerts on metrics for Azure Database for PostgreSQL Single Server.
+This exercise shows how to create alerts on metrics for Azure Database for PostgreSQL Single Server.
 
 **Tasks**
 
@@ -60,11 +60,11 @@ This exercise shows how to, create alerts on metrics for Azure Database for Post
     
    The **Create an alert rule** page opens.
     
-   >If you clik on **Scope**, you will see that the scope is predefined to the server you are working on
+   >If you click on **Scope**, you will see that the scope is predefined to the server you are working on
 
    >![](Media/image0135.png)
    
-   You will see all the possible signal (elements you can craete an alert on)
+   You will see all the possible signal (elements you can create an alert on)
  
    ![Image0136](Media/image0136.png)
 
@@ -124,7 +124,7 @@ This exercise shows how to, create alerts on metrics for Azure Database for Post
     
    Select **Review + create** and then click **Create** to create the alert.
        
-   Within 10 minutes, the alert is active and triggers as previously described.
+   Within minutes, the alert will be enabled.
 
 Congratulations! You have successfully completed this exercise.
 
@@ -155,9 +155,9 @@ This exercise shows how to test an alert on metrics for Azure Database for Postg
    Open **pgAdmin** and register your Azure Database for PostgreSQL Single Server using the admin user.
     
    
-   In the **Register - Server** dialog box, on the **General** tab, enter a unique friendly name for the server, such as *pgserver[your name initials]*.
-
-   In the **Register - Server** dialog box, on the **Connection** tab, fill in the settings table. Make sure you use an invalid password
+   In the **Register - Server** dialog box:
+   - In the **General** tab, enter a unique friendly name for the server, such as *pgserver[your name initials]*.
+   - In the **Register - Server** dialog box, on the **Connection** tab, fill in the settings table. Make sure you use an invalid password
 
    ![Image0147](Media/image0147.png)
 
@@ -191,7 +191,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ## Exercise 3: Manage alerts configured for Azure Database for PostgreSQL Single Server
 
-This exercise shows how to, manage alerts configured for Azure Database for PostgreSQL Single Server.
+This exercise shows how to manage alerts configured for Azure Database for PostgreSQL Single Server.
 
 **Tasks**
 

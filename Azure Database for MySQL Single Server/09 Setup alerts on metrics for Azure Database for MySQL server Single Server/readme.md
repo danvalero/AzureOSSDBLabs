@@ -22,7 +22,7 @@ This lab considers that an Azure Database for MySQL Single Server named mysqlser
 
 ## Exercise 1: Create metric alerts using the Azure Portal
 
-This exercise shows how to, create alerts on metrics for Azure Database for MySQL Single Server.
+This exercise shows how to create alerts on metrics for Azure Database for MySQL Single Server.
 
 **Tasks**
 
@@ -60,17 +60,13 @@ This exercise shows how to, create alerts on metrics for Azure Database for MySQ
    
    The **Create an alert rule** page opens.
    
-   >If you clik on **Scope**, you will see that the scope is predefined to the server you are working on
+   >If you click on **Scope**, you will see that the scope is predefined to the server you are working on
 
    >![](Media/image0135.png)
+      
+   You will see all the possible signal (elements you can create an alert on)
    
-   Within the **Condition** section, click **Add condition**.
-   
-   ![](Media/image0136.png)
-   
-   Review the different available metrics.
-   
-   ![](Media/image0137.png)
+   ![Image0137](Media/image0137.png)
    
    Select the **Failed Connections** metric from the list of signals to be alerted on.
    
@@ -128,7 +124,7 @@ This exercise shows how to, create alerts on metrics for Azure Database for MySQ
     
    Select **Review + create** and then click **Create** to create the alert.
     
-   Within 10 minutes, the alert is active and triggers as previously described.
+   Within minutes, the alert will be enabled.
 
 Congratulations! You have successfully completed this exercise.
 
@@ -154,25 +150,21 @@ This exercise shows how to test an alert on metrics for Azure Database for MySQL
 
    ![](Media/image0145.png)
 
-1. Force a failed connection to the Azure Database for MySQL from pgAdmin
+1. Force a failed connection to the Azure Database for MySQL from MySQL Workbench
 
    Open **MySQL Workbench** and register your Azure Database for MySQL using the admin user.
 
-   In the **Set up new connection** dialog box, enter a unique friendly name for the server, such as *mysqlserver*
+   In the **Set up new connection** dialog box, enter a unique friendly name for the server, such as *mysqlserver*, and provide connection information
 
    ![](Media/image0146.png)
 
-   In the **SSL** tab, select **Use SSL** as *Require*.
-
-   ![](Media/image0147.png)
-
    Click **OK**. 
    
-   Click on the server you just registrered and enter a worng password. this will cause a failed connection to the server that will help to validate the alert.
+   Click on the server you just registered and enter a wrong password. this will cause a failed connection to the server that will help to validate the alert.
    
    ![Image0148](Media/image0148.png)
 
-   You will get a connection error. Try to connect 4 times in total (using a worng password) to generate 4 failed connections.
+   You will get a connection error. Try to connect 4 times in total (using a wrong password) to generate 4 failed connections.
 
    If you get an error similar to the following error, try to save the configuration at least 3 times. The alert will trigger as a failed connection event will be logged because you cannot access the server as connections are not allowed from the lab virtual machine.
 
@@ -200,7 +192,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ## Exercise 3: Manage alerts configured for Azure Database for MySQL
 
-This exercise shows how to, manage alerts configured for Azure Database for MySQL Single Server.
+This exercise shows how to manage alerts configured for Azure Database for MySQL Single Server.
 
 **Tasks**
 
@@ -216,7 +208,7 @@ This exercise shows how to, manage alerts configured for Azure Database for MySQ
 
    Go to **Alerts** under **Monitoring**. You will see the alert that was fired.
 
-   ![Image0150](Media/image0150.png)
+   ![Image0150](Media/image0152.png)
 
    Click on the alert to see its details
 
