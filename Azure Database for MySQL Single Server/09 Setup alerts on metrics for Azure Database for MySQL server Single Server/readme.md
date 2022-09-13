@@ -75,8 +75,8 @@ This exercise shows how to, create alerts on metrics for Azure Database for MySQ
    Select the **Failed Connections** metric from the list of signals to be alerted on.
    
    Configure the alert with the following values:
-   - Operator: Greater or equal to
-   - Aggregation type: Count
+   - Operator: Greater than or equal to
+   - Aggregation type: Total
    - Threshold value: 3
    - Check every: 5 minutes
    - Look at the data from the last: 5 minutes
@@ -87,7 +87,7 @@ This exercise shows how to, create alerts on metrics for Azure Database for MySQ
  
    Click **Next: Actions >**
 
-   Within the **Action** section, click on **Create action group** to create a new group to receive notifications on the alert.
+   Within the **Action** section, click on **+ Create action group** to create a new group to receive notifications on the alert.
     
    ![](Media/image0140.png)
     
@@ -102,8 +102,8 @@ This exercise shows how to, create alerts on metrics for Azure Database for MySQ
       
    Configure the notification using:
    
-   - Action Name: SendEmail
-   - Action Type: Email/SMS/Push/Voice
+   - Name: SendEmail
+   - Notification Type: Email/SMS/Push/Voice
 
    >For this Lab you will use Action Type: Email/SMS/Voice, for production environments we recommend using Azure RBAC to notify via Azure Roles.
     
@@ -111,7 +111,7 @@ This exercise shows how to, create alerts on metrics for Azure Database for MySQ
    
    ![Image0142](Media/image0142.png)
    
-   Click **Review + Create >**, then click on **Create**
+   Click **Review + Create**, then click on **Create**
      
    The action group will be shown
    
@@ -120,8 +120,8 @@ This exercise shows how to, create alerts on metrics for Azure Database for MySQ
    Click **Next: Details >**
       
    Fill out the details using the following information:
-   - Alert rule name: Failed connections to mysqlserver[your name initials]
-   - Description: 3 failed connections to mysqlserver[your name initials] in the last 5 minutes.
+   - Alert rule name: Failed connections to \<your_server_name\>
+   - Description: 3 failed connections to \<your_server_name\> in the last 5 minutes.
    - Severity: *3 - Informational*. You can set other value depending on your needs.
    
    ![Image0144](Media/image0144.png)
