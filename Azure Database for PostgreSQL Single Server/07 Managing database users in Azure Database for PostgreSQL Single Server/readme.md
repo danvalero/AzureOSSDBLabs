@@ -29,14 +29,11 @@ This exercise shows how to create additional admin users in Azure Database for P
     
    Open Microsoft Edge and navigate to the Azure Portal ([http://ms.portal.azure.com](http://ms.portal.azure.com)) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
 
-1. Select the three lines in the top left, Home and Azure Database for PostgreSQL
-   ![](Media/image0206.png)
+1. Go to your Azure Database for MySQL Single server in any way you prefer to look for a resource on Azure, you will use following server information in the next step
 
-1. Select the database server you want to work with
-   ![](Media/image0207.png)
-
-1. You will see the server details including server name and admin user
    ![](Media/image0208.png)
+
+
 
 1. Connect to your Azure Database for PostgreSQL Single Server using the details from the previous step
 
@@ -74,7 +71,13 @@ This exercise shows how to create additional admin users in Azure Database for P
     
    >Your server admin user is a member of the *azure_pg_admin* role. However, the server admin account is not part of the azure_superuser role. Since this service is a managed PaaS service, only Microsoft is part of the super user role.
     
-   In Azure Database for PostgreSQL, the server admin user is granted these privileges: LOGIN, NOSUPERUSER, INHERIT, CREATEDB, CREATEROLE, NOREPLICATION
+   In Azure Database for PostgreSQL, the server admin user is granted these privileges: 
+   - LOGIN 
+   - NOSUPERUSER 
+   - INHERIT 
+   - CREATEDB 
+   - CREATEROLE 
+   - NOREPLICATION
     
    The server admin user account can be used to create additional users and grant those users into the *azure_pg_admin* role. Also, the server admin account can be used to create less privileged users and roles that have access to individual databases and schemas.
 
@@ -87,16 +90,15 @@ This exercise shows how to create additional admin users in Azure Database for P
 
    GRANT azure_pg_admin TO [new_user];
    ```
+   >IMPORTANT: Replace *[new_user]* with your new username and replace *[StrongPassword]* with your own strong password.
 
-   For example:
+      For example:
 
    ```sql
    CREATE ROLE admin2 WITH LOGIN NOSUPERUSER INHERIT CREATEDB CREATEROLE NOREPLICATION PASSWORD 'SuperStrongPassword!';
 
    GRANT azure_pg_admin TO admin2;
    ```
-    
-   >IMPORTANT: Replace *[new_user]* with your new username and replace *[StrongPassword]* with your own strong password.
     
    ![](Media/image0118.png)
 
@@ -112,11 +114,27 @@ This exercise shows how to Create less privileged users and roles that have acce
 
 1. Connect to Microsoft Azure Portal
     
-   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+   Open Microsoft Edge and navigate to the Azure Portal ([http://ms.portal.azure.com](http://ms.portal.azure.com)) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
 
-1. Go to your PostgreSQL Server
+1. Go to your Azure Database for MySQL Single server in any way you prefer to look for a resource on Azure, you will use following server information in the next step
 
-   Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
+   ![](Media/image0208.png)
+
+
+
+1. Connect to your Azure Database for PostgreSQL Single Server using the details from the previous step
+
+   Open **pgAdmin** and connect to your server using the admin user.
+   ![](Media/image0209.png)
+   ![](Media/image0210.png)
+
+   Double click on the entry you just created
+
+   ![](Media/image0211.png)
+
+   Open the Query Tool
+
+   ![](Media/image0212.png)
 
 1. Create new database users
 
@@ -128,6 +146,8 @@ This exercise shows how to Create less privileged users and roles that have acce
    GRANT CONNECT ON DATABASE [your initials]db TO [new_user];
    ```
 
+   >Replace *[new_user]* with the name of the user you want to create. Replace *[your initials]* with your initials if the database [your initials]db exists, if not, use a different database. Replace *[StrongPassword]* with your own strong password.
+
    For example:
 
    ```sql
@@ -136,7 +156,7 @@ This exercise shows how to Create less privileged users and roles that have acce
    GRANT CONNECT ON DATABASE dvvrdb TO dbuser;
    ```
 
-   >Replace *[new_user]* with the name of the user you want to create. Replace *[your initials]* with your initials if the database [your initials]db exists, if not, use a different database. Replace *[StrongPassword]* with your own strong password.
+
 
    ![](Media/image0119.png)
 
@@ -147,6 +167,7 @@ This exercise shows how to Create less privileged users and roles that have acce
    ```sql
    GRANT CREATE ON DATABASE [your initials]db TO [user_name];
    ```
+   >Replace *[user_name]* with the name of the user you created Replace *[your initials]* with your initials if the database [your initials]db exists, if not, use a different database.
 
    For example:
 
@@ -154,7 +175,7 @@ This exercise shows how to Create less privileged users and roles that have acce
    GRANT CREATE ON DATABASE dvvrdb TO dbuser;
    ```
 
-   >Replace *[user_name]* with the name of the user you created Replace *[your initials]* with your initials if the database [your initials]db exists, if not, use a different database.
+
 
    ![](Media/image0120.png)
 
@@ -198,12 +219,28 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
 
 1. Connect to Microsoft Azure Portal
     
-   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+   Open Microsoft Edge and navigate to the Azure Portal ([http://ms.portal.azure.com](http://ms.portal.azure.com)) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
 
-1. Go to your PostgreSQL Server
+1. Go to your Azure Database for MySQL Single server in any way you prefer to look for a resource on Azure, you will use following server information in the next step
 
-   Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
+   ![](Media/image0208.png)
 
+
+
+1. Connect to your Azure Database for PostgreSQL Single Server using the details from the previous step
+
+   Open **pgAdmin** and connect to your server using the admin user.
+   ![](Media/image0209.png)
+   ![](Media/image0210.png)
+
+   Double click on the entry you just created
+
+   ![](Media/image0211.png)
+
+   Open the Query Tool
+
+   ![](Media/image0212.png)
+   
 1. Set the Azure Active Directory admin user
     
    Under the **Settings** section in the sidebar, select **Active Directory admin**
@@ -241,7 +278,7 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
    Acquire an access token for the Azure AD authenticated user to access Azure Database for PostgreSQL by executing:
 
    ```bash
-   az account get-access-token --resource https://ossrdbms-aad.database.windows.net
+   az account get-access-token --resource-type oss-rdbms
    ```
 
    ![](Media/image0203.png)
@@ -276,41 +313,11 @@ Congratulations!. You have successfully completed this exercise.
 
 ## Exercise 4: setting and connecting with  Azure AD regular users in Azure Database for PostgreSQL
 
-This exercise shows how to configure Azure Active Directory access with Azure Database for PostgreSQL, and how to connect using an Azure AD token
+This exercise shows how to configure Azure Active Directory access with Azure Database for PostgreSQL to add a non-admin user
 
-> For this exercise you will need to use your user as the Administrator for the datbase server and another user in Azure Active Directory to log into the database, if you cannot add another user into your Azure Active Directory you may add a colleague to help you test, in that case you may need to also add yours colleague IP address into the PostgreSQL sever firewall [https://docs.microsoft.com/en-us/azure/postgresql/single-server/concepts-firewall-rules](https://docs.microsoft.com/en-us/azure/postgresql/single-server/concepts-firewall-rules)
+> For this exercise you will need to have completed the previous exercise
 
 **Tasks**
-
-1. Connect to Microsoft Azure Portal
-    
-   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
-
-1. Go to your PostgreSQL Server
-
-   Go to your Azure Database for PostgreSQL Single Server in any way you prefer to look for a resource on Azure
-
-1. Set the Azure Active Directory admin user
-    
-   Under the **Settings** section in the sidebar, select **Active Directory admin**
-    
-   Click on **Set Admin**
-    
-   ![](Media/image0124.png)
-    
-   Look for the user you want to add. For this lab, look for the user you are logged in with. Click **Select**
-    
-   ![](Media/image0125.png)
-    
-   You will see the selected user as the Active Directory Admin. Click on **Save**
-    
-   ![](Media/image0126.png)
-
-   >Only one Azure AD admin can be created per PostgreSQL single server and selection of another one will overwrite the existing Azure AD admin configured for the server. You can specify an Azure AD group instead of an individual user to have multiple administrators. Note that you will then sign in with the group name for administration purpose
-
-1. Install Azure CLI
-
-   If you have not done it yet. Isntall Azure CLI following the instrcutions at [How to install the Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) 
 
 1. Connect Azure Database for PostgreSQL Single Server using Azure Active Directory
     
@@ -327,7 +334,7 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
    Acquire an access token for the Azure AD authenticated user to access Azure Database for PostgreSQL by executing:
 
    ```bash
-   az account get-access-token --resource https://ossrdbms-aad.database.windows.net
+   az account get-access-token --resource-type oss-rdbms
    ```
 
    ![](Media/image0203.png)
@@ -353,17 +360,6 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
 
    ![](Media/image0214.png)
 
-1. Connect to **psql** with the user you just added in the previous step
-
-   ```bash
-   az logout
-   az login
-   az account get-access-token --resource https://ossrdbms-aad.database.windows.net
-   $accessToken = Get-AzAccessToken -ResourceUrl https://ossrdbms-aad.database.windows.net
-   $env:PGPASSWORD = $accessToken.Token
-   .\psql.exe "host=pgserver<your name initials>.postgres.database.azure.com user=<user@domain>@pgserver<your name initials> dbname=postgres sslmode=require"    
-   ```
-
-   ![](Media/image0215.png)
+Now the user that you just added can connect to the PostgreSQL database using AAD authentication.   
 
 Congratulations! You have successfully completed this exercise and the Lab. 
