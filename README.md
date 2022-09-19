@@ -6,7 +6,7 @@ The purpose of the labs is to provide  Hands-on labs that show how the product w
 
 The current release covers the Single Server option for both Azure Database for MySQL and Azure Database for PostgreSQL.
 
-[Azure Database for MySQL Single Server](Azure%20Database%20for%20MySQL%20Single%20Server/readme.md)
+[Azure Database for MySQL Single Server](/Azure%20Database%20for%20MySQL%20Single%20Server/)
 
 In the following months, additional labs for Single Server and labs for Flexible Server will be released.
 
