@@ -13,11 +13,17 @@ After completing this lab, you will be able to:
 - Scale up storage and IOPS for an existing Azure Database for MySQL Single Server
 - Scale down vcores for an existing Azure Database for MySQL Single Server
 
-**Considerations**
+**Prerequisites**
 
-This lab considers that an Azure Database for MySQL Single Server General Purpose named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
+This lab considers that an Azure Database for MySQL Single Server General Purpose named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing 
+server before continuing with the lab.
 
 **Estimated Time:** 20 minutes
+
+**Exercise list**
+- [Scale up and down an Azure Database for MySQL Single Server](#scale-up-and-down-an-azure-database-for-mysql-single-server)
+  - [Exercise 1: Scale up an Azure Database for MySQL Single Server](#exercise-1-scale-up-an-azure-database-for-mysql-single-server)
+  - [Exercise 2: Scale down an Azure Database for MySQL Single Server](#exercise-2-scale-down-an-azure-database-for-mysql-single-server)
 
 ---
 

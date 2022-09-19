@@ -21,11 +21,18 @@ After completing this lab, you will be able to:
 - Set a read replica for an Azure Database for PostgreSQL Single Server
 - Read from an Azure Database for PostgreSQL Single Server read replica
 
-**Considerations**
+**Prerequisites**
 
 This lab considers that an Azure Database for PostgreSQL Single Server named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 50 minutes
+
+**Exercise list**
+- [Create a Read replica for an Azure Database for PostgreSQL Single Server](#create-a-read-replica-for-an-azure-database-for-postgresql-single-server)
+  - [Exercise 1: Create a sample database on the Azure Database for PostgreSQL Single Server](#exercise-1-create-a-sample-database-on-the-azure-database-for-postgresql-single-server)
+  - [Exercise 2: Add a replica](#exercise-2-add-a-replica)
+  - [Exercise 3: Read from a replica](#exercise-3-read-from-a-replica)
+  - [Exercise 4: Stop Replication](#exercise-4-stop-replication)
 
 ---
 

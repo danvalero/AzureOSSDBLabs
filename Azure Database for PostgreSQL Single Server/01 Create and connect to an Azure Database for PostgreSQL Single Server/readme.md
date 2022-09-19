@@ -17,6 +17,15 @@ After completing this lab, you will be able to:
 
 **Estimated Time:** 60 minutes
 
+**Exercise list**
+- [Create and connect to an Azure Database for PostgreSQL Single Server](#create-and-connect-to-an-azure-database-for-postgresql-single-server)
+  - [Exercise 1: Create an Azure Database for PostgreSQL Single Server in the Azure portal](#exercise-1-create-an-azure-database-for-postgresql-single-server-in-the-azure-portal)
+  - [Exercise 2: Create an Azure Database for PostgreSQL Single Server using Azure CLI](#exercise-2-create-an-azure-database-for-postgresql-single-server-using-azure-cli)
+  - [Exercise 3: Configure a server-level firewall rule](#exercise-3-configure-a-server-level-firewall-rule)
+  - [Exercise 4: Get the connection information](#exercise-4-get-the-connection-information)
+  - [Exercise 5: Connect to the PostgreSQL Database by using psql in Cloud Shell](#exercise-5-connect-to-the-postgresql-database-by-using-psql-in-cloud-shell)
+  - [Exercise 6: Connect to the PostgreSQL Server using pgAdmin](#exercise-6-connect-to-the-postgresql-server-using-pgadmin)
+
 ---
 
 ## Exercise 1: Create an Azure Database for PostgreSQL Single Server in the Azure portal

@@ -13,6 +13,11 @@ After completing this lab, you will be able to:
 
 **Estimated Time:** 20 minutes
 
+**Exercise list**
+- [Set and change the retention policy and the backup geo replication option for an Azure Database for PostgreSQL Single Server](#set-and-change-the-retention-policy-and-the-backup-geo-replication-option-for-an-azure-database-for-postgresql-single-server)
+  - [Exercise 1: Configure the retention policy and the backup geo replication during creation](#exercise-1-configure-the-retention-policy-and-the-backup-geo-replication-during-creation)
+  - [Exercise 2: Change the retention policy and the backup geo replication option for and existing server](#exercise-2-change-the-retention-policy-and-the-backup-geo-replication-option-for-and-existing-server)
+
 ---
 
 ## Exercise 1: Configure the retention policy and the backup geo replication during creation

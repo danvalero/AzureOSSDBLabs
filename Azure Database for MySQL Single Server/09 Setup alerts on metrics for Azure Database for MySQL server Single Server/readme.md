@@ -12,11 +12,17 @@ After completing this lab, you will be able to:
 - Test an alert rule configured for Azure Database for MySQL Single Server
 - Manage alerts configured for Azure Database for MySQL Single Server
 
-**Considerations**
+**Prerequisites**
 
 This lab considers that an Azure Database for MySQL Single Server named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 40 minutes
+
+**Exercise list**
+- [Setup alerts on metrics for Azure Database for MySQL Single Server](#setup-alerts-on-metrics-for-azure-database-for-mysql-single-server)
+  - [Exercise 1: Create metric alerts using the Azure Portal](#exercise-1-create-metric-alerts-using-the-azure-portal)
+  - [Exercise 2: Test an alert rule configured for Azure Database for MySQL](#exercise-2-test-an-alert-rule-configured-for-azure-database-for-mysql)
+  - [Exercise 3: Manage alerts configured for Azure Database for MySQL](#exercise-3-manage-alerts-configured-for-azure-database-for-mysql)
 
 ---
 

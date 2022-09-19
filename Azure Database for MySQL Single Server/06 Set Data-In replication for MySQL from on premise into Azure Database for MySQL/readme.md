@@ -14,15 +14,24 @@ After completing this lab, you will be able to:
 - Link the primary and replica servers and start data-in replication
 - Stop data-in replication and remove replication relationships
 
-**Considerations**
+**Prerequisites**
 
 This lab considers that an Azure Database for MySQL Single Server named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 90 minutes
 
+**Exercise list**
+- [Set Data-In replication for MySQL from on premise into Azure Database for MySQL](#set-data-in-replication-for-mysql-from-on-premise-into-azure-database-for-mysql)
+  - [Exercise 1: Create a source server](#exercise-1-create-a-source-server)
+  - [Exercise 2: Configure the primary server](#exercise-2-configure-the-primary-server)
+  - [Exercise 3: Dump primary server and Restore in Azure Database for MySQL server](#exercise-3-dump-primary-server-and-restore-in-azure-database-for-mysql-server)
+  - [Exercise 4: Link primary and replica server to start Data-In Replication](#exercise-4-link-primary-and-replica-server-to-start-data-in-replication)
+  - [Exercise 5: Stop Replication](#exercise-5-stop-replication)
+  - [Exercise 6: Remove replication relationship](#exercise-6-remove-replication-relationship)
+
 ---
 
-# Exercise 1: Create a source server
+## Exercise 1: Create a source server
 
 In this exercise, MySQL will be installed in an Azure VM to be used as primary server in the DataIn replication configuration. 
 
@@ -187,7 +196,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ---
 
-# Exercise 2: Configure the primary server
+## Exercise 2: Configure the primary server
 
 This exercise shows how to enable binary logging on the primary server and enable other parameters required for Data-In replication
 
@@ -260,7 +269,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ---
 
-# Exercise 3: Dump primary server and Restore in Azure Database for MySQL server
+## Exercise 3: Dump primary server and Restore in Azure Database for MySQL server
 
 This exercise shows how to dump primary server and restore in Azure Database for MySQL server
 
@@ -381,7 +390,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ---
 
-# Exercise 4: Link primary and replica server to start Data-In Replication 
+## Exercise 4: Link primary and replica server to start Data-In Replication 
 
 This exercise shows how to link the primary and replica server to start Data-In Replication
 
@@ -481,7 +490,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ---
 
-# Exercise 4: Stop Replication 
+## Exercise 5: Stop Replication 
 
 This exercise shows how to rename old and new databases
 
@@ -509,7 +518,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ---
 
-# Exercise 5: Remove replication relationship 
+## Exercise 6: Remove replication relationship 
 
 This exercise shows how to rename old and new databases
 

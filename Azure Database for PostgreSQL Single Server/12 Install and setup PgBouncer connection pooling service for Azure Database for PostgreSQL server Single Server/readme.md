@@ -13,11 +13,18 @@ After completing this lab, you will be able to:
 - Connect to Azure PostgreSQL service using PgBouncer.
 - Understand how to check the Pool and Stats Information.
 
-**Considerations**
+**Prerequisites**
 
 This lab considers that an Azure Database for PostgreSQL Single Server named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 90 minutes
+
+**Exercise list**
+- [Install and setup PgBouncer connection pooling service for Azure Database for PostgreSQL Single Server](#install-and-setup-pgbouncer-connection-pooling-service-for-azure-database-for-postgresql-single-server)
+  - [Exercise 1: Deploy an Ubuntu Server VM, install PgBouncer and PostgreSQL clients](#exercise-1-deploy-an-ubuntu-server-vm-install-pgbouncer-and-postgresql-clients)
+  - [Exercise 2: Configure PgBouncer](#exercise-2-configure-pgbouncer)
+  - [Exercise 3: Connect to Azure Database for PostgreSQL using PgBouncer](#exercise-3-connect-to-azure-database-for-postgresql-using-pgbouncer)
+  - [Exercise 4: Understand how to check the Pool and Stats Information](#exercise-4-understand-how-to-check-the-pool-and-stats-information)
 
 ---
 

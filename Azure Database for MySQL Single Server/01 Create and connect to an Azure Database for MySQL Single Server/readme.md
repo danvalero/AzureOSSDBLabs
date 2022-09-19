@@ -4,7 +4,6 @@
 
 During this lab, you will learn how to create an Azure Database for MySQL with the Azure Portal and Azure CLI. You will also learn how to connect your Azure Database for MySQL Single Server through using the MySQL Command Tool in Cloud Shell and [MySQL Workbench](https://www.mysql.com/products/workbench/) tool, after configuring firewall rules for your Azure Database for MySQL Single Server. You will leverage Azure Portal to configure firewall rule in this lab.
 
-
 **Objectives**
 
 After completing this lab, you will be able to: 
@@ -17,6 +16,15 @@ After completing this lab, you will be able to:
 - Create new databases using mysql or MySQL Workbench
 
 **Estimated Time:** 60 minutes
+
+**Exercise list**
+- [Create and connect to an Azure Database for MySQL Single Server](#create-and-connect-to-an-azure-database-for-mysql-single-server)
+  - [Exercise 1: Create an Azure Database for MySQL Single Server in the Azure portal](#exercise-1-create-an-azure-database-for-mysql-single-server-in-the-azure-portal)
+  - [Exercise 2: Create an Azure Database for MySQL Single Server using Azure CLI](#exercise-2-create-an-azure-database-for-mysql-single-server-using-azure-cli)
+  - [Exercise 3: Configure a server-level firewall rule](#exercise-3-configure-a-server-level-firewall-rule)
+  - [Exercise 4: Get the connection information](#exercise-4-get-the-connection-information)
+  - [Exercise 5: Connect to the MySQL Database by using mysql CLI in Cloud Shell](#exercise-5-connect-to-the-mysql-database-by-using-mysql-cli-in-cloud-shell)
+  - [Exercise 6: Connect to the MySQL Server using MySQL Workbench](#exercise-6-connect-to-the-mysql-server-using-mysql-workbench)
 
 --- 
 

@@ -10,7 +10,7 @@ After completing this lab, you will be able to:
 
 - Configure and access audit logs for Azure Database for MySQL in the Azure portal
 
-**Considerations**
+**Prerequisites**
 
 This lab considers that an Azure Database for MySQL Single Server named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
 

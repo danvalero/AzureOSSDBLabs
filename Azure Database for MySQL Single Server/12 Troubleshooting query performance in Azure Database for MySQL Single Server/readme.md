@@ -12,12 +12,18 @@ After completing this lab, you will be able to:
 - Review Performance Recommendation on the Portal for Azure Database for MySQL Single Server.
 - Review Query Performance Insight on the Portal for Azure Database for MySQL Single Server.
 
-**Considerations**
+**Prerequisites**
 
 This lab considers that an Azure Database for MySQL Single Server named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 50 minutes
 
+**Exercise list**
+- [Troubleshooting query performance in Azure Database for MySQL Single Server](#troubleshooting-query-performance-in-azure-database-for-mysql-single-server)
+  - [Exercise 1: Create a sample database on the Azure Database for MySQL Single Server](#exercise-1-create-a-sample-database-on-the-azure-database-for-mysql-single-server)
+  - [Exercise 2: Enable Query Store and review performance info in the Query Store](#exercise-2-enable-query-store-and-review-performance-info-in-the-query-store)
+  - [Exercise 3: Query Performance Insight for Azure Database for MySQL Single Server](#exercise-3-query-performance-insight-for-azure-database-for-mysql-single-server)
+  - [Exercise 4: Performance Recommendations for Azure Database for MySQL Single Server](#exercise-4-performance-recommendations-for-azure-database-for-mysql-single-server)
 ---
 
 ## Exercise 1: Create a sample database on the Azure Database for MySQL Single Server

@@ -13,11 +13,16 @@ After completing this lab, you will be able to:
 - Scale up storage and IOPS for an existing Azure Database for PostgreSQL Single Server.
 - Scale down vcores for an existing Azure Database for PostgreSQL Single Server.
 
-**Considerations**
+**Prerequisites**
 
 This lab considers that an Azure Database for PostgreSQL Single Server General Purpose named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 20 minutes
+
+**Exercise list**
+- [Scale up and down an Azure Database for PostgreSQL Single Server](#scale-up-and-down-an-azure-database-for-postgresql-single-server)
+  - [Exercise 1: Scale up an Azure Database for PostgreSQL Single Server](#exercise-1-scale-up-an-azure-database-for-postgresql-single-server)
+  - [Exercise 2: Scale down an Azure Database for PostgreSQL Single Server](#exercise-2-scale-down-an-azure-database-for-postgresql-single-server)
 
 ---
 

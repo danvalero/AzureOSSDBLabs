@@ -11,11 +11,16 @@ After completing this lab, you will be able to:
 - Restore an Azure Database for MySQL Single Server to a point in time
 - Restore a Deleted Azure Database for MySQL Single Server
 
-**Considerations**
+**Prerequisites**
 
 This lab considers that an Azure Database for MySQL Single Server named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 60 minutes
+
+**Exercise list**
+- [Restore an Azure Database for MySQL Single Server to a point in time](#restore-an-azure-database-for-mysql-single-server-to-a-point-in-time)
+  - [Exercise 1: Restore a server to a point in time](#exercise-1-restore-a-server-to-a-point-in-time)
+  - [Exercise 2: Restore a Deleted Azure Database for MySQL Single Server](#exercise-2-restore-a-deleted-azure-database-for-mysql-single-server)
 
 ---
 
@@ -185,6 +190,6 @@ When a server is deleted, the database server backup can be retained up to five 
 
    ![Image0081](Media/image0081.png)
 
-   To delete the server, you must delete the lock first, so if the server is deleted it won´t be accidental.
+   To delete the server, you must delete the lock first, so if the server is deleted it wonï¿½t be accidental.
 
 Congratulations!. You have successfully completed this exercise and the Lab. 

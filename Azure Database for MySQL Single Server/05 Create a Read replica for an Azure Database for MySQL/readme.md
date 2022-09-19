@@ -16,7 +16,6 @@ The read replica feature uses MySQL asynchronous replication. The feature isn't 
 
 >The read replica feature is only available for Azure Database for MySQL Single Servers in the General Purpose or Memory Optimized pricing tiers.
 
-
 **Objectives**
 
 After completing this lab, you will be able to: 
@@ -24,21 +23,24 @@ After completing this lab, you will be able to:
 - Set a read replica for an Azure Database for MySQL Single Server
 - Read from an Azure Database for MySQL Single Server read replica
 
-**Considerations**
+**Prerequisites**
 
 This lab considers that an Azure Database for MySQL Single Server General Purpose or Memory Optimized named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 50 minutes
 
+**Exercise list**
+- [Create a Read replica for an Azure Database for MySQL Single Server](#create-a-read-replica-for-an-azure-database-for-mysql-single-server)
+  - [Exercise 1: Create a sample schema on the Azure Database for MySQL Single Server](#exercise-1-create-a-sample-schema-on-the-azure-database-for-mysql-single-server)
+  - [Exercise 2: Add a replica](#exercise-2-add-a-replica)
+  - [Exercise 3: Read from a replica](#exercise-3-read-from-a-replica)
+  - [Exercise 4: Stop Replication](#exercise-4-stop-replication)
+
 ---
 
-# Exercise 1: Create a sample schema on the Azure Database for MySQL Single Server
+## Exercise 1: Create a sample schema on the Azure Database for MySQL Single Server
 
 This exercise shows how to create a sample schema on the Azure Database for MySQL Single Server
-
-**Tasks**
-
-## Exercise 1: Create a sample database on the Azure Database for MySQL Single Server
 
 **Tasks**
 
@@ -75,7 +77,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ---
 
-# Exercise 2: Add a replica
+## Exercise 2: Add a replica
 
 This exercise shows how to add a read replica for an Azure Database for MySQL Single Server.
 
@@ -141,7 +143,7 @@ This exercise shows how to add a read replica for an Azure Database for MySQL Si
 
 ---
 
-# Exercise 3: Read from a replica
+## Exercise 3: Read from a replica
 
 This exercise shows a data notification being replicated a how to read from a replica server.
 
@@ -215,7 +217,7 @@ Congratulations!. You have successfully completed this exercise.
 
 ---
 
-# Exercise 4: Stop Replication 
+## Exercise 4: Stop Replication 
 
 This exercise shows how to stop the replication
 

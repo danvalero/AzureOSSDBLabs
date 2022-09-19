@@ -12,11 +12,17 @@ After completing this lab, you will be able to:
 - Test an alert rule configured for Azure Database for PostgreSQL Single Server
 - Manage alerts configured for Azure Database for PostgreSQL Single Server
 
-**Considerations**
+**Prerequisites**
 
 This lab considers that an Azure Database for PostgreSQL Single Server named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
 
 **Estimated Time:** 40 minutes
+
+**Exercise list**
+- [Setup alerts on metrics for Azure Database for PostgreSQL Single Server](#setup-alerts-on-metrics-for-azure-database-for-postgresql-single-server)
+  - [Exercise 1: Create metric alerts using the Azure Portal](#exercise-1-create-metric-alerts-using-the-azure-portal)
+  - [Exercise 2: Test an alert rule configured for Azure Database for PostgreSQL Single Server](#exercise-2-test-an-alert-rule-configured-for-azure-database-for-postgresql-single-server)
+  - [Exercise 3: Manage alerts configured for Azure Database for PostgreSQL Single Server](#exercise-3-manage-alerts-configured-for-azure-database-for-postgresql-single-server)
 
 ---
 

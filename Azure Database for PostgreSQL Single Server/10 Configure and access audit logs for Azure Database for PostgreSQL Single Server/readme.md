@@ -14,7 +14,7 @@ After completing this lab, you will be able to:
 
 - Configure and access audit logs for Azure Database for PostgreSQL Single Server using the Azure portal
 
-**Considerations**
+**Prerequisites**
 
 This lab considers that an Azure Database for PostgreSQL Single Server named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
 
