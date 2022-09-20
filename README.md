@@ -12,16 +12,16 @@ The current release covers the Single Server option for both Azure Database for 
 
 In the following months, additional labs for Single Server and labs for Flexible Server will be released.
 
-Thanks to the contributors and reviewers:
+Thanks to the contributors and reviewers for the Single Server labs:
 - Daniel Valero - Lead (daniel.valero@microsoft.com)
-- Pedro Acevedo (Pedro.Acevedo@microsoft.com)
-- Miguel Hernandez (Miguel.Hernandez@microsoft.com)
-- Ulisses Alves (ulissesalves@microsoft.com)
 - Anjali Sorrot (anjalisorrot@microsoft.com)
-- Mean Sammour (maensammour@microsoft.com)
 - Juvenal Hernandez (juvenalh@microsoft.com)
 - Terence Mills (Terence.Mills@microsoft.com)
 - Karthickselvam Murugan (Karthickselvam.Murugan@microsoft.com)
+- Ulisses Alves (ulissesalves@microsoft.com)
+- Miguel Hernandez (Miguel.Hernandez@microsoft.com)
+- Pedro Acevedo (Pedro.Acevedo@microsoft.com)
+- Mean Sammour (maensammour@microsoft.com)
 
 
 
