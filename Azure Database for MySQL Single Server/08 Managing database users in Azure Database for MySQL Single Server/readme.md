@@ -8,20 +8,20 @@ During this lab, you will review how to add additional users for application con
 
 After completing this lab, you will be able to: 
 
-- Create database users in Azure Database for MySQL
+- Create database users in Azure Database for MySQL Single Server
 - Magane database users with Azure Active Directory (AAD) authentication
 
 **Considerations**
 
 This lab considers that an Azure Database for MySQL Single Server named mysqlserver[your name initials] exists with a server admin login named *admmysql*, if not, create it or use another existing server before continuing with the lab.
 
-**Estimated Time:** 1 hour and 30 minutes
+**Estimated Time:** 60 minutes
 
 ---
 
-## Exercise 1: Create additional admin users in Azure Database for MySQL
+## Exercise 1: Create additional admin users in Azure Database for MySQL Single Server
 
-This exercise shows how to create additional admin users in Azure Database for MySQL
+This exercise shows how to create additional admin users in Azure Database for MySQL Single Server
 
 **Tasks**
 
@@ -31,10 +31,9 @@ This exercise shows how to create additional admin users in Azure Database for M
 
 1. Go to your MySQL Server
    
-   Go to your Azure Database for MySQL Single server in any way you prefer to look for a resource on Azure, you will use following server information in the next step
+   Go to your Azure Database for MySQL Single Server in any way you prefer to look for a resource on Azure. Get the connection information as you will use it during the lab
 
    ![](Media/image0219.png)   
-
 
 1. Connect to your Azure Database for MySQL Single Server
 
@@ -42,11 +41,9 @@ This exercise shows how to create additional admin users in Azure Database for M
 
    ![](Media/image0220.png)   
 
-1. Review the default users defined when The Azure Database for MySQL Single Server is created
+1. Review the default users defined when the Azure Database for MySQL Single Server is created
            
-   The Azure Database for MySQL Single Server is created with the 2 default users defined.
-    
-   Run the following command:
+   To list existing users, run the following command:
     
    ```sql
    use sys;
@@ -59,7 +56,6 @@ This exercise shows how to create additional admin users in Azure Database for M
    - your server admin user
    
    ![](Media/image0201.png)
-    
    
    In Azure Database for MySQL, the server admin user is granted these privileges: 
    - SELECT
@@ -91,39 +87,41 @@ This exercise shows how to create additional admin users in Azure Database for M
    - ROLE_ADMIN
    - XA_RECOVER_ADMIN
     
-   The server admin user account can be used to create additional users and grant those users into the *azure_pg_admin* role. Also, the server admin account can be used to create less privileged users and roles that have access to individual databases and schemas.
-
 2. Create a new admin user
    
    Create the new admin user, on the **MySQL** database, execute:
    ```sql
-      CREATE USER '<new_admin_user>'@'%' IDENTIFIED BY '<password>';
+   CREATE USER '<new_admin_user>'@'%' IDENTIFIED BY '<password>';
    ```
-    
+
+   >IMPORTANT: Replace *[new_master_user]* with your new username and replace *[StrongPassword]* with your own strong password.
+   
    For example:
    ```sql
-      CREATE USER 'new_master_user'@'%' IDENTIFIED BY 'StrongPassword!';
+   CREATE USER 'new_master_user'@'%' IDENTIFIED BY 'StrongPassword!';
    ```
-   >IMPORTANT: Replace *[new_master_user]* with your new username and replace *[StrongPassword]* with your own strong password.
+ 
+   ![Image0300](Media/image0300.png)
 
    Check the current privileges of the admin user:
-   ```sql
-      SHOW GRANTS;
+ 
+    ```sql
+   SHOW GRANTS;
    ```
 
-   Copy each line from the results, you may have multiple lines, and paste it back to MySQL Workbench (to copy right click and use 'Copy Row (unquoted)')
-      ![](Media/image0202.png)
+   Select all the rows in the result, right click on them and select **Copy Row (unquoted)**, 
 
-   In each of the lines, replace the current admin user with the new admin user:
-      ![](Media/image0203.png)
+   ![Image0202](Media/image0202.png)
 
+   paste it back to MySQL Workbench and, in each of the lines, replace the current user name with the new admin user, and execute them 
 
-   Execute them (add ; by the end of each GRANT):
-      ![](Media/image0204.png)
+   >Make sure you add ; by the end of each GRANT
 
-    
+   >In the example below the first GRANT command was set in multiple lines for visualization purposes
 
-    
+   ![Image0204](Media/image0204.png)
+
+   Your new user now has the same permission as the admin user you set when the server was created. You can create user with less privileges, it will depend on your administrative and security needs.
 
 Congratulations!. You have successfully completed this exercise.
 
@@ -135,20 +133,9 @@ This exercise shows how to Create less privileged users and roles that have acce
 
 **Tasks**
 
-1. Connect to Microsoft Azure Portal
-    
-   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
-
-1. Go to your MySQL Server
-   
-   Go to your Azure Database for MySQL Single server in any way you prefer to look for a resource on Azure, you will use following server information in the next step
-
-   ![](Media/image0219.png)   
-
-
 1. Connect to your Azure Database for MySQL Single Server
 
-   Open **MySQL Workbench** and connect to your server using your server information retrieved in the previous step. 
+   Open **MySQL Workbench** and connect to your server using your server information retrieved in the previous exercise. 
 
    ![](Media/image0220.png)   
 
@@ -159,7 +146,7 @@ This exercise shows how to Create less privileged users and roles that have acce
    ```sql
    CREATE DATABASE <database_name>;
    CREATE USER '<username>'@'%' IDENTIFIED BY '<password>';
-   GRANT ALL PRIVILEGES ON <database_name> . * TO '<username>'@'%';
+   GRANT ALL PRIVILEGES ON <database_name>.* TO '<username>'@'%';
    FLUSH PRIVILEGES;
    ```
 
@@ -167,14 +154,14 @@ This exercise shows how to Create less privileged users and roles that have acce
    ```sql
    CREATE DATABASE testdb;
    CREATE USER 'db_user'@'%' IDENTIFIED BY 'StrongPassword!';
-   GRANT ALL PRIVILEGES ON testdb . * TO 'db_user'@'%';
+   GRANT ALL PRIVILEGES ON testdb.* TO 'db_user'@'%';
    FLUSH PRIVILEGES;
    ```
    >IMPORTANT: Replace *[db_user]* with your new username and replace *[StrongPassword]* with your own strong password.
 
-   ![](Media/image0205.png)
+   ![Image0205](Media/image0205.png)
 
-   Refer to the [MySQL documentation](https://www.MySQL.org/docs/current/static/ddl-priv.html) for further details on database roles and privileges.
+   Refer to the [Privileges Provided by MySQL](https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html) for further details on database roles and privileges.
 
 1. Verify the grants within the database.
     
@@ -191,7 +178,7 @@ This exercise shows how to Create less privileged users and roles that have acce
    SHOW GRANTS FOR 'db_user'@'%';
    ```
 
-   ![](Media/image0206.png)
+   ![Image0206](Media/image0206.png)
 
 1. Log in to your server, using the new username and create a table
     
@@ -200,12 +187,8 @@ This exercise shows how to Create less privileged users and roles that have acce
    When registering the server, make sure you set the database where you granted permission in the previous tasks in the **Maintenance Database** field
     
    ![](Media/image0207.png)
-    
-   Explore the database
 
-   ![](Media/image0208.png)
-
-   Connected to the database, open the query tool. Create a table by executing:
+   Open the query tool and create a table by executing:
 
     ```sql
     USE testdb;
@@ -214,12 +197,27 @@ This exercise shows how to Create less privileged users and roles that have acce
     (   id integer not null,
         name character varying(25) not null,
         primary key (id)
-    )
+    );
     ```
 
-    List the tables in the database, you will see the table you just created.
+    Then insert a row in the table by executing:
 
-    ![](Media/image0209.png)
+    ```sql
+    INSERT INTO testtable VALUES (1,'xxxxxx');
+    ```
+
+    ![Image0208](Media/image0208.png)
+
+    Then delete the content of the table by executing: 
+
+    ```sql
+    DELETE FROM testtable;
+    ```
+
+    ![Image0209](Media/image0209.png)
+
+    The delete fails because the user only has permission to create objects and to insert, not delete. 
+
 
 Congratulations!. You have successfully completed this exercise.
 
@@ -253,17 +251,15 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
    
    You will see the selected user as the Active Directory Admin. Click on **Save**
     
-   ![](Media/image0211.png)
-
    >Only one Azure AD admin can be created per MySQL server and selection of another one will overwrite the existing Azure AD admin configured for the server. You can specify an Azure AD group instead of an individual user to have multiple administrators. Note that you will then sign in with the group name for administration purpose
 
-1. Click **Save**
+   Your final configuration should look similar to the image below
 
    ![](Media/image0216.png)
 
 1. Install Azure CLI
 
-   If you have not done it yet. Isntall Azure CLI following the instrcutions at [How to install the Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) 
+   If you have not done it yet. Install Azure CLI following the instructions at [How to install the Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) 
 
 1. Connect Azure Database for MySQL Single Server using Azure Active Directory
     
@@ -277,7 +273,6 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
     
    ![](Media/image0212.png)
     
-
     
    Acquire an access token for the Azure AD authenticated user to access Azure Database for MySQL by executing:
 
@@ -289,7 +284,6 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
 
    Copy the token from the previous command (do not include the quotes " on the beginning and the end)
 
-
    Connect to MySQL Workbench:
    - Launch MySQL Workbench and Click the Database option, then click "Connect to database"
    - In the hostname field, enter the MySQL FQDN eg. mydb.mysql.database.azure.com
@@ -298,14 +292,13 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
    - Click the advanced tab and ensure that you check "Enable Cleartext Authentication Plugin"
    - Click OK to connect to the database
 
+   ![Image0215](Media/image0215.png)
+
+   ![Image0301](Media/image0301.png)
    
-   Get a list of databases just to validate you have successfully logged in using the Azure Active Directory admin by executing:
+   Once connected you will be able to perform any administrative task on the server
 
-   ```sql
-   SHOW DATABASES;
-   ``` 
-
-   ![](Media/image0217.png)
+   ![Image0217](Media/image0217.png)
 
    You have successfully set an Azure Active Directory admin and logged to the Azure Database for MySQL Single Server with it.
 
@@ -320,48 +313,24 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
 
 > For this exercise you will need to have completed the previous exercise
 
-1. Connect Azure Database for MySQL Single Server using Azure Active Directory
-    
-   Open the **Powershell**
-    
-   Invoke the Azure CLI tool to authenticate with Azure AD. It requires you to give your Azure AD user ID (the one you set as Azure Active Directory admin in the previous step) and the password:
-    
-   ```bash
-   az login
-   ```
-    
-   ![](Media/image0212.png)
-    
+1. Connect Azure Database for MySQL Single Server using Azure Active Directory admin user
 
-    
-   Acquire an access token for the Azure AD authenticated user to access Azure Database for MySQL by executing:
+   Connect Azure Database for MySQL Single Server using Azure Active Directory admin user as explained in the previous exercise.
 
-   ```bash
-   az account get-access-token --resource-type oss-rdbms
-   ```
+1. Add the Azure AAD non admin user  
 
-   ![](Media/image0214.png)
-
-   Copy the token from the previous command (do not include the quotes " on the beginning and the end)
-
-
-   Connect to MySQL Workbench:
-   - Launch MySQL Workbench and Click the Database option, then click "Connect to database"
-   - In the hostname field, enter the MySQL FQDN eg. mydb.mysql.database.azure.com
-   - In the username field, enter the MySQL Azure Active Directory administrator name and append this with MySQL server name, not the FQDN e.g. user@tenant.onmicrosoft.com@mydb
-   - In the password field paste the content of the token that you copied from the "az account get-access-token" command
-   - Click the advanced tab and ensure that you check "Enable Cleartext Authentication Plugin"
-   - Click OK to connect to the database
-
-
-1. In MySQL Workbench, add the user you want log in, this is not the admin user, it can be the user you just added to the Azure Active Directory or your colleague's user:
+   Create the Azure AAD non admin user by executing: 
+   
+   >it can be the user you just added to the Azure Active Directory or your colleague's user:
 
    ```SQL
-   CREATE AADUSER '<userid>@<yourtenant.onmicrosoft.com>';
+   CREATE AADUSER '<userid>@<domain>';
    ```
+
+   >IMPORTANT: Replace *\<userid\>@\<domain\>* with the user you want to add.
 
    ![](Media/image0218.png)
 
-Now the user that you just add can connect to the MySQL database using AAD authentication.
+   Now the user that you just add can connect to the MySQL database using AAD authentication. The next step would be grant permissions as you would do with any other database user
 
 Congratulations! You have successfully completed this exercise and the Lab. 
