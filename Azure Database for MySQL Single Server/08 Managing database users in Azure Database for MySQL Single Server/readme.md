@@ -47,7 +47,6 @@ This exercise shows how to create additional admin users in Azure Database for M
     
    ```sql
    use sys;
-
    SELECT user, host FROM mysql.user;
    ```
    
@@ -94,7 +93,7 @@ This exercise shows how to create additional admin users in Azure Database for M
    CREATE USER '<new_admin_user>'@'%' IDENTIFIED BY '<password>';
    ```
 
-   >IMPORTANT: Replace *\<new_master_user\>* with your new username and replace *\<password\>* with your own strong password.
+   >IMPORTANT: Replace *\<new_admin_user\>* with your new username and replace *\<password\>* with your own strong password.
    
    For example:
    ```sql
