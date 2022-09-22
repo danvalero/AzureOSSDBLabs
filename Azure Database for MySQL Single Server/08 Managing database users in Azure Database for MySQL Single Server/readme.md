@@ -282,7 +282,7 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
 
    Copy the token from the previous command (do not include the quotes " on the beginning and the end)
 
-   Connect to MySQL Workbench:
+   Connect to the MySQL server using MySQL Workbench:
    - Launch MySQL Workbench and Click the Database option, then click "Connect to database"
    - In the hostname field, enter the MySQL FQDN eg. mydb.mysql.database.azure.com
    - In the username field, enter the MySQL Azure Active Directory administrator name and append this with MySQL server name, not the FQDN e.g. user@tenant.onmicrosoft.com@mydb
