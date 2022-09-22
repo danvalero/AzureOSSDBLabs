@@ -15,7 +15,7 @@ After completing this lab, you will be able to:
 
 This lab considers that an Azure Database for PostgreSQL Single Server named pgserver[your name initials] exists with a server admin login named *admpg*, if not, create it or use another existing server before continuing with the lab.
 
-**Estimated Time:** 1 hour 35 minutes
+**Estimated Time:** 60 minutes
 
 ---
 
@@ -27,47 +27,38 @@ This exercise shows how to create additional admin users in Azure Database for P
 
 1. Connect to Microsoft Azure Portal
     
-   Open Microsoft Edge and navigate to the Azure Portal ([http://ms.portal.azure.com](http://ms.portal.azure.com)) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
 
-1. Go to your Azure Database for MySQL Single server in any way you prefer to look for a resource on Azure, you will use following server information in the next step
+1. Go to your Azure Database for PostgreSQL Single server in any way you prefer to look for a resource on Azure. Get the connection information as you will use it during the lab
 
-   ![](Media/image0208.png)
-
-
+   ![Image0208](Media/image0208.png)
 
 1. Connect to your Azure Database for PostgreSQL Single Server using the details from the previous step
 
    Open **pgAdmin** and connect to your server using the admin user.
-   ![](Media/image0209.png)
-   ![](Media/image0210.png)
 
-   Double click on the entry you just created
+   ![Image0209](Media/image0209.png)
+   
+   Expand the server just registered, right click to the *postgres* database and open the **Query Tool**
 
-   ![](Media/image0211.png)
-
-   Open the Query Tool
-
-   ![](Media/image0212.png)
-
-
-
+   ![Image0212](Media/image0212.png)
 
 1. Review the default roles defined when The Azure Database for PostgreSQL Single Server is created
            
    The Azure Database for PostgreSQL Single Server is created with the 3 default roles defined.
+   - azure_pg_admin
+   - azure_superuser
+   - your server admin user
     
-   On the **postgres** database, run the following command:
+   To see all existing roles, execute:
     
    ```sql
    SELECT rolname FROM pg_roles;
    ```
    
    You will see the three default roles defined on every Azure Database for PostgreSQL Single Server:
-   - azure_pg_admin
-   - azure_superuser
-   - your server admin user
     
-   ![](Media/image0213.png)
+   ![Image0213](Media/image0213.png)
     
    >Your server admin user is a member of the *azure_pg_admin* role. However, the server admin account is not part of the azure_superuser role. Since this service is a managed PaaS service, only Microsoft is part of the super user role.
     
@@ -87,20 +78,18 @@ This exercise shows how to create additional admin users in Azure Database for P
     
    ```sql
    CREATE ROLE [new_user] WITH LOGIN NOSUPERUSER INHERIT CREATEDB CREATEROLE NOREPLICATION PASSWORD '[StrongPassword]';
-
    GRANT azure_pg_admin TO [new_user];
    ```
    >IMPORTANT: Replace *[new_user]* with your new username and replace *[StrongPassword]* with your own strong password.
 
-      For example:
+   For example:
 
    ```sql
    CREATE ROLE admin2 WITH LOGIN NOSUPERUSER INHERIT CREATEDB CREATEROLE NOREPLICATION PASSWORD 'SuperStrongPassword!';
-
    GRANT azure_pg_admin TO admin2;
    ```
     
-   ![](Media/image0118.png)
+   ![Image0118](Media/image0118.png)
 
 Congratulations!. You have successfully completed this exercise.
 
@@ -112,38 +101,27 @@ This exercise shows how to Create less privileged users and roles that have acce
 
 **Tasks**
 
-1. Connect to Microsoft Azure Portal
-    
-   Open Microsoft Edge and navigate to the Azure Portal ([http://ms.portal.azure.com](http://ms.portal.azure.com)) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+1. Connect to your Azure Database for PostgreSQL Single Server using the information retrieved in the previous exercise. 
 
-1. Go to your Azure Database for MySQL Single server in any way you prefer to look for a resource on Azure, you will use following server information in the next step
+   Using **pgAdmin**, connect to your server using the admin user.
 
-   ![](Media/image0208.png)
-
-
-
-1. Connect to your Azure Database for PostgreSQL Single Server using the details from the previous step
-
-   Open **pgAdmin** and connect to your server using the admin user.
-   ![](Media/image0209.png)
-   ![](Media/image0210.png)
-
-   Double click on the entry you just created
-
-   ![](Media/image0211.png)
-
-   Open the Query Tool
-
-   ![](Media/image0212.png)
-
+   Right click to the *postgres* database and open the **Query Tool**
+ 
 1. Create new database users
 
-   To create a new user and grant connect privileges to the new database for that user, on the **postgres** database, execute:
+   Create a new database, by executing:
+
+   ```sql
+   CREATE DATABASE testdb;
+   ```
+
+   Create a new user and grant CONNECT and CREATE privileges to the new user on the database, by executing:
+
+   >  Refer to the [PostgreSQL Privileges](https://www.postgresql.org/docs/current/ddl-priv.html) for further details on database roles and privileges.
 
    ```sql
    CREATE ROLE [new_user] WITH LOGIN NOSUPERUSER INHERIT NOCREATEROLE NOREPLICATION PASSWORD '[StrongPassword]';
-
-   GRANT CONNECT ON DATABASE [your initials]db TO [new_user];
+   GRANT CONNECT, CREATEON DATABASE [database_name] TO [new_user];
    ```
 
    >Replace *[new_user]* with the name of the user you want to create. Replace *[your initials]* with your initials if the database [your initials]db exists, if not, use a different database. Replace *[StrongPassword]* with your own strong password.
@@ -152,60 +130,36 @@ This exercise shows how to Create less privileged users and roles that have acce
 
    ```sql
    CREATE ROLE dbuser WITH LOGIN NOSUPERUSER INHERIT NOCREATEROLE NOREPLICATION PASSWORD 'A43.adjsa8.!s';
-
-   GRANT CONNECT ON DATABASE dvvrdb TO dbuser;
+   GRANT CONNECT, CREATE ON DATABASE testdb TO dbuser;
    ```
 
-
-
-   ![](Media/image0119.png)
-
-   Now you need to grant object permissions to the user, for example, to create tables or read tables.
-
-   To grant permissions to create schemas and tables to the new user, execute:
-
-   ```sql
-   GRANT CREATE ON DATABASE [your initials]db TO [user_name];
-   ```
-   >Replace *[user_name]* with the name of the user you created Replace *[your initials]* with your initials if the database [your initials]db exists, if not, use a different database.
-
-   For example:
-
-   ```sql
-   GRANT CREATE ON DATABASE dvvrdb TO dbuser;
-   ```
-
-
-
-   ![](Media/image0120.png)
-
-   Refer to the [PostgreSQL documentation](https://www.postgresql.org/docs/current/static/ddl-priv.html) for further details on database roles and privileges.
-
+   ![Image0119](Media/image0119.png)
+ 
 1. Log in to your server, using the new username and create a table
     
-   Using pgAdmin, connect to your database with *dbuser*.
+   Using **pgAdmin**, connect to your database with the user created in the previous task
     
    When registering the server, make sure you set the database where you granted permission in the previous tasks in the **Maintenance Database** field
     
-   ![](Media/image0121.png)
+   ![Image0121](Media/image0121.png)
     
-   Explore the database
+   Right click on your database (*testdb* in this example) and open the **Query Tool**
 
-   ![](Media/image0122.png)
-
-   Connected to the database, open the query tool. Create a table by executing:
+   Create a table by executing:
 
    ```sql
    CREATE TABLE public.testtable
    (   id integer not null,
        name character varying(25) not null,
        primary key (id)
-   )
+   );
    ```
+
+   ![Image0122](Media/image0122.png)
 
    List the tables in the database, you will see the table you just created.
 
-   ![](Media/image0123.png)
+   ![Image0123](Media/image0123.png)
 
 Congratulations!. You have successfully completed this exercise.
 
@@ -219,28 +173,14 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
 
 1. Connect to Microsoft Azure Portal
     
-   Open Microsoft Edge and navigate to the Azure Portal ([http://ms.portal.azure.com](http://ms.portal.azure.com)) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
+   Open Microsoft Edge and navigate to the [Azure Portal](http://ms.portal.azure.com) to connect to Microsoft Azure Portal. Login with your subscriptions credential.
 
-1. Go to your Azure Database for MySQL Single server in any way you prefer to look for a resource on Azure, you will use following server information in the next step
+1. Go to your PostgreSQL Server 
+
+   Go to your Azure Database for PostgreSQL Single server in any way you prefer to look for a resource on Azure.
 
    ![](Media/image0208.png)
 
-
-
-1. Connect to your Azure Database for PostgreSQL Single Server using the details from the previous step
-
-   Open **pgAdmin** and connect to your server using the admin user.
-   ![](Media/image0209.png)
-   ![](Media/image0210.png)
-
-   Double click on the entry you just created
-
-   ![](Media/image0211.png)
-
-   Open the Query Tool
-
-   ![](Media/image0212.png)
-   
 1. Set the Azure Active Directory admin user
     
    Under the **Settings** section in the sidebar, select **Active Directory admin**

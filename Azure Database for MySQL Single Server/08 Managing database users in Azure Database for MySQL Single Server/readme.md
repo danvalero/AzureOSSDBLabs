@@ -140,7 +140,9 @@ This exercise shows how to Create less privileged users and roles that have acce
 
 1. Create new database users
 
-   To create a new user and grant connect privileges to the new database for that user, execute:
+   Create a new database, create a new user and and grant CRAETE and INSERT privileges to the new user on the database, by executing:
+
+   >Refer to the [Privileges Provided by MySQL](https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html) for further details on database roles and privileges.
 
    ```sql
    CREATE DATABASE <database_name>;
@@ -159,8 +161,6 @@ This exercise shows how to Create less privileged users and roles that have acce
    >IMPORTANT: Replace *\<username\>* with your new username and replace *\<password\>* with your own strong password.
 
    ![Image0205](Media/image0205.png)
-
-   Refer to the [Privileges Provided by MySQL](https://dev.mysql.com/doc/refman/8.0/en/privileges-provided.html) for further details on database roles and privileges.
 
 1. Verify the grants within the database.
     
@@ -216,7 +216,6 @@ This exercise shows how to Create less privileged users and roles that have acce
     ![Image0209](Media/image0209.png)
 
     The delete fails because the user only has permission to create objects and to insert, not delete. 
-
 
 Congratulations!. You have successfully completed this exercise.
 
