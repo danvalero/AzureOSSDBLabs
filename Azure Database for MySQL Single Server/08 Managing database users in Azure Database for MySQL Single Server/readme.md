@@ -146,7 +146,7 @@ This exercise shows how to Create less privileged users and roles that have acce
    ```sql
    CREATE DATABASE <database_name>;
    CREATE USER '<username>'@'%' IDENTIFIED BY '<password>';
-   GRANT ALL PRIVILEGES ON <database_name>.* TO '<username>'@'%';
+   GRANT CREATE, INSERT ON <database_name>.* TO '<username>'@'%';
    FLUSH PRIVILEGES;
    ```
 
@@ -154,7 +154,7 @@ This exercise shows how to Create less privileged users and roles that have acce
    ```sql
    CREATE DATABASE testdb;
    CREATE USER 'db_user'@'%' IDENTIFIED BY 'StrongPassword!';
-   GRANT ALL PRIVILEGES ON testdb.* TO 'db_user'@'%';
+   GRANT CREATE, INSERT ON testdb.* TO 'db_user'@'%';
    FLUSH PRIVILEGES;
    ```
    >IMPORTANT: Replace *[db_user]* with your new username and replace *[StrongPassword]* with your own strong password.
@@ -165,7 +165,7 @@ This exercise shows how to Create less privileged users and roles that have acce
 
 1. Verify the grants within the database.
     
-   Run "Show Grants For" to get the permissions for the database user.
+   Use "SHOW GRANTS FOR" to get the permissions for the database user.
 
    ```sql
    USE <database_name>;
@@ -184,7 +184,7 @@ This exercise shows how to Create less privileged users and roles that have acce
     
    Using MySQL Workbench, connect to your database with *db_user*.
     
-   When registering the server, make sure you set the database where you granted permission in the previous tasks in the **Maintenance Database** field
+   When registering the server, make sure you set the default schema to the database where the use has pemissions: *testdb*
     
    ![](Media/image0207.png)
 
@@ -321,7 +321,7 @@ This exercise shows how to configure Azure Active Directory access with Azure Da
 
    Create the Azure AAD non admin user by executing: 
    
-   >it can be the user you just added to the Azure Active Directory or your colleague's user:
+   >Don´t use the name of a user or gruop already set at Admin User for the server:
 
    ```SQL
    CREATE AADUSER '<userid>@<domain>';
