@@ -104,7 +104,7 @@ This exercise shows how to create additional admin users in Azure Database for M
 
    Check the current privileges of the admin user:
  
-    ```sql
+   ```sql
    SHOW GRANTS;
    ```
 
