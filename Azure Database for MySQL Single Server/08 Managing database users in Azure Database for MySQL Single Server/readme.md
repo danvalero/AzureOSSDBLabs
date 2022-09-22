@@ -157,7 +157,7 @@ This exercise shows how to Create less privileged users and roles that have acce
    GRANT CREATE, INSERT ON testdb.* TO 'db_user'@'%';
    FLUSH PRIVILEGES;
    ```
-   >IMPORTANT: Replace *[db_user]* with your new username and replace *[StrongPassword]* with your own strong password.
+   >IMPORTANT: Replace *<username>* with your new username and replace *<password>* with your own strong password.
 
    ![Image0205](Media/image0205.png)
 
