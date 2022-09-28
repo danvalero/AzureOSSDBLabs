@@ -2,7 +2,7 @@
 
 **Introduction**
 
-During this lab, you will learn how to Configure and access server logs in Azure Database for MySQL.
+During this lab, you will learn how to Configure and access server logs in Azure Database for MySQL Single Server.
 
 **Objectives**
 
