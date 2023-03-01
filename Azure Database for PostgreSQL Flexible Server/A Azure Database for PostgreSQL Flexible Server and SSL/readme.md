@@ -14,7 +14,7 @@ I have divided the explanation if four sections to make reading easier.
 ## PostgreSQL SSL fundamentals
 
 - SSL support is always enabled on Azure Database for PostgreSQL Flexible Server
-  Sever parameter ssl is set ON by default and cannot be disabled. If you try to disable it you get an error
+  Sever parameter *ssl* is set **ON* by default and cannot be disabled. If you try to disable it you get an error
  
   ![File1](Media/file1.png)
  
@@ -41,7 +41,9 @@ I have divided the explanation if four sections to make reading easier.
    |verify-ca	 | Yes	                   | Depends on CA policy	| I want my data encrypted, and I accept the overhead. I want to be sure that I connect to a server that I trust.|
    |verify-full |	Yes	                   | Yes	          | I want my data encrypted, and I accept the overhead. I want to be sure that I connect to a server that I trust.|
  
-- Depending on the value of sslmode used by the client and the require_secure_transport parameter on the server, you will get different results, and to get the higher level of protection (Eavesdropping protection and MITM protection) you must use sslmode=verify-full in the client and set require_secure_transport to ON on the server.
+- Depending on the value of *sslmode* used by the client and the *require_secure_transport* parameter on the server, you will get different results.
+  
+  To get the higher level of protection (Eavesdropping protection and MITM protection) you must use **sslmode=verify-full* in the client and set *require_secure_transport* to **ON** on the server.
  
 - Azure Database for PostgreSQL does not support client certificates. To limit client access you can use firewall rules (for public access server) or NSG or other azure networking mechanism to restrict client reaching the server (when using VNET integrated  servers)
  
@@ -143,12 +145,11 @@ Details of tests:
 ## Summary
 - SSL support is always enabled on Azure Database for PostgreSQL Flexible Server, and by default SSL connections are required (require_secure_transport=ON)
 - The clients define if they want to user SSL or not using the sslmode parameter. Consider that different clients can have use a different default sslmode so it is recommended to define the value explicitly base on your needs 
-- To get Eavesdropping protection and MITM protection, you must use sslmode=verify-full in the client and set require_secure_transport to ON on the server.
+- To get Eavesdropping protection and MITM protection, you must use **sslmode=verify-full** in the client and set require_secure_transport to ON on the server.
 - When require_secure_transport=on  (default)
   - Connections using sslmode **disable** are not allowed. 
   - Connections using sslmode **allow**, **prefer**, **require**, **verify-ca** or **verify-all** use SSL. 
 - When require_secure_transport=off 
-Results:
--	Connections using sslmode **disable** or **allow** does not use SSL. 
--	Connections using sslmode **prefer**, **require**, **verify-ca** or **verify-all** use SSL. 
--	Azure Database for PostgreSQL does not support client certificates. To limit client access you can use firewall rules (for public access server) or NSG or other azure networking mechanism to restrict client reaching the server (when using VNET integrated servers). If this feature is important for you, please submit the idea at Azure Database for PostgreSQL � Community and the Product Group will evaluate it.
+  -	Connections using sslmode **disable** or **allow** does not use SSL. 
+  -	Connections using sslmode **prefer**, **require**, **verify-ca** or **verify-all** use SSL. 
+-	Azure Database for PostgreSQL does not support client certificates. To limit client access you can use firewall rules (for public access server) or NSG or other azure networking mechanism to restrict client reaching the server (when using VNET integrated servers). 
