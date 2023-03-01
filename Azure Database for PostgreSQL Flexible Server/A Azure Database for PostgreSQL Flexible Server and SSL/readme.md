@@ -45,7 +45,7 @@ I have divided the explanation if four sections to make reading easier.
   
   To get the higher level of protection (Eavesdropping protection and MITM protection) you must use **sslmode=verify-full* in the client and set *require_secure_transport* to **ON** on the server.
  
-- Azure Database for PostgreSQL does not support client certificates. To limit client access you can use firewall rules (for public access server) or NSG or other azure networking mechanism to restrict client reaching the server (when using VNET integrated  servers)
+- Azure Database for PostgreSQL does not support client certificates. To limit client access you can use firewall rules (for public access server) or NSG or other azure networking mechanism to restrict client reaching the server (when using VNET integrated servers)
  
 
 ## How to tell if a connection is using SSL 
@@ -76,7 +76,7 @@ I have divided the explanation if four sections to make reading easier.
 
 ## Azure Database for PostgreSQL Flexible server behavior for sslmode and require_secure_transport
  
-To illustrate the SSL behavios of connections depending on server and client settings, I did several tests:
+To illustrate the SSL behavior of connections depending on server and client settings, I did several tests:
  
 ### 1. Using require_secure_transport=on (the server forces encrypted connections)
  
