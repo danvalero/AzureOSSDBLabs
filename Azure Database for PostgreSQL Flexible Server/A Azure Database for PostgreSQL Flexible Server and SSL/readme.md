@@ -148,20 +148,20 @@ Details of tests:
 
 ## Azure Database for PostgreSQL Flexible Server, hostname and verify-all
 
-> Microsoft recommeneds to always use the server FQDN for the hostname property in connection strings instead of an IP address.
+> Microsoft recommends to always use the server FQDN for the hostname property in connection strings instead of an IP address.
 
 For Azure Database for PostgreSQL Flexible Server with Public Access when using **sslmode=verify-all**:
--  the connection will fail if you use the server IP Address intead of the FQDN, as shown below
+-  the connection will fail if you use the server IP Address instead of the FQDN, as shown below
  
    ![File42](Media/file42.png)
 
 For Azure Database for PostgreSQL Flexible Server with Private Access (VNET Integration) when using **sslmode=verify-all**:
 
-- the connection will fail if you use the server IP Address intead of the FQDN, as shown below
+- the connection will fail if you use the server IP Address instead of the FQDN, as shown below
    
   ![File40](Media/file40.png)
 
-- the connection will succeed if you use the cname in the Private DNS Zone, however, it is recommened to use the server FQDN intead.
+- the connection will succeed if you use the cname in the Private DNS Zone, however, it is recommended  to use the server FQDN instead.
   
   ![File41](Media/file41.png)
 
@@ -173,7 +173,7 @@ For Azure Database for PostgreSQL Flexible Server with Private Access (VNET Inte
   - Connections using sslmode **disable** are not allowed. 
   - Connections using sslmode **allow**, **prefer**, **require**, **verify-ca** or **verify-all** use SSL. 
 - When require_secure_transport=off 
-  -	Connections using sslmode **disable** or **allow** does not use SSL. 
+  -	Connections using sslmode **disable** or **allow** do not use SSL. 
   -	Connections using sslmode **prefer**, **require**, **verify-ca** or **verify-all** use SSL. 
-- When using using **sslmode=verify-all**, the hostname property in connection strings musth be the server FQDN 
+- When using **sslmode=verify-all**, the hostname property in connection strings must be the server FQDN 
 -	Azure Database for PostgreSQL does not support client certificates. To limit client access you can use firewall rules (for public access server) or NSG or other azure networking mechanism to restrict client reaching the server (when using VNET integrated servers). 
