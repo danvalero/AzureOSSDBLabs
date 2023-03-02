@@ -176,7 +176,7 @@ As PostgreSQL documentation states:
 
 	Notice that the execution plan is exactly the same. 
 
-	**IMPORTANT:** Using wildcards make an index on the column not usable. This is different to other DBMS like SQL Server where other optimizations exists (See [https://github.com/danvalero/SQLServer/tree/main/SQL%20Server%20Indexing%20101](https://github.com/danvalero/SQLServer/tree/main/SQL%20Server%20Indexing%20101) for more details) 
+	**IMPORTANT:** Using wildcards make an index on the column not usable. This is different to other DBMS like SQL Server where other optimizations exists. See [SQL Serve Indexing 101](https://github.com/danvalero/SQLServer/tree/main/SQL%20Server%20Indexing%20101) for more details) 
 	
 	For demo purposes, let's delete the index on *first_name*
 
@@ -503,3 +503,11 @@ FROM public.customer
 WHERE first_name = UPPER('Leslie');
 ```
 
+Take the database to the original state
+
+```sql
+DROP INDEX ix_customer_first_name;
+DROP INDEX ix_customer_active;
+DROP INDEX ix_customer_create_date;
+DROP INDEX ix_customer_create_date2;
+```
