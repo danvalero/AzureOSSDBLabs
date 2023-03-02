@@ -4,12 +4,15 @@
 
 I have divided the explanation if four sections to make reading easier.
 
-- [PostgreSQL SSL fundamentals](#postgresql-ssl-fundamentals)
-- [How to tell if a connection is using SSL](#how-to-tell-if-a-connection-is-using-ssl)
-- [Azure Database for PostgreSQL Flexible server behavior for sslmode and require_secure_transport](#azure-database-for-postgresql-flexible-server-behavior-for-sslmode-and-require_secure_transport)
-  - [1. Using require_secure_transport=on (the server forces encrypted connections)](#1-using-require_secure_transporton-the-server-forces-encrypted-connections)
-  - [2. Using require_secure_transport=off (the server does not force encrypted connections)](#2-using-require_secure_transportoff-the-server-does-not-force-encrypted-connections)
-- - [Summary](#summary)
+- [Azure Database for PostgreSQL Flexible Server and SSL](#azure-database-for-postgresql-flexible-server-and-ssl)
+  - [PostgreSQL SSL fundamentals](#postgresql-ssl-fundamentals)
+  - [How to tell if a connection is using SSL](#how-to-tell-if-a-connection-is-using-ssl)
+  - [Azure Database for PostgreSQL Flexible server behavior for sslmode and require\_secure\_transport](#azure-database-for-postgresql-flexible-server-behavior-for-sslmode-and-require_secure_transport)
+    - [1. Using require\_secure\_transport=on (the server forces encrypted connections)](#1-using-require_secure_transporton-the-server-forces-encrypted-connections)
+    - [2. Using require\_secure\_transport=off (the server does not force encrypted connections)](#2-using-require_secure_transportoff-the-server-does-not-force-encrypted-connections)
+  - [Azure Database for PostgreSQL Flexible Server, hostname and verify-all](#azure-database-for-postgresql-flexible-server-hostname-and-verify-all)
+  - [Summary](#summary)
+
  
 ## PostgreSQL SSL fundamentals
 
