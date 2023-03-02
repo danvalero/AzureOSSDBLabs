@@ -9,6 +9,9 @@
 
 I will go step by step in the process of indexing a table to improve query performance. For this scenario, we will focus on reducing the number of pages read by the query as the criteria for success.
 
+> We will see some basic options to solve some common issues, however, when defining the indexes on a table you msut not considered queries one by one but all queries that use the table, to avoid duplicated or redundant indexes
+
+
 ## 1. Setting up the environment
 
 If you want to do the demos by yourself, you can use same test database [Pagila](https://github.com/devrimgunduz/pagila):
@@ -79,7 +82,7 @@ As PostgreSQL documentation states:
 	WHERE first_name= 'LESLIE';
 	```
 
-	Notice the plan now does an **Bitmap Index Scan** using the new index *ix_sales_detail_product* on *sales_detail*, and the cost went down to 4.45, much better than 12.74, however the cost for the whole plan is 2022.67, much better than 62806.67
+	Notice the plan now does an **Bitmap Index Scan** using the new index *ix_customer_first_name* on *customer*, and the cost went down to 5.37, much better than 16.49.
 
 	![F3](Media/f3.png)
 
@@ -96,7 +99,7 @@ As PostgreSQL documentation states:
 	DROP INDEX ix_customer_first_name;
 
 	CREATE INDEX ix_customer_first_name ON public.customer (first_name)
-	INCLUDE (customer_id, last_name) ;
+	INCLUDE (customer_id, last_name, email);
 	```
 		
 	Run the query again
@@ -166,7 +169,7 @@ As PostgreSQL documentation states:
 
 	Notice that the execution plan is exactly the same. 
 
-	![F6](Media/f6.png) 
+	![F6](Media/f6.png)
 
 	**IMPORTANT:** Unsing wildcard make an index on the column not usable. This is different to other DBMS like SQL Server where other optimizations exists (See [https://github.com/danvalero/SQLServer/tree/main/SQL%20Server%20Indexing%20101](https://github.com/danvalero/SQLServer/tree/main/SQL%20Server%20Indexing%20101) for more details) 
 	
@@ -231,7 +234,7 @@ As PostgreSQL documentation states:
 
 	![F8](Media/f8.png)
 
-	PostgreSQL uses the index on *last_name* becuase the plan cost (4.30) is lower than the plan that uses the index on *fist_name* (5.38)
+	PostgreSQL uses the index on *last_name* becuase the plan cost (4.30) is lower than the plan that uses the index on *first_name* (5.38)
 
 	What happens if the an composite index is created?
 
@@ -252,7 +255,6 @@ As PostgreSQL documentation states:
 
 	![F9](Media/f9.png)
 
-
 	Take the database to the original state
 	```sql
 	DROP INDEX ix_customer_first_name;
@@ -262,7 +264,6 @@ As PostgreSQL documentation states:
 
 
 1. Find a row by using equality conditions with *OR* on two different columns, consider that an index on *last_name* exists
-
 
 	```sql
 	EXPLAIN (ANALYZE, COSTS)
@@ -275,11 +276,9 @@ As PostgreSQL documentation states:
 
 	This query uses a **Seq Scan** with a cost of 17.98 on *customer*. It is reading the whole table
 
-	Why is it reading the whole table if there is an index on one of the column used to filter?
+	Question: Why is it reading the whole table if there is an index on one of the column used to filter?
 
-	the query returns rows where *first_name* is equal to a value, and also rows where *last_name* is equal to a value
-
-	The index on *last_name* is useful only to get some of the rows, it is still necessary to read the whole table to get the rows that satisfay the conditon on *first_name*, so a single read of the shole talbe is done
+	Answer: The query returns rows where *first_name* is equal to a value, and also rows where *last_name* is equal to a value. The index on *last_name* is useful only to get some of the rows, it is still necessary to read the whole table to get the rows that satisfay the conditon on *first_name*, so a single read of the shole talbe is done
 
 	Create an index on *first_name*
 
@@ -287,7 +286,7 @@ As PostgreSQL documentation states:
 	CREATE INDEX ix_customer_first_name ON public.customer (first_name);
 	```
 
-	Run he query again
+	Run the query again
 
 	```sql
 	EXPLAIN (ANALYZE, COSTS)
@@ -298,7 +297,7 @@ As PostgreSQL documentation states:
 
    ![3 11](Media/3-11.png)
 
-	Notice that now it i using both indexes. *ix_customer_first_name* to get the rows that satisfy the filter on *first_name*, *idx_last_name* to get the rows that satisfy the filter on *last_name* and finally combining them (*BitmapOr* operation) and the total plan cost is 8.89, much better than reading the whole table with a cost of 17.98
+	Notice that now it is using both indexes. *ix_customer_first_name* to get the rows that satisfy the filter on *first_name*, *idx_last_name* to get the rows that satisfy the filter on *last_name* and finally combining them (*BitmapOr* operation) and the total plan cost is 8.89, much better than reading the whole table with a cost of 17.98
 
 
 ---
@@ -327,7 +326,7 @@ Create the index on *active*
 CREATE INDEX ix_customer_active ON public.customer (active);
 ```
 
-run the query again:
+Run the query again:
 
 ```sql
 EXPLAIN (ANALYZE, COSTS)
@@ -337,7 +336,7 @@ WHERE active = 0;
 
 The plan does an **Index Scan** using *ix_customer_active* on *customer*.. Great, the index helps
 
-![4 01](Media/4-02.png)
+![4 02](Media/4-02.png)
 
 run the query again changing the value to filter on the *active* column
 
@@ -347,11 +346,11 @@ SELECT * FROM public.customer
 WHERE active = 1;
 ```
 
-![4 03](Media/4-03.png)
-
 Notice the plan is not using the index. Instead it is doing a **Seq Scan** and reading the whole table. 
 
-What happened?
+![4 03](Media/4-03.png)
+
+What happened? Has PostgreSQL gone crazy? There is an index on *active*, and it used it before, why is it not using it now?
 
 Count how many rows exist for each value in **active**
 
@@ -362,57 +361,49 @@ GROUP BY active
 ORDER BY 2 desc;
 ```
 
-Notive that 2.6% of the roes have a value of *0*, and 97.4% of the rows have a value of *1*
+Notive that 2.6% of the rows have a value of *0*, and 97.4% of the rows have a value of *1*
 
 ![4 04](Media/4-04.png)
 
 This means that for the column *active*, the value *0* has a higher selectivity than the value *1*
 
-Higher the selectivity, more efficient the index is to iden	tify the rows to return
+Higher the selectivity, more efficient the index is to identify the rows to return
 
 In this case, the index is very efficient to get the rows where *active=0* as they are few rows. However, using the index to identify the 588 rows *active=1* and then go to the table to get the actual rows will have a higher cost than just reading the whole table once
 
+Ok, so what is the **Tipping Point** then? it is the point at which the cost using an index is is higher than the cost reading the table. 
 
-
-
-What happened? Has SQL Server gone crazy? There is an index for PersonType, and it used it before, why is it not using it now?
-
-
-Let's see in more detail the execution plans to find out why SQL Server is making such a decision.
-
-
-SQL Server had already evaluated the cost of using an **Index Seek** and the cost of using an **Clustered Index Scan** and chose the best of both options
-
-**IMPORTANT:** This is a simple example and SQL Server was able to choose the best execution plan, but in more complex scenarios SQL Server will look for a good enough plan, not necessarily the best plan
-
-Ok, so what is the **Tipping Point** then? it is the point at which the number of page reads required by the lookups operator are higher than the total number of data pages in the table. If this happens doing an Index Seek is more expensive than scanning the table 
-
-In the previous example, SQL Server decided to use or not use an index depending on the number of estimated rows to be returned. How did SQL Server know how many  rows the query would return? The answer is simple: **statistics**
+But, How PostgreSQL knows how the selectivity for a value?? The answer is simple: **statistics**
 
 Statistics is complex topic that will be covered in another post, but I will introduce the concept here to complete the explanation of the tipping point.
+
+To get the statistics for column *active* in  table *customer*, run:
 
 ```sql
 SELECT attname, inherited,most_common_vals, most_common_freqs
 FROM pg_stats
-WHERE tablename = 'customer';
+WHERE tablename = 'customer'
+      AND
+      attname = 'active';
 ```
 
 ![4 05](Media/4-05.png)
 
-When SQL Server is creating the execution plan for a query it identify relevant indexes and uses the statistics to determine the expected number of rows to be read for an operator and decide the best way to access the data.
-
-The Execution Plan XML has a property named **OptimizerStatsUsage** that lists all statistics that were used during the optimization of the execution plan. You can also see the proprerty in SSMS
+**EXPLICAR**
+**EXPLICAR**
+**EXPLICAR**
+**EXPLICAR**
 
 
 ---
 
 ### Reason 2: Non Sargable expresions
 
-Some constructions can make SQL Server unable to use an existing index on an **Index Seek** or **Clustered Index Seek** operation, causing the usage of **Index Scan** or a **Clustered Index Scan** operator.
+Some constructions can make postgreSQL unable to use an existing index.
 
 One common reason for an expression to be non sargable is the usage of functions
 
-#### A.  Usage of explicit functions 
+#### A. Usage of explicit functions 
 
 Create a non clustered index on [ModifiedDate] 
 
@@ -429,11 +420,11 @@ FROM public.customer
 WHERE DATE_PART('year',create_date) = 2022
       AND 
       DATE_PART('month',create_date) = 02
-	   AND 
+      AND 
       DATE_PART('day',create_date) = 01;
 ```
 
-Notice the plan does a **Seq Scan** on *customer* with a cost of 29.97. 
+Notice the plan does a **Seq Scan** on *customer* with a cost of 28.47. 
 
 ![4 10](Media/4-10.png)
 
@@ -469,8 +460,12 @@ CREATE INDEX ix_customer_create_date2
 ON public.customer (DATE_PART('year',create_date),DATE_PART('month',create_date), DATE_PART('day',create_date));
 ```
 
-and it could help, however, it is another index using disk space and that need to be updated every time a row is inserted or deleted.
+and the original query will use it.
 
+![4 12](Media/4-12.png)
+
+
+NOTE: We proposed 2 different options to make the plan use an index, however, which option is better depends on multiple factor 
 
 As another example execute
 
@@ -480,7 +475,7 @@ FROM public.customer
 WHERE UPPER(first_name)= UPPER('Leslie');
 ```
 
-Notice that the values in the database the values are sorted in upper case. As PostgreSQL is case sensitive by default, some developers might want to prefer to make sure they compare values in upper case or lower case all the time is the data they comparison they need to make is not case sensitive.
+Notice that the values in the database the values for *first_name* are sorted in upper case. As PostgreSQL is case sensitive by default, some developers might want to prefer to make sure they compare values in upper case or lower case all the time is the data they comparison they need to make is not case sensitive.
 
 Check the execution plan:
 
@@ -491,9 +486,9 @@ FROM public.customer
 WHERE UPPER(first_name)= UPPER('Leslie');
 ```
 
-![4 12](Media/4-12.png)
-
 The plan does not uses the index on *first_name* because the index is on *first_name*, not *UPPER(first_name)*
+
+![4 13](Media/4-13.png)
 
 The solution for this case will depend on the real scenario, but in general, there are two option:
 - Create an index on UPPER(first_name)
