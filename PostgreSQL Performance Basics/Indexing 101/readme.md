@@ -55,7 +55,7 @@ As PostgreSQL documentation states:
 
 	The cost for this plan is 4.29 (How it is calculated will be covered in another document, but for now it is good for comparison purposes) 
 
-	The execution plan estimated it would return 1 row (this is important as the estimation is used to define if an index should be used, but how it is calculated will be covered in another document), and it returned 11 rows (expected as the query filters by the primary key).
+	The execution plan estimated it would return 1 row (this is important as the estimation is used to define if an index should be used, but how it is calculated will be covered in another document), and it returned 1 row (expected as the query filters by the primary key).
 
 1. Query the table filtering by a column not included in the Primary Key
 
@@ -309,7 +309,7 @@ As PostgreSQL documentation states:
 
 ## 4. Why is PostgreSQL not using existing indexes?
 
-Some common causes for SQL Server not to use (or not used as we expect) an existing index, and what we can do about it.
+Some common causes for PostgreSQL not to use (or not used as we expect) an existing index, and what we can do about it.
 
 ### Reason 1: The tipping point
 
